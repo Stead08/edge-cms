@@ -2,7 +2,7 @@ import { SELF } from "cloudflare:test";
 import { it, describe, expect } from "vitest";
 
 describe("users", () => {
-    it("creates a user", async () => {
+    it("should create a user", async () => {
         const res = await SELF.fetch("https://example.com/users", {
             method: "POST",
             body: JSON.stringify({
@@ -21,7 +21,7 @@ describe("users", () => {
             updatedAt: expect.any(String),
         });
     });
-    it("returns a user", async () => {
+    it("should get a user", async () => {
         const res = await SELF.fetch("https://example.com/users/1");
         expect(res.status).toBe(200);
         expect(await res.json()).toEqual({
@@ -33,7 +33,7 @@ describe("users", () => {
             updatedAt: expect.any(String),
         });
     });
-    it("updates a user", async () => {
+    it("should update a user", async () => {
         const res = await SELF.fetch("https://example.com/users/1", {
             method: "PUT",
             body: JSON.stringify({
@@ -51,7 +51,7 @@ describe("users", () => {
             updatedAt: expect.any(String),
         });
     });
-    it("deletes a user", async () => {
+    it("should delete a user", async () => {
         const res = await SELF.fetch("https://example.com/users/1", {
             method: "DELETE",
         });
