@@ -2,6 +2,11 @@
 SELECT * FROM content_types
 WHERE id = @id LIMIT 1;
 
+-- name: CreateContentType :one
+INSERT INTO content_types (name, description)
+VALUES (@name, @description)
+RETURNING *;
+
 -- name: ListContentTypes :many
 SELECT * FROM content_types
 ORDER BY id;

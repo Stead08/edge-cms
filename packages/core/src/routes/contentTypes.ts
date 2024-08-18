@@ -16,6 +16,15 @@ export const contentTypesApp = createHonoWithDB()
 		const result = await sql.listContentTypes(db, {});
 		return c.json(result);
 	})
+	.post("/", async (c) => {
+		const db = c.get("db");
+		const { name, description } = await c.req.json();
+		const result = await sql.createContentType(db, {
+			name,
+			description,
+		});
+		return c.json(result, 201);
+	})
 	.get("/:content_type_id/fields", async (c) => {
 		const db = c.get("db");
 		const content_type_id = c.req.param("content_type_id");
