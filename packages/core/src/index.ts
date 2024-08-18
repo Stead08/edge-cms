@@ -9,7 +9,7 @@ import { usersApp } from "./routes/users";
 
 export const createEdgeCms = () => {
 	const app = createHonoWithDB()
-		.route("/users", usersApp)
+		.route("/users", usersApp) //
 		.route("/content-types", contentTypesApp)
 		.route("/fields", fieldsApp)
 		.route("/entries", entriesApp)

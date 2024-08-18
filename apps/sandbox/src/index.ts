@@ -6,5 +6,4 @@ const client = hc<typeof app>("");
 
 
 
-
 export default app;
