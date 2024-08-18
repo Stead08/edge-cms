@@ -13,7 +13,8 @@
     "moduleDetection": "force",
     "noEmit": true,
     "types": [
-      "vitest/globals"
+      "vitest/globals",
+      "@cloudflare/vitest-pool-workers"
     ],
 
     /* Linting */
@@ -22,5 +23,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
   },
-  "include": ["src"]
+  "include": ["src", "test"]
 }

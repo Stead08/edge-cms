@@ -15,15 +15,21 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
-    "@cloudflare/workers-types": "^4.20240529.0",
+    "@cloudflare/vitest-pool-workers": "^0.4.23",
+    "@cloudflare/workers-types": "^4.20240806.0",
+    "@types/node": "^20.9.0",
+    "miniflare": "^3.20240806.1",
     "typescript": "^5.5.3",
     "vite": "^5.4.1",
-    "vitest": "^2.0.5",
+    "vitest": "1.5.0",
     "wrangler": "^3.57.2"
   },
   "dependencies": {
     "@hono/zod-validator": "^0.2.2",
     "hono": "^4.5.5",
     "zod": "^3.23.8"
+  },
+  "volta": {
+    "node": "20.9.0"
   }
 }

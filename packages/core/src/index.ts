@@ -29,10 +29,16 @@ export const createEdgeCms = () => {
 
 				return c.text(`Hello ${name}`);
 			},
-		);
+		)
+    .get("/", (c) => {
+        return c.text("Hello Hono");
+    })
 
 	return app;
 };
 
+const app = createEdgeCms();
 
 export type AppType = ReturnType<typeof createEdgeCms>;
+
+export default app;

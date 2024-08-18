@@ -1,24 +1,16 @@
-import { unstable_dev } from "wrangler";
-import type { UnstableDevWorker } from "wrangler";
+import { SELF } from "cloudflare:test";
+import { it, describe, expect  } from "vitest";
+import app from "./index";
 
-describe("GET /hello", () => {
-    let worker: UnstableDevWorker;
-  
-    beforeAll(async () => {
-      worker = await unstable_dev("./test/prepare.ts", {
-        experimental: {
-          disableExperimentalWarning: true,
-        },
-      });
-    });
-
-    afterAll(async () => {
-        await worker.stop();
-    });
-
-    it("returns a greeting", async () => {
-        const res = await worker.fetch("/hello?name=John");
+describe("index", () => {
+	it("returns a hello hono", async () => {
+        let res = await SELF.fetch("https://example.com/");
         expect(res.status).toBe(200);
-        expect(await res.text()).toBe("Hello John");
+        expect(await res.text()).toBe("Hello Hono");
+	});
+    it("returns greeting", async () => {
+        let res = await SELF.fetch("https://example.com/?name=hono");
+        expect(res.status).toBe(200);
+        expect(await res.text()).toBe("Hello Hono");
     });
 });
