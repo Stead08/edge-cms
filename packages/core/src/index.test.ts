@@ -1,6 +1,5 @@
 import { SELF } from "cloudflare:test";
 import { describe, expect, it } from "vitest";
-import app from "./index";
 
 describe("index", () => {
 	it("returns a hello hono", async () => {

@@ -1,8 +1,7 @@
 import { AppType, createEdgeCms } from '@repo/core';
 import { hc } from 'hono/client';
 
-const app = createEdgeCms();
-const client = hc<typeof app>("");
+const app = createEdgeCms().basePath("/api");
 
 
 
