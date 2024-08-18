@@ -4,9 +4,9 @@ import * as sql from "../gen/sqlc/querier";
 export const fieldValuesApp = createHonoWithDB()
 	.post("/", async (c) => {
 		const db = c.get("db");
-		const { entry_id, field_id, value } = await c.req.json();
+		const { item_id, field_id, value } = await c.req.json();
 		const result = await sql.createFieldValue(db, {
-			entryId: entry_id,
+			itemId: item_id,
 			fieldId: field_id,
 			value,
 		});

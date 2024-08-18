@@ -4,46 +4,51 @@
 //   sqlc-gen-ts-d1 v0.0.0-a@dfd4bfef4736967ca17cc23d18de20920fbd196998fe7aa191a205439d63fb58
 
 export type Users = {
-  id: number;
-  username: number | string;
-  email: number | string;
-  passwordHash: number | string;
-  createdAt: number | string | null;
-  updatedAt: number | string | null;
+	id: number;
+	username: number | string;
+	email: number | string;
+	passwordHash: number | string;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
 };
 
-export type ContentTypes = {
-  id: number | string;
-  name: number | string;
-  description: string | null;
-  createdAt: number | string | null;
-  updatedAt: number | string | null;
+export type Collections = {
+	id: number | string;
+	slug: number | string;
+	label: number | string;
+	description: string | null;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
+	access: number | string | null;
+	defaultSort: number | string | null;
+	listSearchableFields: number | string | null;
+	pagination: number | string | null;
+	defaultLimit: number | null;
+	maxLimit: number | null;
+};
+
+export type Items = {
+	id: number | string;
+	collectionId: number | null;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
 };
 
 export type Fields = {
-  id: number | string;
-  contentTypeId: number | null;
-  name: number | string;
-  type: number | string;
-  required: number | string | null;
-  createdAt: number | string | null;
-  updatedAt: number | string | null;
-};
-
-export type Entries = {
-  id: number | string;
-  contentTypeId: number | null;
-  createdBy: number | null;
-  createdAt: number | string | null;
-  updatedAt: number | string | null;
+	id: number | string;
+	collectionId: number | null;
+	name: number | string;
+	type: number | string;
+	required: number | string | null;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
 };
 
 export type FieldValues = {
-  id: number | string;
-  entryId: number | null;
-  fieldId: number | null;
-  value: string | null;
-  createdAt: number | string | null;
-  updatedAt: number | string | null;
+	id: number | string;
+	itemId: number | null;
+	fieldId: number | null;
+	value: string | null;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
 };
-

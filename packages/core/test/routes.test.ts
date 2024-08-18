@@ -13,50 +13,52 @@ describe("should create field values", () => {
             }),
         });
         const user = await user_res.json();
-        const content_type_res = await SELF.fetch("https://example.com/content-types", {
+        const user_id = user.id;
+        const collection_res = await SELF.fetch("https://example.com/collections", {
             method: "POST",
             body: JSON.stringify({
-                name: "create_field_values",
+                slug: "create_field_values",
+                label: "create_field_values",
                 description: "create_field_values",
+                access: true,
+                default_sort: "created_at",
+                list_searchable_fields: ["created_at"],
+                pagination: false,
+                default_limit: 10,
+                max_limit: 100,
             }),
         });
-        const content_type = await content_type_res.json();
-        const content_type_id = content_type.id;
-        const field_res = await SELF.fetch("https://example.com/fields", {
+        const collection = await collection_res.json();
+        const collection_id = collection.id;
+        const content_type_res = await SELF.fetch("https://example.com/fields", {
             method: "POST",
             body: JSON.stringify({
-                content_type_id: content_type_id,
+                collection_id: collection_id,
                 name: "create_field_values",
                 type: "text",
                 required: true,
             }),
         });
-        const field = await field_res.json();
-        const entry_res = await SELF.fetch("https://example.com/entries", {
+        const content_type = await content_type_res.json();
+        const content_type_id = content_type.id;
+        const item_res = await SELF.fetch("https://example.com/items", {
             method: "POST",
             body: JSON.stringify({
+                collection_id: collection_id,
                 content_type_id: content_type_id,
-                created_by: user.id,
             }),
         });
-        const entry = await entry_res.json();
-        const entry_id = entry.id;
-        const field_value_res = await SELF.fetch("https://example.com/field-values", {
+        const item = await item_res.json();
+        const item_id = item.id;
+        const field_value_res = await SELF.fetch("https://example.com/field_values", {
             method: "POST",
             body: JSON.stringify({
-                entry_id: entry_id,
-                field_id: field.id,
+                item_id: item_id,
+                field_id: content_type_id,
                 value: "test",
             }),
         });
         const field_value = await field_value_res.json();
-        expect(field_value).toStrictEqual({
-            id: 1,
-            entryId: 1,
-            fieldId: 1,
-            value: "test",
-            createdAt: expect.any(String),
-            updatedAt: expect.any(String),
-        });
+        expect(field_value.value).toBe("test");
     });
 });

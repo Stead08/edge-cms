@@ -1,21 +1,19 @@
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import { createHonoWithDB } from "./factory";
-import { contentTypesApp } from "./routes/contentTypes";
-import { entriesApp } from "./routes/entries";
-import { fieldsApp } from "./routes/fields";
+import { collectionsApp } from "./routes/collections";
 import { fieldValuesApp } from "./routes/fieldValues";
+import { fieldsApp } from "./routes/fields";
+import { itemsApp } from "./routes/items";
 import { usersApp } from "./routes/users";
-
-
 
 export const createEdgeCms = () => {
 	const app = createHonoWithDB()
 		.route("/users", usersApp) //
-		.route("/content-types", contentTypesApp)
 		.route("/fields", fieldsApp)
-		.route("/entries", entriesApp)
-		.route("/field-values", fieldValuesApp)
+		.route("/field_values", fieldValuesApp)
+		.route("/collections", collectionsApp)
+		.route("/items", itemsApp)
 		.get(
 			"/hello",
 			zValidator(
@@ -30,9 +28,9 @@ export const createEdgeCms = () => {
 				return c.text(`Hello ${name}`);
 			},
 		)
-    .get("/", (c) => {
-        return c.text("Hello Hono");
-    })
+		.get("/", (c) => {
+			return c.text("Hello Hono");
+		});
 
 	return app;
 };
