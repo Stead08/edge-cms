@@ -1,35 +1,29 @@
 # @edge-cms/core
 
-このパッケージは、Edge CMSのコア機能を提供するライブラリです。
+This package provides the core functionality for Edge CMS.
 
-## 概要
+## Overview
 
-@edge-cms/coreは、エッジコンピューティング環境で動作するコンテンツ管理システム（CMS）の中核となるコンポーネントを提供します。Honoフレームワークを基盤とし、高速で効率的なAPIを実現します。
+@edge-cms/core offers essential components for a content management system (CMS) designed to operate in edge computing environments. Built on the Hono framework, it delivers a fast and efficient API.
 
-## 主な特徴
+## Key Features
 
-- Honoフレームワークを使用した軽量で高速なAPI
-- Zodを用いたバリデーション
-- エッジ環境に最適化されたパフォーマンス
+- Lightweight and fast API using the Hono framework
+- Validation using Zod
+- Performance optimized for edge environments
 
-## 構成
+## Structure
 
-このパッケージは以下のような構成になっています：
+This package is structured as follows:
 
-- `src/`: ソースコードディレクトリ
-  - `index.ts`: メインのエントリーポイント
-  - その他の機能モジュール
+- `src/`: Source code directory
+  - `index.ts`: Main entry point
+  - Other functional modules
 
-## 依存関係
+## Dependencies
 
-主な依存関係は以下の通りです：
+Main dependencies include:
 
 - `hono`: ^4.5.5
 - `@hono/zod-validator`: ^0.2.2
 - `zod`: ^3.23.8
-
-## 使用方法
-
-このパッケージは他のアプリケーション（例：`apps/sandbox`）から参照され、Edge CMS機能の中核として機能します。
-
-詳細な使用方法やAPIドキュメントについては、個別のファイルを参照してください。
