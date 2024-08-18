@@ -16,6 +16,7 @@ compatibility_date = "2024-08-17"
 binding = "DB"                                       # i.e. available in your Worker on env.DB
 database_name = "edgecms"
 database_id = "e0b8df76-9e29-4087-85a9-61e649f1171a"
+preview_database_id = "DB"
 
 # [ai]
 # binding = "AI"
