@@ -7,6 +7,7 @@
     "lint": "turbo lint",
     "format": "turbo format",
     "type-check": "turbo type-check",
+    "test:watch": "turbo test:watch",
     "test": "turbo test"
   },
   "devDependencies": {
