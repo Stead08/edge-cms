@@ -83,6 +83,7 @@ export const collectionsApp = createHonoWithDB()
 	// List all collections
 	.get("/", async (c) => {
 		const db = c.get("db");
-		const result = await sql.listCollections(db, {});
-		return c.json(result);
+		const result = await sql.listCollections(db);
+		const count = await sql.countCollections(db);
+		return c.json({ results: result.results, total_count: count?.count });
 	});

@@ -10,6 +10,12 @@ describe("Collections Test", () => {
 		const collection = await collection_res.json();
 		expect(collection.slug).toBe("test");
 	});
+	it("should list collections", async () => {
+		const collection_res = await SELF.fetch("https://example.com/collections");
+		const collection = await collection_res.json();
+		console.log(collection);
+		expect(collection.total_count).toBe(1);
+	});
 	it("should create a collection", async () => {
 		const collection_res = await SELF.fetch("https://example.com/collections", {
 			method: "POST",

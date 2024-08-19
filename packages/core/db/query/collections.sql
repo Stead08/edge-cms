@@ -26,3 +26,6 @@ DELETE FROM collections WHERE id = @id;
 
 -- name: ListCollections :many
 SELECT * FROM collections;
+
+-- name: CountCollections :one
+SELECT COUNT(id) AS count FROM collections;
