@@ -56,17 +56,18 @@ export const collectionsApp = createHonoWithDB()
 			default_limit,
 			max_limit,
 		} = await c.req.json();
+
 		const result = await sql.updateCollection(db, {
 			id: Number(id),
-			slug,
-			label,
-			description,
-			access,
-			defaultSort: default_sort,
-			listSearchableFields: JSON.stringify(list_searchable_fields), // JSON.stringifyを使用
-			pagination,
-			defaultLimit: default_limit,
-			maxLimit: max_limit,
+			slug: slug ?? null,
+			label: label ?? null,
+			description: description ?? null,
+			access: access ?? null,
+			defaultSort: default_sort ?? null,
+			listSearchableFields: JSON.stringify(list_searchable_fields) ?? null,
+			pagination: pagination ?? null,
+			defaultLimit: default_limit ?? null,
+			maxLimit: max_limit ?? null,
 		});
 		return c.json(result);
 	})

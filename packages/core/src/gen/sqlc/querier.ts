@@ -3,7 +3,7 @@
 //   sqlc v1.27.0
 //   sqlc-gen-ts-d1 v0.0.0-a@dfd4bfef4736967ca17cc23d18de20920fbd196998fe7aa191a205439d63fb58
 
-import type {
+import {
 	D1Database,
 	D1PreparedStatement,
 	D1Result,
@@ -34,7 +34,7 @@ export type CreateCollectionParams = {
 };
 
 export type CreateCollectionRow = {
-	id: number | string;
+	id: number;
 	slug: number | string;
 	label: number | string;
 	description: string | null;
@@ -49,7 +49,7 @@ export type CreateCollectionRow = {
 };
 
 type RawCreateCollectionRow = {
-	id: number | string;
+	id: number;
 	slug: number | string;
 	label: number | string;
 	description: string | null;
@@ -117,11 +117,11 @@ const getCollectionQuery = `-- name: GetCollection :one
 SELECT id, slug, label, description, created_at, updated_at, access, default_sort, list_searchable_fields, pagination, default_limit, max_limit FROM collections WHERE id = ?1 LIMIT 1`;
 
 export type GetCollectionParams = {
-	id: number | string;
+	id: number;
 };
 
 export type GetCollectionRow = {
-	id: number | string;
+	id: number;
 	slug: number | string;
 	label: number | string;
 	description: string | null;
@@ -136,7 +136,7 @@ export type GetCollectionRow = {
 };
 
 type RawGetCollectionRow = {
-	id: number | string;
+	id: number;
 	slug: number | string;
 	label: number | string;
 	description: string | null;
@@ -190,7 +190,16 @@ export function getCollection(
 
 const updateCollectionQuery = `-- name: UpdateCollection :one
 UPDATE collections
-SET slug = ?1, label = ?2, description = ?3, access = ?4, default_sort = ?5, list_searchable_fields = ?6, pagination = ?7, default_limit = ?8, max_limit = ?9, updated_at = CURRENT_TIMESTAMP
+SET slug = COALESCE(?1, slug),
+    label = COALESCE(?2, label),
+    description = COALESCE(?3, description),
+    access = COALESCE(?4, access),
+    default_sort = COALESCE(?5, default_sort),
+    list_searchable_fields = COALESCE(?6, list_searchable_fields),
+    pagination = COALESCE(?7, pagination),
+    default_limit = COALESCE(?8, default_limit),
+    max_limit = COALESCE(?9, max_limit),
+    updated_at = CURRENT_TIMESTAMP
 WHERE id = ?10
 RETURNING id, slug, label, description, created_at, updated_at, access, default_sort, list_searchable_fields, pagination, default_limit, max_limit`;
 
@@ -204,11 +213,11 @@ export type UpdateCollectionParams = {
 	pagination: number | string | null;
 	defaultLimit: number | null;
 	maxLimit: number | null;
-	id: number | string;
+	id: number;
 };
 
 export type UpdateCollectionRow = {
-	id: number | string;
+	id: number;
 	slug: number | string;
 	label: number | string;
 	description: string | null;
@@ -223,7 +232,7 @@ export type UpdateCollectionRow = {
 };
 
 type RawUpdateCollectionRow = {
-	id: number | string;
+	id: number;
 	slug: number | string;
 	label: number | string;
 	description: string | null;
@@ -292,7 +301,7 @@ const deleteCollectionQuery = `-- name: DeleteCollection :exec
 DELETE FROM collections WHERE id = ?1`;
 
 export type DeleteCollectionParams = {
-	id: number | string;
+	id: number;
 };
 
 export function deleteCollection(
@@ -317,7 +326,7 @@ const listCollectionsQuery = `-- name: ListCollections :many
 SELECT id, slug, label, description, created_at, updated_at, access, default_sort, list_searchable_fields, pagination, default_limit, max_limit FROM collections`;
 
 export type ListCollectionsRow = {
-	id: number | string;
+	id: number;
 	slug: number | string;
 	label: number | string;
 	description: string | null;
@@ -332,7 +341,7 @@ export type ListCollectionsRow = {
 };
 
 type RawListCollectionsRow = {
-	id: number | string;
+	id: number;
 	slug: number | string;
 	label: number | string;
 	description: string | null;
@@ -399,7 +408,7 @@ export type CreateFieldValueParams = {
 };
 
 export type CreateFieldValueRow = {
-	id: number | string;
+	id: number;
 	itemId: number | null;
 	fieldId: number | null;
 	value: string | null;
@@ -408,7 +417,7 @@ export type CreateFieldValueRow = {
 };
 
 type RawCreateFieldValueRow = {
-	id: number | string;
+	id: number;
 	item_id: number | null;
 	field_id: number | null;
 	value: string | null;
@@ -456,11 +465,11 @@ FROM field_values
 WHERE id = ?1 LIMIT 1`;
 
 export type GetFieldValueParams = {
-	id: number | string;
+	id: number;
 };
 
 export type GetFieldValueRow = {
-	id: number | string;
+	id: number;
 	itemId: number | null;
 	fieldId: number | null;
 	value: string | null;
@@ -469,7 +478,7 @@ export type GetFieldValueRow = {
 };
 
 type RawGetFieldValueRow = {
-	id: number | string;
+	id: number;
 	item_id: number | null;
 	field_id: number | null;
 	value: string | null;
@@ -520,7 +529,7 @@ export type ListFieldValuesParams = {
 };
 
 export type ListFieldValuesRow = {
-	id: number | string;
+	id: number;
 	itemId: number | null;
 	fieldId: number | null;
 	value: string | null;
@@ -529,7 +538,7 @@ export type ListFieldValuesRow = {
 };
 
 type RawListFieldValuesRow = {
-	id: number | string;
+	id: number;
 	item_id: number | null;
 	field_id: number | null;
 	value: string | null;
@@ -580,11 +589,11 @@ RETURNING id, item_id, field_id, value, created_at, updated_at`;
 
 export type UpdateFieldValueParams = {
 	value: string | null;
-	id: number | string;
+	id: number;
 };
 
 export type UpdateFieldValueRow = {
-	id: number | string;
+	id: number;
 	itemId: number | null;
 	fieldId: number | null;
 	value: string | null;
@@ -593,7 +602,7 @@ export type UpdateFieldValueRow = {
 };
 
 type RawUpdateFieldValueRow = {
-	id: number | string;
+	id: number;
 	item_id: number | null;
 	field_id: number | null;
 	value: string | null;
@@ -638,7 +647,7 @@ DELETE FROM field_values
 WHERE id = ?1`;
 
 export type DeleteFieldValueParams = {
-	id: number | string;
+	id: number;
 };
 
 export function deleteFieldValue(
@@ -672,7 +681,7 @@ export type CreateFieldParams = {
 };
 
 export type CreateFieldRow = {
-	id: number | string;
+	id: number;
 	collectionId: number | null;
 	name: number | string;
 	type: number | string;
@@ -682,7 +691,7 @@ export type CreateFieldRow = {
 };
 
 type RawCreateFieldRow = {
-	id: number | string;
+	id: number;
 	collection_id: number | null;
 	name: number | string;
 	type: number | string;
@@ -732,11 +741,11 @@ FROM fields
 WHERE id = ?1 LIMIT 1`;
 
 export type GetFieldParams = {
-	id: number | string;
+	id: number;
 };
 
 export type GetFieldRow = {
-	id: number | string;
+	id: number;
 	collectionId: number | null;
 	name: number | string;
 	type: number | string;
@@ -746,7 +755,7 @@ export type GetFieldRow = {
 };
 
 type RawGetFieldRow = {
-	id: number | string;
+	id: number;
 	collection_id: number | null;
 	name: number | string;
 	type: number | string;
@@ -799,7 +808,7 @@ export type ListFieldsParams = {
 };
 
 export type ListFieldsRow = {
-	id: number | string;
+	id: number;
 	collectionId: number | null;
 	name: number | string;
 	type: number | string;
@@ -809,7 +818,7 @@ export type ListFieldsRow = {
 };
 
 type RawListFieldsRow = {
-	id: number | string;
+	id: number;
 	collection_id: number | null;
 	name: number | string;
 	type: number | string;
@@ -864,11 +873,11 @@ export type UpdateFieldParams = {
 	name: number | string;
 	type: number | string;
 	required: number | string | null;
-	id: number | string;
+	id: number;
 };
 
 export type UpdateFieldRow = {
-	id: number | string;
+	id: number;
 	collectionId: number | null;
 	name: number | string;
 	type: number | string;
@@ -878,7 +887,7 @@ export type UpdateFieldRow = {
 };
 
 type RawUpdateFieldRow = {
-	id: number | string;
+	id: number;
 	collection_id: number | null;
 	name: number | string;
 	type: number | string;
@@ -927,7 +936,7 @@ DELETE FROM fields
 WHERE id = ?1`;
 
 export type DeleteFieldParams = {
-	id: number | string;
+	id: number;
 };
 
 export function deleteField(
@@ -958,14 +967,14 @@ export type CreateItemParams = {
 };
 
 export type CreateItemRow = {
-	id: number | string;
+	id: number;
 	collectionId: number | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };
 
 type RawCreateItemRow = {
-	id: number | string;
+	id: number;
 	collection_id: number | null;
 	created_at: number | string | null;
 	updated_at: number | string | null;
@@ -1006,18 +1015,18 @@ SELECT id, collection_id, created_at, updated_at FROM items
 WHERE id = ?1 LIMIT 1`;
 
 export type GetItemParams = {
-	id: number | string;
+	id: number;
 };
 
 export type GetItemRow = {
-	id: number | string;
+	id: number;
 	collectionId: number | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };
 
 type RawGetItemRow = {
-	id: number | string;
+	id: number;
 	collection_id: number | null;
 	created_at: number | string | null;
 	updated_at: number | string | null;
@@ -1063,14 +1072,14 @@ export type ListItemsParams = {
 };
 
 export type ListItemsRow = {
-	id: number | string;
+	id: number;
 	collectionId: number | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };
 
 type RawListItemsRow = {
-	id: number | string;
+	id: number;
 	collection_id: number | null;
 	created_at: number | string | null;
 	updated_at: number | string | null;
@@ -1116,18 +1125,18 @@ WHERE id = ?1
 RETURNING id, collection_id, created_at, updated_at`;
 
 export type UpdateItemParams = {
-	id: number | string;
+	id: number;
 };
 
 export type UpdateItemRow = {
-	id: number | string;
+	id: number;
 	collectionId: number | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };
 
 type RawUpdateItemRow = {
-	id: number | string;
+	id: number;
 	collection_id: number | null;
 	created_at: number | string | null;
 	updated_at: number | string | null;
@@ -1168,7 +1177,7 @@ DELETE FROM items
 WHERE id = ?1`;
 
 export type DeleteItemParams = {
-	id: number | string;
+	id: number;
 };
 
 export function deleteItem(

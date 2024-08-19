@@ -52,6 +52,18 @@ describe("Collections Test", () => {
 		const collection = await collection_res.json();
 		expect(collection.slug).toBe("test");
 	});
+	it("should update a partial collection", async () => {
+		const collection_res = await SELF.fetch(
+			"https://example.com/collections/1",
+			{
+				method: "PUT",
+				body: JSON.stringify({
+					slug: "test",
+				}),
+			},
+		);
+		expect(collection_res.status).toBe(200);
+	});
 	it("should delete a collection", async () => {
 		const collection_res = await SELF.fetch(
 			"https://example.com/collections/1",

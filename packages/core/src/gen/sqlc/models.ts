@@ -13,7 +13,7 @@ export type Users = {
 };
 
 export type Collections = {
-	id: number | string;
+	id: number;
 	slug: number | string;
 	label: number | string;
 	description: string | null;
@@ -28,14 +28,14 @@ export type Collections = {
 };
 
 export type Items = {
-	id: number | string;
+	id: number;
 	collectionId: number | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };
 
 export type Fields = {
-	id: number | string;
+	id: number;
 	collectionId: number | null;
 	name: number | string;
 	type: number | string;
@@ -45,7 +45,7 @@ export type Fields = {
 };
 
 export type FieldValues = {
-	id: number | string;
+	id: number;
 	itemId: number | null;
 	fieldId: number | null;
 	value: string | null;
