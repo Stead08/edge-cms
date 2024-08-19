@@ -18,8 +18,8 @@ importers:
         specifier: ^2.0.14
         version: 2.0.14
       typescript:
-        specifier: ^5.4.5
-        version: 5.4.5
+        specifier: ^5.5.4
+        version: 5.5.4
 
   apps/sandbox:
     dependencies:
@@ -1838,11 +1838,6 @@ packages:
   /type-detect@4.1.0:
     resolution: {integrity: sha512-Acylog8/luQ8L7il+geoSxhEkazvkslg7PSNKOX59mbB9cOveP5aq9h74Y7YU8yDpJwetzQQrfIwtf4Wp4LKcw==}
     engines: {node: '>=4'}
-    dev: true
-
-  /typescript@5.4.5:
-    resolution: {integrity: sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==}
-    engines: {node: '>=14.17'}
     dev: true
 
   /typescript@5.5.4:
