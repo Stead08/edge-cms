@@ -1,6 +1,7 @@
 name: CI
 
 on:
+  - push
   - pull_request
 
 jobs:
@@ -18,9 +19,9 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9
+          version: 9.7.1
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+        uses: oven-sh/setup-bun@v1
       - name: Install dependencies
         run: bun install
 
