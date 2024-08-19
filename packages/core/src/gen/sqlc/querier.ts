@@ -188,6 +188,81 @@ export function getCollection(
 	};
 }
 
+const getCollectionBySlugQuery = `-- name: GetCollectionBySlug :one
+SELECT id, slug, label, description, created_at, updated_at, access, default_sort, list_searchable_fields, pagination, default_limit, max_limit FROM collections WHERE slug = ?1 LIMIT 1`;
+
+export type GetCollectionBySlugParams = {
+	slug: number | string;
+};
+
+export type GetCollectionBySlugRow = {
+	id: number;
+	slug: number | string;
+	label: number | string;
+	description: string | null;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
+	access: number | string | null;
+	defaultSort: number | string | null;
+	listSearchableFields: number | string | null;
+	pagination: number | string | null;
+	defaultLimit: number | null;
+	maxLimit: number | null;
+};
+
+type RawGetCollectionBySlugRow = {
+	id: number;
+	slug: number | string;
+	label: number | string;
+	description: string | null;
+	created_at: number | string | null;
+	updated_at: number | string | null;
+	access: number | string | null;
+	default_sort: number | string | null;
+	list_searchable_fields: number | string | null;
+	pagination: number | string | null;
+	default_limit: number | null;
+	max_limit: number | null;
+};
+
+export function getCollectionBySlug(
+	d1: D1Database,
+	args: GetCollectionBySlugParams,
+): Query<GetCollectionBySlugRow | null> {
+	const ps = d1.prepare(getCollectionBySlugQuery).bind(args.slug);
+	return {
+		then(
+			onFulfilled?: (value: GetCollectionBySlugRow | null) => void,
+			onRejected?: (reason?: any) => void,
+		) {
+			ps.first<RawGetCollectionBySlugRow | null>()
+				.then((raw: RawGetCollectionBySlugRow | null) =>
+					raw
+						? {
+								id: raw.id,
+								slug: raw.slug,
+								label: raw.label,
+								description: raw.description,
+								createdAt: raw.created_at,
+								updatedAt: raw.updated_at,
+								access: raw.access,
+								defaultSort: raw.default_sort,
+								listSearchableFields: raw.list_searchable_fields,
+								pagination: raw.pagination,
+								defaultLimit: raw.default_limit,
+								maxLimit: raw.max_limit,
+							}
+						: null,
+				)
+				.then(onFulfilled)
+				.catch(onRejected);
+		},
+		batch() {
+			return ps;
+		},
+	};
+}
+
 const updateCollectionQuery = `-- name: UpdateCollection :one
 UPDATE collections
 SET slug = COALESCE(?1, slug),
@@ -1216,6 +1291,279 @@ export function deleteItem(
 			onRejected?: (reason?: any) => void,
 		) {
 			ps.run().then(onFulfilled).catch(onRejected);
+		},
+		batch() {
+			return ps;
+		},
+	};
+}
+
+const getFieldValuesForItemQuery = `-- name: GetFieldValuesForItem :many
+SELECT id, item_id, field_id, value, created_at, updated_at FROM field_values
+WHERE item_id = ?1`;
+
+export type GetFieldValuesForItemParams = {
+	itemId: number | null;
+};
+
+export type GetFieldValuesForItemRow = {
+	id: number;
+	itemId: number | null;
+	fieldId: number | null;
+	value: string | null;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
+};
+
+type RawGetFieldValuesForItemRow = {
+	id: number;
+	item_id: number | null;
+	field_id: number | null;
+	value: string | null;
+	created_at: number | string | null;
+	updated_at: number | string | null;
+};
+
+export function getFieldValuesForItem(
+	d1: D1Database,
+	args: GetFieldValuesForItemParams,
+): Query<D1Result<GetFieldValuesForItemRow>> {
+	const ps = d1.prepare(getFieldValuesForItemQuery).bind(args.itemId);
+	return {
+		then(
+			onFulfilled?: (value: D1Result<GetFieldValuesForItemRow>) => void,
+			onRejected?: (reason?: any) => void,
+		) {
+			ps.all<RawGetFieldValuesForItemRow>()
+				.then((r: D1Result<RawGetFieldValuesForItemRow>) => {
+					return {
+						...r,
+						results: r.results.map((raw: RawGetFieldValuesForItemRow) => {
+							return {
+								id: raw.id,
+								itemId: raw.item_id,
+								fieldId: raw.field_id,
+								value: raw.value,
+								createdAt: raw.created_at,
+								updatedAt: raw.updated_at,
+							};
+						}),
+					};
+				})
+				.then(onFulfilled)
+				.catch(onRejected);
+		},
+		batch() {
+			return ps;
+		},
+	};
+}
+
+const getFieldsForCollectionQuery = `-- name: GetFieldsForCollection :many
+SELECT id, collection_id, name, type, required, created_at, updated_at FROM fields
+WHERE collection_id = ?1`;
+
+export type GetFieldsForCollectionParams = {
+	collectionId: number | null;
+};
+
+export type GetFieldsForCollectionRow = {
+	id: number;
+	collectionId: number | null;
+	name: number | string;
+	type: number | string;
+	required: number | string | null;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
+};
+
+type RawGetFieldsForCollectionRow = {
+	id: number;
+	collection_id: number | null;
+	name: number | string;
+	type: number | string;
+	required: number | string | null;
+	created_at: number | string | null;
+	updated_at: number | string | null;
+};
+
+export function getFieldsForCollection(
+	d1: D1Database,
+	args: GetFieldsForCollectionParams,
+): Query<D1Result<GetFieldsForCollectionRow>> {
+	const ps = d1.prepare(getFieldsForCollectionQuery).bind(args.collectionId);
+	return {
+		then(
+			onFulfilled?: (value: D1Result<GetFieldsForCollectionRow>) => void,
+			onRejected?: (reason?: any) => void,
+		) {
+			ps.all<RawGetFieldsForCollectionRow>()
+				.then((r: D1Result<RawGetFieldsForCollectionRow>) => {
+					return {
+						...r,
+						results: r.results.map((raw: RawGetFieldsForCollectionRow) => {
+							return {
+								id: raw.id,
+								collectionId: raw.collection_id,
+								name: raw.name,
+								type: raw.type,
+								required: raw.required,
+								createdAt: raw.created_at,
+								updatedAt: raw.updated_at,
+							};
+						}),
+					};
+				})
+				.then(onFulfilled)
+				.catch(onRejected);
+		},
+		batch() {
+			return ps;
+		},
+	};
+}
+
+const getItemByCollectionAndIdQuery = `-- name: GetItemByCollectionAndId :one
+SELECT id, collection_id, created_at, updated_at FROM items
+WHERE collection_id = ?1 AND id = ?2 LIMIT 1`;
+
+export type GetItemByCollectionAndIdParams = {
+	collectionId: number | null;
+	id: number;
+};
+
+export type GetItemByCollectionAndIdRow = {
+	id: number;
+	collectionId: number | null;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
+};
+
+type RawGetItemByCollectionAndIdRow = {
+	id: number;
+	collection_id: number | null;
+	created_at: number | string | null;
+	updated_at: number | string | null;
+};
+
+export function getItemByCollectionAndId(
+	d1: D1Database,
+	args: GetItemByCollectionAndIdParams,
+): Query<GetItemByCollectionAndIdRow | null> {
+	const ps = d1
+		.prepare(getItemByCollectionAndIdQuery)
+		.bind(args.collectionId, args.id);
+	return {
+		then(
+			onFulfilled?: (value: GetItemByCollectionAndIdRow | null) => void,
+			onRejected?: (reason?: any) => void,
+		) {
+			ps.first<RawGetItemByCollectionAndIdRow | null>()
+				.then((raw: RawGetItemByCollectionAndIdRow | null) =>
+					raw
+						? {
+								id: raw.id,
+								collectionId: raw.collection_id,
+								createdAt: raw.created_at,
+								updatedAt: raw.updated_at,
+							}
+						: null,
+				)
+				.then(onFulfilled)
+				.catch(onRejected);
+		},
+		batch() {
+			return ps;
+		},
+	};
+}
+
+const listItemsForCollectionQuery = `-- name: ListItemsForCollection :many
+SELECT id, collection_id, created_at, updated_at FROM items
+WHERE collection_id = ?1
+ORDER BY created_at DESC
+LIMIT ?3 OFFSET ?2`;
+
+export type ListItemsForCollectionParams = {
+	collectionId: number | null;
+	offset: number;
+	limit: number;
+};
+
+export type ListItemsForCollectionRow = {
+	id: number;
+	collectionId: number | null;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
+};
+
+type RawListItemsForCollectionRow = {
+	id: number;
+	collection_id: number | null;
+	created_at: number | string | null;
+	updated_at: number | string | null;
+};
+
+export function listItemsForCollection(
+	d1: D1Database,
+	args: ListItemsForCollectionParams,
+): Query<D1Result<ListItemsForCollectionRow>> {
+	const ps = d1
+		.prepare(listItemsForCollectionQuery)
+		.bind(args.collectionId, args.offset, args.limit);
+	return {
+		then(
+			onFulfilled?: (value: D1Result<ListItemsForCollectionRow>) => void,
+			onRejected?: (reason?: any) => void,
+		) {
+			ps.all<RawListItemsForCollectionRow>()
+				.then((r: D1Result<RawListItemsForCollectionRow>) => {
+					return {
+						...r,
+						results: r.results.map((raw: RawListItemsForCollectionRow) => {
+							return {
+								id: raw.id,
+								collectionId: raw.collection_id,
+								createdAt: raw.created_at,
+								updatedAt: raw.updated_at,
+							};
+						}),
+					};
+				})
+				.then(onFulfilled)
+				.catch(onRejected);
+		},
+		batch() {
+			return ps;
+		},
+	};
+}
+
+const countItemsForCollectionQuery = `-- name: CountItemsForCollection :one
+SELECT COUNT(*) AS count FROM items
+WHERE collection_id = ?1`;
+
+export type CountItemsForCollectionParams = {
+	collectionId: number | null;
+};
+
+export type CountItemsForCollectionRow = {
+	count: number;
+};
+
+export function countItemsForCollection(
+	d1: D1Database,
+	args: CountItemsForCollectionParams,
+): Query<CountItemsForCollectionRow | null> {
+	const ps = d1.prepare(countItemsForCollectionQuery).bind(args.collectionId);
+	return {
+		then(
+			onFulfilled?: (value: CountItemsForCollectionRow | null) => void,
+			onRejected?: (reason?: any) => void,
+		) {
+			ps.first<CountItemsForCollectionRow | null>()
+				.then(onFulfilled)
+				.catch(onRejected);
 		},
 		batch() {
 			return ps;

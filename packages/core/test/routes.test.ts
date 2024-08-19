@@ -20,7 +20,7 @@ describe("should create field values", () => {
         });
         const collection = await collection_res.json() as { id?: string };
         const collection_id = collection.id;
-        const content_type_res = await SELF.fetch("https://example.com/fields", {
+        const field_res = await SELF.fetch("https://example.com/fields", {
             method: "POST",
             body: JSON.stringify({
                 collection_id: collection_id,
@@ -29,13 +29,13 @@ describe("should create field values", () => {
                 required: true,
             }),
         });
-        const content_type = await content_type_res.json() as { id?: string };
-        const content_type_id = content_type.id;
+        const field = await field_res.json() as { id?: string };
+        const field_id = field.id;
         const item_res = await SELF.fetch("https://example.com/items", {
             method: "POST",
             body: JSON.stringify({
                 collection_id: collection_id,
-                content_type_id: content_type_id,
+                field_id: field_id,
             }),
         });
         const item = await item_res.json() as { id?: string };
@@ -44,7 +44,7 @@ describe("should create field values", () => {
             method: "POST",
             body: JSON.stringify({
                 item_id: item_id,
-                field_id: content_type_id,
+                field_id: field_id,
                 value: "test",
             }),
         });

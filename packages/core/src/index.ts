@@ -5,6 +5,7 @@ import { collectionsApp } from "./routes/collections";
 import { fieldValuesApp } from "./routes/fieldValues";
 import { fieldsApp } from "./routes/fields";
 import { itemsApp } from "./routes/items";
+import { rootSlugApp } from "./routes/root";
 import { usersApp } from "./routes/users";
 
 export const createEdgeCms = () => {
@@ -14,6 +15,7 @@ export const createEdgeCms = () => {
 		.route("/field_values", fieldValuesApp)
 		.route("/collections", collectionsApp)
 		.route("/items", itemsApp)
+		.route("/", rootSlugApp)
 		.get(
 			"/hello",
 			zValidator(

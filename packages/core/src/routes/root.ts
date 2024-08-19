@@ -1,52 +1,61 @@
 import { createHonoWithDB } from "../factory";
 import * as sql from "../gen/sqlc/querier";
 
-export const itemsApp = createHonoWithDB()
-	// Create a new item
-	.post("/", async (c) => {
+export const rootSlugApp = createHonoWithDB()
+	.get("/:collection_slug/:item_id/full", async (c) => {
 		const db = c.get("db");
-		const { collection_id } = await c.req.json();
-		const result = await sql.createItem(db, {
-			collectionId: collection_id,
-		});
-		return c.json(result, 201);
-	})
+		const collectionSlug = c.req.param("collection_slug");
+		const itemId = c.req.param("item_id");
 
-	// Get an item by ID
-	.get("/:id", async (c) => {
-		const db = c.get("db");
-		const id = c.req.param("id");
-		const result = await sql.getItem(db, { id: Number(id) });
-		if (!result) {
-			return c.json({ error: "アイテムが見つかりません" }, 404);
+		// コレクション情報を取得
+		const collection = await sql.getCollectionBySlug(db, {
+			slug: collectionSlug,
+		});
+		if (!collection) {
+			return c.json({ error: "コレクションが見つかりません" }, 404);
 		}
-		return c.json(result);
-	})
 
-	// Update an item by ID
-	.put("/:id", async (c) => {
-		const db = c.get("db");
-		const id = c.req.param("id");
-		const result = await sql.updateItem(db, { id: Number(id) });
-		return c.json(result);
-	})
-
-	// Delete an item by ID
-	.delete("/:id", async (c) => {
-		const db = c.get("db");
-		const id = c.req.param("id");
-		await sql.deleteItem(db, { id: Number(id) });
-		return c.text("アイテムが削除されました", 200);
-	})
-
-	// List all items in a collection
-	.get("/", async (c) => {
-		const db = c.get("db");
-		const { collection_id } = c.req.query();
-		const result = await sql.listItems(db, {
-			collectionId: Number(collection_id),
+		// アイテムの基本情報を取得
+		const item = await sql.getItemByCollectionAndId(db, {
+			collectionId: collection.id,
+			id: Number(itemId),
 		});
-		return c.json(result);
+		if (!item) {
+			return c.json({ error: "記事が見つかりません" }, 404);
+		}
+
+		// フィールド値を取得
+		const fieldValues = await sql.getFieldValuesForItem(db, {
+			itemId: item.id,
+		});
+
+		// フィールド情報を取得
+		const fields = await sql.getFieldsForCollection(db, {
+			collectionId: collection.id,
+		});
+
+		// フィールド値とフィールド情報を結合
+		const content = fieldValues.results.map((fv) => {
+			const field = fields.results.find((f) => f.id === fv.fieldId);
+			return {
+				name: field?.name,
+				type: field?.type,
+				value: fv.value,
+			};
+		});
+
+		// 結果をJSONとして返却
+		return c.json({
+			id: item.id,
+			collection: {
+				id: collection.id,
+				slug: collection.slug,
+				label: collection.label,
+			},
+			createdAt: item.createdAt,
+			updatedAt: item.updatedAt,
+			content,
+		});
 	})
 	.get("/:collection_slug", async (c) => {
 		const db = c.get("db");

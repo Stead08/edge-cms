@@ -6,6 +6,9 @@ RETURNING *;
 -- name: GetCollection :one
 SELECT * FROM collections WHERE id = @id LIMIT 1;
 
+-- name: GetCollectionBySlug :one
+SELECT * FROM collections WHERE slug = @slug LIMIT 1;
+
 -- name: UpdateCollection :one
 UPDATE collections
 SET slug = COALESCE(@slug, slug),

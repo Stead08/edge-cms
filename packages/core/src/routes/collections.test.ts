@@ -13,7 +13,6 @@ describe("Collections Test", () => {
 	it("should list collections", async () => {
 		const collection_res = await SELF.fetch("https://example.com/collections");
 		const collection = await collection_res.json();
-		console.log(collection);
 		expect(collection.total_count).toBe(1);
 	});
 	it("should create a collection", async () => {
