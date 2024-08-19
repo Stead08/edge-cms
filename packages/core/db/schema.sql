@@ -8,7 +8,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE collections (
-  id SERIAL PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
   slug VARCHAR(100) UNIQUE NOT NULL,
   label VARCHAR(100) NOT NULL,
   description TEXT,
@@ -23,14 +23,14 @@ CREATE TABLE collections (
 );
 
 CREATE TABLE items (
-  id SERIAL PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
   collection_id INTEGER REFERENCES collections(id) ON DELETE CASCADE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE fields (
-  id SERIAL PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
   collection_id INTEGER REFERENCES collections(id) ON DELETE CASCADE,
   name VARCHAR(50) NOT NULL,
   type VARCHAR(20) NOT NULL,  -- 例: 'text', 'number', 'boolean' など
@@ -40,7 +40,7 @@ CREATE TABLE fields (
 );
 
 CREATE TABLE field_values (
-  id SERIAL PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
   item_id INTEGER REFERENCES items(id) ON DELETE CASCADE,
   field_id INTEGER REFERENCES fields(id) ON DELETE CASCADE,
   value TEXT,

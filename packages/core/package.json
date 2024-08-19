@@ -9,6 +9,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
+    "type-check": "tsc --noEmit --project tsconfig.json",
     "lint": "biome check --write ./src",
     "format": "biome format --write ./src",
     "test": "vitest"
