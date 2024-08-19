@@ -3,6 +3,13 @@ import { SELF } from "cloudflare:test";
 import { describe, expect, it } from "vitest";
 
 describe("Collections Test", () => {
+	it("should get a collection", async () => {
+		const collection_res = await SELF.fetch(
+			"https://example.com/collections/1",
+		);
+		const collection = await collection_res.json();
+		expect(collection.slug).toBe("test");
+	});
 	it("should create a collection", async () => {
 		const collection_res = await SELF.fetch("https://example.com/collections", {
 			method: "POST",
@@ -23,5 +30,35 @@ describe("Collections Test", () => {
 		expect(collection.label).toBe("create_field_values");
 		expect(collection.description).toBe("create_field_values");
 		expect(collection.access).toBe(1);
+	});
+	it("should update a collection", async () => {
+		const collection_res = await SELF.fetch(
+			"https://example.com/collections/1",
+			{
+				method: "PUT",
+				body: JSON.stringify({
+					slug: "test",
+					label: "test",
+					description: "test",
+					access: true,
+					default_sort: "created_at",
+					list_searchable_fields: ["created_at"],
+					pagination: false,
+					default_limit: 10,
+					max_limit: 100,
+				}),
+			},
+		);
+		const collection = await collection_res.json();
+		expect(collection.slug).toBe("test");
+	});
+	it("should delete a collection", async () => {
+		const collection_res = await SELF.fetch(
+			"https://example.com/collections/1",
+			{
+				method: "DELETE",
+			},
+		);
+		expect(collection_res.status).toBe(200);
 	});
 });
