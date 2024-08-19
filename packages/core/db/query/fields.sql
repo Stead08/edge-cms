@@ -16,7 +16,7 @@ ORDER BY id;
 
 -- name: UpdateField :one
 UPDATE fields
-SET name = @name, type = @type, required = @required, updated_at = CURRENT_TIMESTAMP
+SET name = COALESCE(@name, name), type = COALESCE(@type, type), required = COALESCE(@required, required), updated_at = CURRENT_TIMESTAMP
 WHERE id = @id
 RETURNING id, collection_id, name, type, required, created_at, updated_at;
 

@@ -32,6 +32,36 @@ describe("Fields Test", () => {
 		const field = await field_res.json();
 		expect(field.name).toBe("test2");
 	});
+	it("should update a name field", async () => {
+		const field_res = await SELF.fetch("https://example.com/fields/1", {
+			method: "PUT",
+			body: JSON.stringify({
+				name: "test3",
+			}),
+		});
+		const field = await field_res.json();
+		expect(field.name).toBe("test3");
+	});
+	it("should update a type field", async () => {
+		const field_res = await SELF.fetch("https://example.com/fields/1", {
+			method: "PUT",
+			body: JSON.stringify({
+				type: "text",
+			}),
+		});
+		const field = await field_res.json();
+		expect(field.type).toBe("text");
+	});
+	it("should update a required field", async () => {
+		const field_res = await SELF.fetch("https://example.com/fields/1", {
+			method: "PUT",
+			body: JSON.stringify({
+				required: true,
+			}),
+		});
+		const field = await field_res.json();
+		expect(field.required).toBeTruthy();
+	});
 	it("should delete a field", async () => {
 		const field_res = await SELF.fetch("https://example.com/fields/1", {
 			method: "DELETE",

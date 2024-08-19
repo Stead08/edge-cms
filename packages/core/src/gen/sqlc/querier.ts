@@ -357,7 +357,6 @@ type RawListCollectionsRow = {
 
 export function listCollections(
 	d1: D1Database,
-	p0: {},
 ): Query<D1Result<ListCollectionsRow>> {
 	const ps = d1.prepare(listCollectionsQuery);
 	return {
@@ -387,6 +386,32 @@ export function listCollections(
 						}),
 					};
 				})
+				.then(onFulfilled)
+				.catch(onRejected);
+		},
+		batch() {
+			return ps;
+		},
+	};
+}
+
+const countCollectionsQuery = `-- name: CountCollections :one
+SELECT COUNT(id) AS count FROM collections`;
+
+export type CountCollectionsRow = {
+	count: number;
+};
+
+export function countCollections(
+	d1: D1Database,
+): Query<CountCollectionsRow | null> {
+	const ps = d1.prepare(countCollectionsQuery);
+	return {
+		then(
+			onFulfilled?: (value: CountCollectionsRow | null) => void,
+			onRejected?: (reason?: any) => void,
+		) {
+			ps.first<CountCollectionsRow | null>()
 				.then(onFulfilled)
 				.catch(onRejected);
 		},
@@ -865,7 +890,7 @@ export function listFields(
 
 const updateFieldQuery = `-- name: UpdateField :one
 UPDATE fields
-SET name = ?1, type = ?2, required = ?3, updated_at = CURRENT_TIMESTAMP
+SET name = COALESCE(?1, name), type = COALESCE(?2, type), required = COALESCE(?3, required), updated_at = CURRENT_TIMESTAMP
 WHERE id = ?4
 RETURNING id, collection_id, name, type, required, created_at, updated_at`;
 

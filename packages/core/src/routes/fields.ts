@@ -28,9 +28,9 @@ export const fieldsApp = createHonoWithDB()
 		const { name, type, required } = await c.req.json();
 		const result = await sql.updateField(db, {
 			id: Number(id),
-			name,
-			type,
-			required,
+			name: name ?? null,
+			type: type ?? null,
+			required: required ?? null,
 		});
 		return c.json(result);
 	})
