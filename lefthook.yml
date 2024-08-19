@@ -3,7 +3,11 @@
 #   Refer for explanation to following link:
 #   https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
 #
-# pre-push:
+pre-push:
+  parallel: true
+  commands:
+    test:
+      run: turbo test
 #   commands:
 #     packages-audit:
 #       tags: frontend security
