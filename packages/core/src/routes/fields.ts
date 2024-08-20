@@ -1,10 +1,17 @@
 import { createHonoWithDB } from "../factory";
 import * as sql from "../gen/sqlc/querier";
+import type { FieldType } from "../types/fieldTypes";
+import { validateFieldType, validateFieldValue } from "../utils/fieldValidator";
 
 export const fieldsApp = createHonoWithDB()
 	.post("/", async (c) => {
 		const db = c.get("db");
 		const { collection_id, name, type, required } = await c.req.json();
+
+		if (!validateFieldType(type)) {
+			return c.json({ error: "Invalid field type" }, 400);
+		}
+
 		const result = await sql.createField(db, {
 			collectionId: collection_id,
 			name,
@@ -39,4 +46,16 @@ export const fieldsApp = createHonoWithDB()
 		const id = c.req.param("id");
 		await sql.deleteField(db, { id: Number(id) });
 		return c.text("フィールドが削除されました", 200);
+	})
+
+	// フィールド値のバリデーションを行うエンドポイントを追加
+	.post("/validate", async (c) => {
+		const { type, value } = await c.req.json();
+
+		if (!validateFieldType(type)) {
+			return c.json({ error: "Invalid field type" }, 400);
+		}
+
+		const isValid = validateFieldValue(type as FieldType, value);
+		return c.json({ isValid });
 	});

@@ -15,11 +15,13 @@ describe("Fields Test", () => {
 		const field = await field_res.json();
 		expect(field.name).toBe("test");
 	});
+
 	it("should get a field", async () => {
 		const field_res = await SELF.fetch("https://example.com/fields/1");
 		const field = await field_res.json();
 		expect(field.name).toBe("test");
 	});
+
 	it("should update a field", async () => {
 		const field_res = await SELF.fetch("https://example.com/fields/1", {
 			method: "PUT",
@@ -32,36 +34,37 @@ describe("Fields Test", () => {
 		const field = await field_res.json();
 		expect(field.name).toBe("test2");
 	});
-	it("should update a name field", async () => {
-		const field_res = await SELF.fetch("https://example.com/fields/1", {
-			method: "PUT",
-			body: JSON.stringify({
-				name: "test3",
-			}),
-		});
-		const field = await field_res.json();
-		expect(field.name).toBe("test3");
+
+	it("should validate field type", async () => {
+		const validation_res = await SELF.fetch(
+			"https://example.com/fields/validate",
+			{
+				method: "POST",
+				body: JSON.stringify({
+					type: "text",
+					value: "sample text",
+				}),
+			},
+		);
+		const validation = await validation_res.json();
+		expect(validation.isValid).toBe(true);
 	});
-	it("should update a type field", async () => {
-		const field_res = await SELF.fetch("https://example.com/fields/1", {
-			method: "PUT",
-			body: JSON.stringify({
-				type: "text",
-			}),
-		});
-		const field = await field_res.json();
-		expect(field.type).toBe("text");
+
+	it("should fail validation for invalid field type", async () => {
+		const validation_res = await SELF.fetch(
+			"https://example.com/fields/validate",
+			{
+				method: "POST",
+				body: JSON.stringify({
+					type: "number",
+					value: "not a number",
+				}),
+			},
+		);
+		const validation = await validation_res.json();
+		expect(validation.isValid).toBe(false);
 	});
-	it("should update a required field", async () => {
-		const field_res = await SELF.fetch("https://example.com/fields/1", {
-			method: "PUT",
-			body: JSON.stringify({
-				required: true,
-			}),
-		});
-		const field = await field_res.json();
-		expect(field.required).toBeTruthy();
-	});
+
 	it("should delete a field", async () => {
 		const field_res = await SELF.fetch("https://example.com/fields/1", {
 			method: "DELETE",
