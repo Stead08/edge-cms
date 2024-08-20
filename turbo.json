@@ -13,6 +13,9 @@
     "test": {
       "dependsOn": ["^test"]
     },
+    "test:watch": {
+      "dependsOn": ["^test:watch"]
+    },
     "lint": {
       "dependsOn": ["^lint"]
     },
