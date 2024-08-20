@@ -1,13 +1,25 @@
+import { z } from "zod";
 import { createHonoWithDB } from "../factory";
 import * as sql from "../gen/sqlc/querier";
+
+// statusのバリデーション
+const statusSchema = z.enum(["draft", "published", "unpublished"]).optional();
 
 export const itemsApp = createHonoWithDB()
 	// Create a new item
 	.post("/", async (c) => {
 		const db = c.get("db");
-		const { collection_id } = await c.req.json();
+		const { collection_id, status } = await c.req.json();
+
+		// statusのバリデーション
+		const validatedStatus = statusSchema.safeParse(status);
+		if (!validatedStatus.success) {
+			return c.json({ error: "Invalid status" }, 400);
+		}
+
 		const result = await sql.createItem(db, {
 			collectionId: collection_id,
+			status: validatedStatus.data ?? "draft", // undefinedの場合は'draft'を使用
 		});
 		return c.json(result, 201);
 	})
@@ -27,7 +39,18 @@ export const itemsApp = createHonoWithDB()
 	.put("/:id", async (c) => {
 		const db = c.get("db");
 		const id = c.req.param("id");
-		const result = await sql.updateItem(db, { id: Number(id) });
+		const { status } = await c.req.json();
+
+		// statusのバリデーション
+		const validatedStatus = statusSchema.safeParse(status);
+		if (!validatedStatus.success) {
+			return c.json({ error: "Invalid status" }, 400);
+		}
+
+		const result = await sql.updateItem(db, {
+			id: Number(id),
+			status: validatedStatus.data ?? "draft",
+		});
 		return c.json(result);
 	})
 
@@ -42,9 +65,10 @@ export const itemsApp = createHonoWithDB()
 	// List all items in a collection
 	.get("/", async (c) => {
 		const db = c.get("db");
-		const { collection_id } = c.req.query();
+		const { collection_id, status } = c.req.query();
 		const result = await sql.listItems(db, {
 			collectionId: Number(collection_id),
+			status: status ?? null,
 		});
 		return c.json(result);
 	})

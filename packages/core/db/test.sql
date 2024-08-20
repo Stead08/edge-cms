@@ -9,8 +9,14 @@ INSERT INTO collections (slug, label, description, access, default_sort, list_se
 VALUES ('test', 'test', 'test', true, 'created_at', 'created_at');
 
 -- テストアイテムを作成
-INSERT INTO items (collection_id)
-VALUES (1);
+INSERT INTO items (collection_id, status)
+VALUES (1, 'published');
+
+INSERT INTO items (collection_id, status)
+VALUES (1, 'draft');
+
+INSERT INTO items (collection_id, status)
+VALUES (1, 'unpublished');
 
 -- テストフィールドを作成
 INSERT INTO fields (collection_id, name, type, required)

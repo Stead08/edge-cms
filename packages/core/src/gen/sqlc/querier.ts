@@ -1058,17 +1058,19 @@ export function deleteField(
 }
 
 const createItemQuery = `-- name: CreateItem :one
-INSERT INTO items (collection_id)
-VALUES (?1)
-RETURNING id, collection_id, created_at, updated_at`;
+INSERT INTO items (collection_id, status)
+VALUES (?1, ?2)
+RETURNING id, collection_id, status, created_at, updated_at`;
 
 export type CreateItemParams = {
 	collectionId: number | null;
+	status: number | string | null;
 };
 
 export type CreateItemRow = {
 	id: number;
 	collectionId: number | null;
+	status: number | string | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };
@@ -1076,6 +1078,7 @@ export type CreateItemRow = {
 type RawCreateItemRow = {
 	id: number;
 	collection_id: number | null;
+	status: number | string | null;
 	created_at: number | string | null;
 	updated_at: number | string | null;
 };
@@ -1084,7 +1087,7 @@ export function createItem(
 	d1: D1Database,
 	args: CreateItemParams,
 ): Query<CreateItemRow | null> {
-	const ps = d1.prepare(createItemQuery).bind(args.collectionId);
+	const ps = d1.prepare(createItemQuery).bind(args.collectionId, args.status);
 	return {
 		then(
 			onFulfilled?: (value: CreateItemRow | null) => void,
@@ -1096,6 +1099,7 @@ export function createItem(
 						? {
 								id: raw.id,
 								collectionId: raw.collection_id,
+								status: raw.status,
 								createdAt: raw.created_at,
 								updatedAt: raw.updated_at,
 							}
@@ -1111,7 +1115,7 @@ export function createItem(
 }
 
 const getItemQuery = `-- name: GetItem :one
-SELECT id, collection_id, created_at, updated_at FROM items
+SELECT id, collection_id, status, created_at, updated_at FROM items
 WHERE id = ?1 LIMIT 1`;
 
 export type GetItemParams = {
@@ -1121,6 +1125,7 @@ export type GetItemParams = {
 export type GetItemRow = {
 	id: number;
 	collectionId: number | null;
+	status: number | string | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };
@@ -1128,6 +1133,7 @@ export type GetItemRow = {
 type RawGetItemRow = {
 	id: number;
 	collection_id: number | null;
+	status: number | string | null;
 	created_at: number | string | null;
 	updated_at: number | string | null;
 };
@@ -1148,6 +1154,7 @@ export function getItem(
 						? {
 								id: raw.id,
 								collectionId: raw.collection_id,
+								status: raw.status,
 								createdAt: raw.created_at,
 								updatedAt: raw.updated_at,
 							}
@@ -1163,17 +1170,19 @@ export function getItem(
 }
 
 const listItemsQuery = `-- name: ListItems :many
-SELECT id, collection_id, created_at, updated_at FROM items
-WHERE collection_id = ?1
+SELECT id, collection_id, status, created_at, updated_at FROM items
+WHERE collection_id = ?1 AND (status = ?2 OR ?2 IS NULL)
 ORDER BY id`;
 
 export type ListItemsParams = {
 	collectionId: number | null;
+	status: number | string | null;
 };
 
 export type ListItemsRow = {
 	id: number;
 	collectionId: number | null;
+	status: number | string | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };
@@ -1181,6 +1190,7 @@ export type ListItemsRow = {
 type RawListItemsRow = {
 	id: number;
 	collection_id: number | null;
+	status: number | string | null;
 	created_at: number | string | null;
 	updated_at: number | string | null;
 };
@@ -1189,7 +1199,7 @@ export function listItems(
 	d1: D1Database,
 	args: ListItemsParams,
 ): Query<D1Result<ListItemsRow>> {
-	const ps = d1.prepare(listItemsQuery).bind(args.collectionId);
+	const ps = d1.prepare(listItemsQuery).bind(args.collectionId, args.status);
 	return {
 		then(
 			onFulfilled?: (value: D1Result<ListItemsRow>) => void,
@@ -1203,6 +1213,7 @@ export function listItems(
 							return {
 								id: raw.id,
 								collectionId: raw.collection_id,
+								status: raw.status,
 								createdAt: raw.created_at,
 								updatedAt: raw.updated_at,
 							};
@@ -1220,17 +1231,19 @@ export function listItems(
 
 const updateItemQuery = `-- name: UpdateItem :one
 UPDATE items
-SET updated_at = CURRENT_TIMESTAMP
-WHERE id = ?1
-RETURNING id, collection_id, created_at, updated_at`;
+SET status = ?1, updated_at = CURRENT_TIMESTAMP
+WHERE id = ?2
+RETURNING id, collection_id, status, created_at, updated_at`;
 
 export type UpdateItemParams = {
+	status: number | string | null;
 	id: number;
 };
 
 export type UpdateItemRow = {
 	id: number;
 	collectionId: number | null;
+	status: number | string | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };
@@ -1238,6 +1251,7 @@ export type UpdateItemRow = {
 type RawUpdateItemRow = {
 	id: number;
 	collection_id: number | null;
+	status: number | string | null;
 	created_at: number | string | null;
 	updated_at: number | string | null;
 };
@@ -1246,7 +1260,7 @@ export function updateItem(
 	d1: D1Database,
 	args: UpdateItemParams,
 ): Query<UpdateItemRow | null> {
-	const ps = d1.prepare(updateItemQuery).bind(args.id);
+	const ps = d1.prepare(updateItemQuery).bind(args.status, args.id);
 	return {
 		then(
 			onFulfilled?: (value: UpdateItemRow | null) => void,
@@ -1258,6 +1272,7 @@ export function updateItem(
 						? {
 								id: raw.id,
 								collectionId: raw.collection_id,
+								status: raw.status,
 								createdAt: raw.created_at,
 								updatedAt: raw.updated_at,
 							}
@@ -1424,7 +1439,7 @@ export function getFieldsForCollection(
 }
 
 const getItemByCollectionAndIdQuery = `-- name: GetItemByCollectionAndId :one
-SELECT id, collection_id, created_at, updated_at FROM items
+SELECT id, collection_id, status, created_at, updated_at FROM items
 WHERE collection_id = ?1 AND id = ?2 LIMIT 1`;
 
 export type GetItemByCollectionAndIdParams = {
@@ -1435,6 +1450,7 @@ export type GetItemByCollectionAndIdParams = {
 export type GetItemByCollectionAndIdRow = {
 	id: number;
 	collectionId: number | null;
+	status: number | string | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };
@@ -1442,6 +1458,7 @@ export type GetItemByCollectionAndIdRow = {
 type RawGetItemByCollectionAndIdRow = {
 	id: number;
 	collection_id: number | null;
+	status: number | string | null;
 	created_at: number | string | null;
 	updated_at: number | string | null;
 };
@@ -1464,6 +1481,7 @@ export function getItemByCollectionAndId(
 						? {
 								id: raw.id,
 								collectionId: raw.collection_id,
+								status: raw.status,
 								createdAt: raw.created_at,
 								updatedAt: raw.updated_at,
 							}
@@ -1479,7 +1497,7 @@ export function getItemByCollectionAndId(
 }
 
 const listItemsForCollectionQuery = `-- name: ListItemsForCollection :many
-SELECT id, collection_id, created_at, updated_at FROM items
+SELECT id, collection_id, status, created_at, updated_at FROM items
 WHERE collection_id = ?1
 ORDER BY created_at DESC
 LIMIT ?3 OFFSET ?2`;
@@ -1493,6 +1511,7 @@ export type ListItemsForCollectionParams = {
 export type ListItemsForCollectionRow = {
 	id: number;
 	collectionId: number | null;
+	status: number | string | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };
@@ -1500,6 +1519,7 @@ export type ListItemsForCollectionRow = {
 type RawListItemsForCollectionRow = {
 	id: number;
 	collection_id: number | null;
+	status: number | string | null;
 	created_at: number | string | null;
 	updated_at: number | string | null;
 };
@@ -1524,6 +1544,7 @@ export function listItemsForCollection(
 							return {
 								id: raw.id,
 								collectionId: raw.collection_id,
+								status: raw.status,
 								createdAt: raw.created_at,
 								updatedAt: raw.updated_at,
 							};
