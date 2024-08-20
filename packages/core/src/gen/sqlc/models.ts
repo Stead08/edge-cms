@@ -30,6 +30,7 @@ export type Collections = {
 export type Items = {
 	id: number;
 	collectionId: number | null;
+	status: number | string | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };
