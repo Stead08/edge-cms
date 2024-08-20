@@ -1,5 +1,4 @@
 import { SELF } from "cloudflare:test";
-import { describe, expect, it } from "vitest";
 
 describe("Items Test", () => {
 	it("should create an item no status", async () => {

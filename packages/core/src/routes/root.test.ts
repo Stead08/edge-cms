@@ -1,5 +1,4 @@
 import { SELF } from "cloudflare:test";
-import { describe, expect, it } from "vitest";
 
 describe("root", () => {
 	it("should return items GET /:collection_slug?page=1&limit=10", async () => {

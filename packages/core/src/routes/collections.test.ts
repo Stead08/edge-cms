@@ -1,6 +1,5 @@
 // collectionsのテスト
 import { SELF } from "cloudflare:test";
-import { describe, expect, it } from "vitest";
 
 describe("Collections Test", () => {
 	it("should get a collection", async () => {

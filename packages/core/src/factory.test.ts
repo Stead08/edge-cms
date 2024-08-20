@@ -1,4 +1,3 @@
-import { describe, expect, it } from "vitest";
 import { createHonoWithDB } from "./factory";
 
 describe("factory", () => {

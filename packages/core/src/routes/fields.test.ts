@@ -1,5 +1,4 @@
 import { SELF } from "cloudflare:test";
-import { describe, expect, it } from "vitest";
 
 describe("Fields Test", () => {
 	it("should create a field", async () => {
