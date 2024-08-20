@@ -13,8 +13,24 @@ describe("FieldValues Test", () => {
 				}),
 			},
 		);
+		expect(fieldValue_res.status).toBe(201);
 		const fieldValue = await fieldValue_res.json();
 		expect(fieldValue.value).toBe("test");
+	});
+
+	it("should not create a field value with invalid type", async () => {
+		const fieldValue_res = await SELF.fetch(
+			"https://example.com/field_values",
+			{
+				method: "POST",
+				body: JSON.stringify({
+					item_id: 1,
+					field_id: 1,
+					value: 1,
+				}),
+			},
+		);
+		expect(fieldValue_res.status).toBe(400);
 	});
 	it("should get a field value", async () => {
 		const fieldValue_res = await SELF.fetch(

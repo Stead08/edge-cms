@@ -1,10 +1,21 @@
 import { createHonoWithDB } from "../factory";
 import * as sql from "../gen/sqlc/querier";
+import { parseFieldType, validateFieldValue } from "../utils/fieldValidator";
 
 export const fieldValuesApp = createHonoWithDB()
 	.post("/", async (c) => {
 		const db = c.get("db");
 		const { item_id, field_id, value } = await c.req.json();
+
+		const field = await sql.getField(db, { id: field_id });
+		if (!field) {
+			return c.json({ error: "フィールドが見つかりません" }, 404);
+		}
+		const type = parseFieldType(field.type.toString());
+		const idValid = validateFieldValue(type, value);
+		if (!idValid) {
+			return c.json({ error: "アイテムIDが無効です" }, 400);
+		}
 		const result = await sql.createFieldValue(db, {
 			itemId: item_id,
 			fieldId: field_id,
