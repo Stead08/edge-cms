@@ -165,7 +165,7 @@ describe("roles", () => {
 				assumeRolePolicy: {
 					effect: "Deny",
 					principal: {
-						service: ["lambda.amazonaws.com"],
+						service: ["test.example.com"],
 					},
 					action: ["sts:AssumeRole"],
 				},
@@ -184,7 +184,7 @@ describe("roles", () => {
 			assumeRolePolicy: {
 				effect: "Deny",
 				principal: {
-					service: ["lambda.amazonaws.com"],
+					service: ["test.example.com"],
 				},
 				action: ["sts:AssumeRole"],
 			},
