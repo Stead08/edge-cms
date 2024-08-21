@@ -54,6 +54,8 @@ CREATE TABLE roles (
   id INTEGER PRIMARY KEY,
   name VARCHAR(50) NOT NULL UNIQUE,
   description TEXT,
+  permissions JSONB NOT NULL,
+  assume_role_policy JSONB,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
@@ -68,7 +70,7 @@ CREATE TABLE user_roles (
 );
 
 -- 事前定義されたロールを挿入
-INSERT INTO roles (name, description) VALUES
-('Viewer', 'Can view content'),
-('Editor', 'Can view and edit content'),
-('Admin', 'Has full access to all features');
+INSERT INTO roles (name, description, permissions, assume_role_policy) VALUES
+('Viewer', 'Can view content', '{"view": true}', '{"view": true}'),
+('Editor', 'Can view and edit content', '{"view": true, "edit": true}', '{"view": true, "edit": true}'),
+('Admin', 'Has full access to all features', '{"view": true, "edit": true, "delete": true}', '{"view": true, "edit": true, "delete": true}');

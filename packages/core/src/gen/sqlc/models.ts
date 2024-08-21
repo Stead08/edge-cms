@@ -59,6 +59,8 @@ export type Roles = {
 	id: number;
 	name: number | string;
 	description: string | null;
+	permissions: number | string;
+	assumeRolePolicy: number | string | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };

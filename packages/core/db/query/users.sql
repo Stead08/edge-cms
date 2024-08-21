@@ -34,10 +34,27 @@ SET password_hash = @password_hash, updated_at = CURRENT_TIMESTAMP
 WHERE id = @id;
 
 -- name: GetUserWithRoles :one
-SELECT u.*, GROUP_CONCAT(r.name) as roles
+SELECT u.*, json_group_array(
+  json_object(
+    'id', r.id,
+    'name', r.name,
+    'description', r.description
+  )
+) as roles
 FROM users u
 LEFT JOIN user_roles ur ON u.id = ur.user_id
 LEFT JOIN roles r ON ur.role_id = r.id
 WHERE u.id = @id
 GROUP BY u.id
 LIMIT 1;
+
+-- name: CheckUserPermission :one
+SELECT EXISTS (
+  SELECT 1
+  FROM users u
+  JOIN user_roles ur ON u.id = ur.user_id
+  JOIN roles r ON ur.role_id = r.id
+  WHERE u.id = @user_id
+    AND json_extract(r.permissions, '$.actions') LIKE '%' || @action || '%'
+    AND json_extract(r.permissions, '$.resources') LIKE '%' || @resource || '%'
+) as has_permission;

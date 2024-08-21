@@ -7,6 +7,17 @@ describe("roles", () => {
 			body: JSON.stringify({
 				name: "TestEditor",
 				description: "Can edit content",
+				permissions: {
+					actions: ["read", "write"],
+					resources: ["posts", "comments"],
+				},
+				assumeRolePolicy: {
+					effect: "Allow",
+					principal: {
+						user: ["user1", "user2"],
+					},
+					action: ["sts:AssumeRole"],
+				},
 			}),
 		});
 		expect(res.status).toBe(201);
@@ -15,6 +26,17 @@ describe("roles", () => {
 			id: expect.any(Number),
 			name: "TestEditor",
 			description: "Can edit content",
+			permissions: {
+				actions: ["read", "write"],
+				resources: ["posts", "comments"],
+			},
+			assumeRolePolicy: {
+				effect: "Allow",
+				principal: {
+					user: ["user1", "user2"],
+				},
+				action: ["sts:AssumeRole"],
+			},
 			createdAt: expect.any(String),
 			updatedAt: expect.any(String),
 		});
@@ -28,6 +50,12 @@ describe("roles", () => {
 			id: 1,
 			name: "Viewer",
 			description: "Can view content",
+			permissions: {
+				view: true,
+			},
+			assumeRolePolicy: {
+				view: true,
+			},
 			createdAt: expect.any(String),
 			updatedAt: expect.any(String),
 		});
@@ -39,6 +67,12 @@ describe("roles", () => {
 			body: JSON.stringify({
 				name: "Viewer",
 				description: "Can view content",
+				permissions: {
+					view: true,
+				},
+				assumeRolePolicy: {
+					view: true,
+				},
 			}),
 		});
 		expect(res.status).toBe(200);
@@ -47,11 +81,16 @@ describe("roles", () => {
 			id: 1,
 			name: "Viewer",
 			description: "Can view content",
+			permissions: {
+				view: true,
+			},
+			assumeRolePolicy: {
+				view: true,
+			},
 			createdAt: expect.any(String),
 			updatedAt: expect.any(String),
 		});
 	});
-
 	it("should list all roles", async () => {
 		const res = await SELF.fetch("https://example.com/roles");
 		expect(res.status).toBe(200);
@@ -70,5 +109,87 @@ describe("roles", () => {
 		});
 		expect(res.status).toBe(200);
 		expect(await res.text()).toBe("ロールが削除されました");
+	});
+
+	it("should create a role with permissions and assume role policy", async () => {
+		const res = await SELF.fetch("https://example.com/roles", {
+			method: "POST",
+			body: JSON.stringify({
+				name: "CustomRole",
+				description: "Custom role with specific permissions",
+				permissions: {
+					actions: ["read", "write"],
+					resources: ["posts", "comments"],
+				},
+				assumeRolePolicy: {
+					effect: "Allow",
+					principal: {
+						user: ["user1", "user2"],
+					},
+					action: ["sts:AssumeRole"],
+				},
+			}),
+		});
+		expect(res.status).toBe(201);
+		const role = await res.json();
+		expect(role).toEqual({
+			id: expect.any(Number),
+			name: "CustomRole",
+			description: "Custom role with specific permissions",
+			permissions: {
+				actions: ["read", "write"],
+				resources: ["posts", "comments"],
+			},
+			assumeRolePolicy: {
+				effect: "Allow",
+				principal: {
+					user: ["user1", "user2"],
+				},
+				action: ["sts:AssumeRole"],
+			},
+			createdAt: expect.any(String),
+			updatedAt: expect.any(String),
+		});
+	});
+
+	it("should update a role with new permissions and assume role policy", async () => {
+		const res = await SELF.fetch("https://example.com/roles/1", {
+			method: "PUT",
+			body: JSON.stringify({
+				name: "UpdatedRole",
+				description: "Updated role description",
+				permissions: {
+					actions: ["read"],
+					resources: ["posts"],
+				},
+				assumeRolePolicy: {
+					effect: "Deny",
+					principal: {
+						service: ["lambda.amazonaws.com"],
+					},
+					action: ["sts:AssumeRole"],
+				},
+			}),
+		});
+		expect(res.status).toBe(200);
+		const role = await res.json();
+		expect(role).toEqual({
+			id: 1,
+			name: "UpdatedRole",
+			description: "Updated role description",
+			permissions: {
+				actions: ["read"],
+				resources: ["posts"],
+			},
+			assumeRolePolicy: {
+				effect: "Deny",
+				principal: {
+					service: ["lambda.amazonaws.com"],
+				},
+				action: ["sts:AssumeRole"],
+			},
+			createdAt: expect.any(String),
+			updatedAt: expect.any(String),
+		});
 	});
 });

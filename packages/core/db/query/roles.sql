@@ -1,6 +1,6 @@
 -- name: CreateRole :one
-INSERT INTO roles (name, description)
-VALUES (@name, @description)
+INSERT INTO roles (name, description, permissions, assume_role_policy)
+VALUES (@name, @description, @permissions, @assume_role_policy)
 RETURNING *;
 
 -- name: GetRole :one
@@ -12,7 +12,7 @@ SELECT * FROM roles;
 
 -- name: UpdateRole :one
 UPDATE roles
-SET name = @name, description = @description, updated_at = CURRENT_TIMESTAMP
+SET name = @name, description = @description, permissions = @permissions, assume_role_policy = @assume_role_policy, updated_at = CURRENT_TIMESTAMP
 WHERE id = @id
 RETURNING *;
 
@@ -31,3 +31,9 @@ SELECT EXISTS (
   JOIN roles r ON ur.role_id = r.id
   WHERE ur.user_id = @user_id AND r.name = @role_name
 ) as has_role;
+
+-- name: UpdateRoleAssumeRolePolicy :one
+UPDATE roles
+SET assume_role_policy = @assume_role_policy, updated_at = CURRENT_TIMESTAMP
+WHERE id = @id
+RETURNING *;

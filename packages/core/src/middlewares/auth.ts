@@ -1,17 +1,23 @@
 import type { Context } from "hono";
 import * as sql from "../gen/sqlc/querier";
-import { Role } from "../types/roleTypes";
 
-export async function requireRole(c: Context, requiredRole: Role) {
+export async function checkPermission(
+	c: Context,
+	action: string,
+	resource: string,
+) {
 	const db = c.get("db");
-	const userId = c.get("userId"); // 認証ミドルウェアで設定されたユーザーID
-	const userRoles = await sql.getUserRoles(db, { userId });
-
-	if (!userRoles.results.some((role) => role.name === requiredRole)) {
+	const userId = c.get("userId");
+	const result = await sql.checkUserPermission(db, {
+		userId,
+		action,
+		resource,
+	});
+	if (!result?.hasPermission) {
 		return c.json({ error: "アクセス権限がありません" }, 403);
 	}
 }
 
 export async function requireAdmin(c: Context) {
-	return requireRole(c, Role.ADMIN);
+	return checkPermission(c, "admin:*", "*");
 }

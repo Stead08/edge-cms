@@ -1593,19 +1593,23 @@ export function countItemsForCollection(
 }
 
 const createRoleQuery = `-- name: CreateRole :one
-INSERT INTO roles (name, description)
-VALUES (?1, ?2)
-RETURNING id, name, description, created_at, updated_at`;
+INSERT INTO roles (name, description, permissions, assume_role_policy)
+VALUES (?1, ?2, ?3, ?4)
+RETURNING id, name, description, permissions, assume_role_policy, created_at, updated_at`;
 
 export type CreateRoleParams = {
 	name: number | string;
 	description: string | null;
+	permissions: number | string;
+	assumeRolePolicy: number | string | null;
 };
 
 export type CreateRoleRow = {
 	id: number;
 	name: number | string;
 	description: string | null;
+	permissions: number | string;
+	assumeRolePolicy: number | string | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };
@@ -1614,6 +1618,8 @@ type RawCreateRoleRow = {
 	id: number;
 	name: number | string;
 	description: string | null;
+	permissions: number | string;
+	assume_role_policy: number | string | null;
 	created_at: number | string | null;
 	updated_at: number | string | null;
 };
@@ -1622,7 +1628,9 @@ export function createRole(
 	d1: D1Database,
 	args: CreateRoleParams,
 ): Query<CreateRoleRow | null> {
-	const ps = d1.prepare(createRoleQuery).bind(args.name, args.description);
+	const ps = d1
+		.prepare(createRoleQuery)
+		.bind(args.name, args.description, args.permissions, args.assumeRolePolicy);
 	return {
 		then(
 			onFulfilled?: (value: CreateRoleRow | null) => void,
@@ -1635,6 +1643,8 @@ export function createRole(
 								id: raw.id,
 								name: raw.name,
 								description: raw.description,
+								permissions: raw.permissions,
+								assumeRolePolicy: raw.assume_role_policy,
 								createdAt: raw.created_at,
 								updatedAt: raw.updated_at,
 							}
@@ -1650,7 +1660,7 @@ export function createRole(
 }
 
 const getRoleQuery = `-- name: GetRole :one
-SELECT id, name, description, created_at, updated_at FROM roles
+SELECT id, name, description, permissions, assume_role_policy, created_at, updated_at FROM roles
 WHERE id = ?1 LIMIT 1`;
 
 export type GetRoleParams = {
@@ -1661,6 +1671,8 @@ export type GetRoleRow = {
 	id: number;
 	name: number | string;
 	description: string | null;
+	permissions: number | string;
+	assumeRolePolicy: number | string | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };
@@ -1669,6 +1681,8 @@ type RawGetRoleRow = {
 	id: number;
 	name: number | string;
 	description: string | null;
+	permissions: number | string;
+	assume_role_policy: number | string | null;
 	created_at: number | string | null;
 	updated_at: number | string | null;
 };
@@ -1690,6 +1704,8 @@ export function getRole(
 								id: raw.id,
 								name: raw.name,
 								description: raw.description,
+								permissions: raw.permissions,
+								assumeRolePolicy: raw.assume_role_policy,
 								createdAt: raw.created_at,
 								updatedAt: raw.updated_at,
 							}
@@ -1705,12 +1721,14 @@ export function getRole(
 }
 
 const listRolesQuery = `-- name: ListRoles :many
-SELECT id, name, description, created_at, updated_at FROM roles`;
+SELECT id, name, description, permissions, assume_role_policy, created_at, updated_at FROM roles`;
 
 export type ListRolesRow = {
 	id: number;
 	name: number | string;
 	description: string | null;
+	permissions: number | string;
+	assumeRolePolicy: number | string | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };
@@ -1719,6 +1737,8 @@ type RawListRolesRow = {
 	id: number;
 	name: number | string;
 	description: string | null;
+	permissions: number | string;
+	assume_role_policy: number | string | null;
 	created_at: number | string | null;
 	updated_at: number | string | null;
 };
@@ -1739,6 +1759,8 @@ export function listRoles(d1: D1Database): Query<D1Result<ListRolesRow>> {
 								id: raw.id,
 								name: raw.name,
 								description: raw.description,
+								permissions: raw.permissions,
+								assumeRolePolicy: raw.assume_role_policy,
 								createdAt: raw.created_at,
 								updatedAt: raw.updated_at,
 							};
@@ -1756,13 +1778,15 @@ export function listRoles(d1: D1Database): Query<D1Result<ListRolesRow>> {
 
 const updateRoleQuery = `-- name: UpdateRole :one
 UPDATE roles
-SET name = ?1, description = ?2, updated_at = CURRENT_TIMESTAMP
-WHERE id = ?3
-RETURNING id, name, description, created_at, updated_at`;
+SET name = ?1, description = ?2, permissions = ?3, assume_role_policy = ?4, updated_at = CURRENT_TIMESTAMP
+WHERE id = ?5
+RETURNING id, name, description, permissions, assume_role_policy, created_at, updated_at`;
 
 export type UpdateRoleParams = {
 	name: number | string;
 	description: string | null;
+	permissions: number | string;
+	assumeRolePolicy: number | string | null;
 	id: number;
 };
 
@@ -1770,6 +1794,8 @@ export type UpdateRoleRow = {
 	id: number;
 	name: number | string;
 	description: string | null;
+	permissions: number | string;
+	assumeRolePolicy: number | string | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };
@@ -1778,6 +1804,8 @@ type RawUpdateRoleRow = {
 	id: number;
 	name: number | string;
 	description: string | null;
+	permissions: number | string;
+	assume_role_policy: number | string | null;
 	created_at: number | string | null;
 	updated_at: number | string | null;
 };
@@ -1788,7 +1816,13 @@ export function updateRole(
 ): Query<UpdateRoleRow | null> {
 	const ps = d1
 		.prepare(updateRoleQuery)
-		.bind(args.name, args.description, args.id);
+		.bind(
+			args.name,
+			args.description,
+			args.permissions,
+			args.assumeRolePolicy,
+			args.id,
+		);
 	return {
 		then(
 			onFulfilled?: (value: UpdateRoleRow | null) => void,
@@ -1801,6 +1835,8 @@ export function updateRole(
 								id: raw.id,
 								name: raw.name,
 								description: raw.description,
+								permissions: raw.permissions,
+								assumeRolePolicy: raw.assume_role_policy,
 								createdAt: raw.created_at,
 								updatedAt: raw.updated_at,
 							}
@@ -1841,7 +1877,7 @@ export function deleteRole(
 }
 
 const getUserRolesQuery = `-- name: GetUserRoles :many
-SELECT r.id, r.name, r.description, r.created_at, r.updated_at FROM roles r
+SELECT r.id, r.name, r.description, r.permissions, r.assume_role_policy, r.created_at, r.updated_at FROM roles r
 JOIN user_roles ur ON r.id = ur.role_id
 WHERE ur.user_id = ?1`;
 
@@ -1853,6 +1889,8 @@ export type GetUserRolesRow = {
 	id: number;
 	name: number | string;
 	description: string | null;
+	permissions: number | string;
+	assumeRolePolicy: number | string | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };
@@ -1861,6 +1899,8 @@ type RawGetUserRolesRow = {
 	id: number;
 	name: number | string;
 	description: string | null;
+	permissions: number | string;
+	assume_role_policy: number | string | null;
 	created_at: number | string | null;
 	updated_at: number | string | null;
 };
@@ -1884,6 +1924,8 @@ export function getUserRoles(
 								id: raw.id,
 								name: raw.name,
 								description: raw.description,
+								permissions: raw.permissions,
+								assumeRolePolicy: raw.assume_role_policy,
 								createdAt: raw.created_at,
 								updatedAt: raw.updated_at,
 							};
@@ -1935,6 +1977,72 @@ export function hasRole(
 					raw
 						? {
 								hasRole: raw.has_role,
+							}
+						: null,
+				)
+				.then(onFulfilled)
+				.catch(onRejected);
+		},
+		batch() {
+			return ps;
+		},
+	};
+}
+
+const updateRoleAssumeRolePolicyQuery = `-- name: UpdateRoleAssumeRolePolicy :one
+UPDATE roles
+SET assume_role_policy = ?1, updated_at = CURRENT_TIMESTAMP
+WHERE id = ?2
+RETURNING id, name, description, permissions, assume_role_policy, created_at, updated_at`;
+
+export type UpdateRoleAssumeRolePolicyParams = {
+	assumeRolePolicy: number | string | null;
+	id: number;
+};
+
+export type UpdateRoleAssumeRolePolicyRow = {
+	id: number;
+	name: number | string;
+	description: string | null;
+	permissions: number | string;
+	assumeRolePolicy: number | string | null;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
+};
+
+type RawUpdateRoleAssumeRolePolicyRow = {
+	id: number;
+	name: number | string;
+	description: string | null;
+	permissions: number | string;
+	assume_role_policy: number | string | null;
+	created_at: number | string | null;
+	updated_at: number | string | null;
+};
+
+export function updateRoleAssumeRolePolicy(
+	d1: D1Database,
+	args: UpdateRoleAssumeRolePolicyParams,
+): Query<UpdateRoleAssumeRolePolicyRow | null> {
+	const ps = d1
+		.prepare(updateRoleAssumeRolePolicyQuery)
+		.bind(args.assumeRolePolicy, args.id);
+	return {
+		then(
+			onFulfilled?: (value: UpdateRoleAssumeRolePolicyRow | null) => void,
+			onRejected?: (reason?: any) => void,
+		) {
+			ps.first<RawUpdateRoleAssumeRolePolicyRow | null>()
+				.then((raw: RawUpdateRoleAssumeRolePolicyRow | null) =>
+					raw
+						? {
+								id: raw.id,
+								name: raw.name,
+								description: raw.description,
+								permissions: raw.permissions,
+								assumeRolePolicy: raw.assume_role_policy,
+								createdAt: raw.created_at,
+								updatedAt: raw.updated_at,
 							}
 						: null,
 				)
@@ -2407,7 +2515,13 @@ export function updateUserPassword(
 }
 
 const getUserWithRolesQuery = `-- name: GetUserWithRoles :one
-SELECT u.id, u.username, u.email, u.password_hash, u.is_admin, u.created_at, u.updated_at, GROUP_CONCAT(r.name) as roles
+SELECT u.id, u.username, u.email, u.password_hash, u.is_admin, u.created_at, u.updated_at, json_group_array(
+  json_object(
+    'id', r.id,
+    'name', r.name,
+    'description', r.description
+  )
+) as roles
 FROM users u
 LEFT JOIN user_roles ur ON u.id = ur.user_id
 LEFT JOIN roles r ON ur.role_id = r.id
@@ -2427,7 +2541,7 @@ export type GetUserWithRolesRow = {
 	isAdmin: number | string | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
-	roles: string;
+	roles: number | string | null;
 };
 
 type RawGetUserWithRolesRow = {
@@ -2438,7 +2552,7 @@ type RawGetUserWithRolesRow = {
 	is_admin: number | string | null;
 	created_at: number | string | null;
 	updated_at: number | string | null;
-	roles: string;
+	roles: number | string | null;
 };
 
 export function getUserWithRoles(
@@ -2463,6 +2577,60 @@ export function getUserWithRoles(
 								createdAt: raw.created_at,
 								updatedAt: raw.updated_at,
 								roles: raw.roles,
+							}
+						: null,
+				)
+				.then(onFulfilled)
+				.catch(onRejected);
+		},
+		batch() {
+			return ps;
+		},
+	};
+}
+
+const checkUserPermissionQuery = `-- name: CheckUserPermission :one
+SELECT EXISTS (
+  SELECT 1
+  FROM users u
+  JOIN user_roles ur ON u.id = ur.user_id
+  JOIN roles r ON ur.role_id = r.id
+  WHERE u.id = ?1
+    AND json_extract(r.permissions, '$.actions') LIKE '%' || ?2 || '%'
+    AND json_extract(r.permissions, '$.resources') LIKE '%' || ?3 || '%'
+) as has_permission`;
+
+export type CheckUserPermissionParams = {
+	userId: number;
+	action: string | null;
+	resource: string | null;
+};
+
+export type CheckUserPermissionRow = {
+	hasPermission: number | string;
+};
+
+type RawCheckUserPermissionRow = {
+	has_permission: number | string;
+};
+
+export function checkUserPermission(
+	d1: D1Database,
+	args: CheckUserPermissionParams,
+): Query<CheckUserPermissionRow | null> {
+	const ps = d1
+		.prepare(checkUserPermissionQuery)
+		.bind(args.userId, args.action, args.resource);
+	return {
+		then(
+			onFulfilled?: (value: CheckUserPermissionRow | null) => void,
+			onRejected?: (reason?: any) => void,
+		) {
+			ps.first<RawCheckUserPermissionRow | null>()
+				.then((raw: RawCheckUserPermissionRow | null) =>
+					raw
+						? {
+								hasPermission: raw.has_permission,
 							}
 						: null,
 				)

@@ -1,6 +1,5 @@
 import { createHonoWithDB } from "../factory";
 import * as sql from "../gen/sqlc/querier";
-import { Role } from "../types/roleTypes";
 
 export const usersApp = createHonoWithDB()
 	.post("/", async (c) => {
@@ -21,6 +20,12 @@ export const usersApp = createHonoWithDB()
 		const result = await sql.getUserWithRoles(db, { id: Number(id) });
 		if (!result) {
 			return c.json({ error: "ユーザーが見つかりません" }, 404);
+		}
+		if (result.roles) {
+			return c.json({
+				...result,
+				roles: JSON.parse(result.roles.toString()),
+			});
 		}
 		return c.json(result);
 	})
@@ -45,17 +50,24 @@ export const usersApp = createHonoWithDB()
 	.post("/:id/roles", async (c) => {
 		const db = c.get("db");
 		const userId = c.req.param("id");
-		const { role } = await c.req.json();
+		const { roles } = await c.req.json();
 
-		if (!Object.values(Role).includes(role as Role)) {
-			return c.json({ error: "無効なロールです" }, 400);
+		if (
+			!Array.isArray(roles) ||
+			!roles.every((role) => typeof role === "string")
+		) {
+			return c.json({ error: "無効なロール形式です" }, 400);
 		}
 
-		const result = await sql.assignRoleToUser(db, {
-			userId: Number(userId),
-			roleName: role,
-		});
-		return c.json(result, 201);
+		const results = await Promise.all(
+			roles.map((role) =>
+				sql.assignRoleToUser(db, {
+					userId: Number(userId),
+					roleName: role,
+				}),
+			),
+		);
+		return c.json(results, 201);
 	})
 	.delete("/:id/roles/:role", async (c) => {
 		const db = c.get("db");

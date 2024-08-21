@@ -34,7 +34,13 @@ describe("users", () => {
 			email: "test@test.com",
 			passwordHash: "test",
 			isAdmin: expect.any(Number),
-			roles: "Viewer",
+			roles: [
+				{
+					id: 1,
+					name: "Viewer",
+					description: "Can view content",
+				},
+			],
 			createdAt: expect.any(String),
 			updatedAt: expect.any(String),
 		});
@@ -67,7 +73,7 @@ describe("users", () => {
 		expect(res.status).toBe(200);
 		expect(await res.text()).toBe("ユーザーが削除されました");
 	});
-	it("should assign a role to a user", async () => {
+	it("should assign multiple roles to a user", async () => {
 		const userRes = await SELF.fetch("https://example.com/users", {
 			method: "POST",
 			body: JSON.stringify({
@@ -83,22 +89,24 @@ describe("users", () => {
 			{
 				method: "POST",
 				body: JSON.stringify({
-					role: "Editor",
+					roles: ["Editor", "Viewer"],
 				}),
 			},
 		);
-		// EditorのroleIdを取得
-		const roleRes = await SELF.fetch("https://example.com/roles");
-		const roles = await roleRes.json();
-		const editorRole = roles.results.find(
-			(role: { name: string }) => role.name === "Editor",
-		);
 		expect(assignRes.status).toBe(201);
-		const assignedRole = await assignRes.json();
-		expect(assignedRole).toEqual({
+		const assignedRoles = await assignRes.json();
+		expect(assignedRoles).toHaveLength(2);
+		expect(assignedRoles[0]).toEqual({
 			id: expect.any(Number),
 			userId: user.id,
-			roleId: editorRole.id,
+			roleId: expect.any(Number),
+			createdAt: expect.any(String),
+			updatedAt: expect.any(String),
+		});
+		expect(assignedRoles[1]).toEqual({
+			id: expect.any(Number),
+			userId: user.id,
+			roleId: expect.any(Number),
 			createdAt: expect.any(String),
 			updatedAt: expect.any(String),
 		});

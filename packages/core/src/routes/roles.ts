@@ -4,12 +4,28 @@ import * as sql from "../gen/sqlc/querier";
 export const rolesApp = createHonoWithDB()
 	.post("/", async (c) => {
 		const db = c.get("db");
-		const { name, description } = await c.req.json();
-		const result = await sql.createRole(db, { name, description });
+		const { name, description, permissions, assumeRolePolicy } =
+			await c.req.json();
+		const result = await sql.createRole(db, {
+			name,
+			description,
+			permissions: JSON.stringify(permissions),
+			assumeRolePolicy: JSON.stringify(assumeRolePolicy),
+		});
 		if (!result) {
 			return c.json({ error: "ロールがすでに存在しています" }, 400);
 		}
-		return c.json(result, 201);
+		if (result.permissions && result.assumeRolePolicy) {
+			return c.json(
+				{
+					...result,
+					permissions: JSON.parse(result.permissions.toString()),
+					assumeRolePolicy: JSON.parse(result.assumeRolePolicy.toString()),
+				},
+				201,
+			);
+		}
+		return c.json({ error: "ロールが作成できませんでした" }, 500);
 	})
 	.get("/", async (c) => {
 		const db = c.get("db");
@@ -23,18 +39,38 @@ export const rolesApp = createHonoWithDB()
 		if (!result) {
 			return c.json({ error: "ロールが見つかりません" }, 404);
 		}
-		return c.json(result);
+		if (result.permissions && result.assumeRolePolicy) {
+			return c.json({
+				...result,
+				permissions: JSON.parse(result.permissions.toString()),
+				assumeRolePolicy: JSON.parse(result.assumeRolePolicy.toString()),
+			});
+		}
+		return c.json({ error: "ロールが見つかりません" }, 404);
 	})
 	.put("/:id", async (c) => {
 		const db = c.get("db");
 		const id = c.req.param("id");
-		const { name, description } = await c.req.json();
+		const { name, description, permissions, assumeRolePolicy } =
+			await c.req.json();
 		const result = await sql.updateRole(db, {
 			id: Number(id),
 			name,
 			description,
+			permissions: JSON.stringify(permissions),
+			assumeRolePolicy: JSON.stringify(assumeRolePolicy),
 		});
-		return c.json(result);
+		if (!result) {
+			return c.json({ error: "ロールが見つかりません" }, 404);
+		}
+		if (result.permissions && result.assumeRolePolicy) {
+			return c.json({
+				...result,
+				permissions: JSON.parse(result.permissions.toString()),
+				assumeRolePolicy: JSON.parse(result.assumeRolePolicy.toString()),
+			});
+		}
+		return c.json({ error: "ロールが見つかりません" }, 404);
 	})
 	.delete("/:id", async (c) => {
 		const db = c.get("db");
