@@ -54,7 +54,7 @@ importers:
         version: 1.8.3
       '@cloudflare/vitest-pool-workers':
         specifier: ^0.4.23
-        version: 0.4.23(@cloudflare/workers-types@4.20240815.0)(@vitest/runner@1.5.3)(@vitest/snapshot@1.5.3)(vitest@1.5.0(@types/node@20.16.1))
+        version: 0.4.24(@cloudflare/workers-types@4.20240815.0)(@vitest/runner@1.5.3)(@vitest/snapshot@1.5.3)(vitest@1.5.0(@types/node@20.16.1))
       '@cloudflare/workers-types':
         specifier: ^4.20240806.0
         version: 4.20240815.0
@@ -136,8 +136,8 @@ packages:
     resolution: {integrity: sha512-YLPHc8yASwjNkmcDMQMY35yiWjoKAKnhUbPRszBRS0YgH+IXtsMp61j+yTcnCE3oO2DgP0U3iejLC8FTtKDC8Q==}
     engines: {node: '>=16.13'}
 
-  '@cloudflare/vitest-pool-workers@0.4.23':
-    resolution: {integrity: sha512-oRRnotzP75mNITQvAURuok1ti9P7XEpy/E7KxSMaXa4A6ltOgTHbWG9dpdxY/dU0o7RgHP4ixNOn5DY4Cf4T1Q==}
+  '@cloudflare/vitest-pool-workers@0.4.24':
+    resolution: {integrity: sha512-FlsYb9sqmzeVqP4Qf1LTxp/WD5QdQQy3Pc9q8UEAUycskXSb72D5OlaTYoBa80s1O33xjWNpvw5oZVA1Ck3dDQ==}
     peerDependencies:
       '@vitest/runner': 1.3.x - 1.5.x
       '@vitest/snapshot': 1.3.x - 1.5.x
@@ -1300,7 +1300,7 @@ snapshots:
     dependencies:
       mime: 3.0.0
 
-  '@cloudflare/vitest-pool-workers@0.4.23(@cloudflare/workers-types@4.20240815.0)(@vitest/runner@1.5.3)(@vitest/snapshot@1.5.3)(vitest@1.5.0(@types/node@20.16.1))':
+  '@cloudflare/vitest-pool-workers@0.4.24(@cloudflare/workers-types@4.20240815.0)(@vitest/runner@1.5.3)(@vitest/snapshot@1.5.3)(vitest@1.5.0(@types/node@20.16.1))':
     dependencies:
       '@vitest/runner': 1.5.3
       '@vitest/snapshot': 1.5.3
@@ -1311,7 +1311,7 @@ snapshots:
       miniflare: 3.20240806.1
       semver: 7.6.3
       vitest: 1.5.0(@types/node@20.16.1)
-      wrangler: 3.72.0(@cloudflare/workers-types@4.20240815.0)
+      wrangler: 3.72.1(@cloudflare/workers-types@4.20240815.0)
       zod: 3.23.8
     transitivePeerDependencies:
       - '@cloudflare/workers-types'
