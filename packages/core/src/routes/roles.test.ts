@@ -5,7 +5,7 @@ describe("roles", () => {
 		const res = await SELF.fetch("https://example.com/roles", {
 			method: "POST",
 			body: JSON.stringify({
-				name: "Editor",
+				name: "TestEditor",
 				description: "Can edit content",
 			}),
 		});
@@ -13,7 +13,7 @@ describe("roles", () => {
 		const role = await res.json();
 		expect(role).toEqual({
 			id: expect.any(Number),
-			name: "Editor",
+			name: "TestEditor",
 			description: "Can edit content",
 			createdAt: expect.any(String),
 			updatedAt: expect.any(String),

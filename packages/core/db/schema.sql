@@ -66,3 +66,9 @@ CREATE TABLE user_roles (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   UNIQUE(user_id, role_id)
 );
+
+-- 事前定義されたロールを挿入
+INSERT INTO roles (name, description) VALUES
+('Viewer', 'Can view content'),
+('Editor', 'Can view and edit content'),
+('Admin', 'Has full access to all features');

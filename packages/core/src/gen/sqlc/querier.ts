@@ -1899,14 +1899,62 @@ export function getUserRoles(
 	};
 }
 
+const hasRoleQuery = `-- name: HasRole :one
+SELECT EXISTS (
+  SELECT 1
+  FROM user_roles ur
+  JOIN roles r ON ur.role_id = r.id
+  WHERE ur.user_id = ?1 AND r.name = ?2
+) as has_role`;
+
+export type HasRoleParams = {
+	userId: number | null;
+	roleName: number | string;
+};
+
+export type HasRoleRow = {
+	hasRole: number | string;
+};
+
+type RawHasRoleRow = {
+	has_role: number | string;
+};
+
+export function hasRole(
+	d1: D1Database,
+	args: HasRoleParams,
+): Query<HasRoleRow | null> {
+	const ps = d1.prepare(hasRoleQuery).bind(args.userId, args.roleName);
+	return {
+		then(
+			onFulfilled?: (value: HasRoleRow | null) => void,
+			onRejected?: (reason?: any) => void,
+		) {
+			ps.first<RawHasRoleRow | null>()
+				.then((raw: RawHasRoleRow | null) =>
+					raw
+						? {
+								hasRole: raw.has_role,
+							}
+						: null,
+				)
+				.then(onFulfilled)
+				.catch(onRejected);
+		},
+		batch() {
+			return ps;
+		},
+	};
+}
+
 const assignRoleToUserQuery = `-- name: AssignRoleToUser :one
 INSERT INTO user_roles (user_id, role_id)
-VALUES (?1, ?2)
+VALUES (?1, (SELECT id FROM roles WHERE name = ?2))
 RETURNING id, user_id, role_id, created_at, updated_at`;
 
 export type AssignRoleToUserParams = {
 	userId: number | null;
-	roleId: number | null;
+	roleName: number | string;
 };
 
 export type AssignRoleToUserRow = {
@@ -1929,7 +1977,7 @@ export function assignRoleToUser(
 	d1: D1Database,
 	args: AssignRoleToUserParams,
 ): Query<AssignRoleToUserRow | null> {
-	const ps = d1.prepare(assignRoleToUserQuery).bind(args.userId, args.roleId);
+	const ps = d1.prepare(assignRoleToUserQuery).bind(args.userId, args.roleName);
 	return {
 		then(
 			onFulfilled?: (value: AssignRoleToUserRow | null) => void,
@@ -1958,18 +2006,20 @@ export function assignRoleToUser(
 
 const removeRoleFromUserQuery = `-- name: RemoveRoleFromUser :exec
 DELETE FROM user_roles
-WHERE user_id = ?1 AND role_id = ?2`;
+WHERE user_id = ?1 AND role_id = (SELECT id FROM roles WHERE name = ?2)`;
 
 export type RemoveRoleFromUserParams = {
 	userId: number | null;
-	roleId: number | null;
+	roleName: number | string;
 };
 
 export function removeRoleFromUser(
 	d1: D1Database,
 	args: RemoveRoleFromUserParams,
 ): Query<D1Result> {
-	const ps = d1.prepare(removeRoleFromUserQuery).bind(args.userId, args.roleId);
+	const ps = d1
+		.prepare(removeRoleFromUserQuery)
+		.bind(args.userId, args.roleName);
 	return {
 		then(
 			onFulfilled?: (value: D1Result) => void,
@@ -2349,6 +2399,75 @@ export function updateUserPassword(
 			onRejected?: (reason?: any) => void,
 		) {
 			ps.run().then(onFulfilled).catch(onRejected);
+		},
+		batch() {
+			return ps;
+		},
+	};
+}
+
+const getUserWithRolesQuery = `-- name: GetUserWithRoles :one
+SELECT u.id, u.username, u.email, u.password_hash, u.is_admin, u.created_at, u.updated_at, GROUP_CONCAT(r.name) as roles
+FROM users u
+LEFT JOIN user_roles ur ON u.id = ur.user_id
+LEFT JOIN roles r ON ur.role_id = r.id
+WHERE u.id = ?1
+GROUP BY u.id
+LIMIT 1`;
+
+export type GetUserWithRolesParams = {
+	id: number;
+};
+
+export type GetUserWithRolesRow = {
+	id: number;
+	username: number | string;
+	email: number | string;
+	passwordHash: number | string;
+	isAdmin: number | string | null;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
+	roles: string;
+};
+
+type RawGetUserWithRolesRow = {
+	id: number;
+	username: number | string;
+	email: number | string;
+	password_hash: number | string;
+	is_admin: number | string | null;
+	created_at: number | string | null;
+	updated_at: number | string | null;
+	roles: string;
+};
+
+export function getUserWithRoles(
+	d1: D1Database,
+	args: GetUserWithRolesParams,
+): Query<GetUserWithRolesRow | null> {
+	const ps = d1.prepare(getUserWithRolesQuery).bind(args.id);
+	return {
+		then(
+			onFulfilled?: (value: GetUserWithRolesRow | null) => void,
+			onRejected?: (reason?: any) => void,
+		) {
+			ps.first<RawGetUserWithRolesRow | null>()
+				.then((raw: RawGetUserWithRolesRow | null) =>
+					raw
+						? {
+								id: raw.id,
+								username: raw.username,
+								email: raw.email,
+								passwordHash: raw.password_hash,
+								isAdmin: raw.is_admin,
+								createdAt: raw.created_at,
+								updatedAt: raw.updated_at,
+								roles: raw.roles,
+							}
+						: null,
+				)
+				.then(onFulfilled)
+				.catch(onRejected);
 		},
 		batch() {
 			return ps;

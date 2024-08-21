@@ -1,5 +1,6 @@
 import { createHonoWithDB } from "../factory";
 import * as sql from "../gen/sqlc/querier";
+import { Role } from "../types/roleTypes";
 
 export const usersApp = createHonoWithDB()
 	.post("/", async (c) => {
@@ -17,7 +18,7 @@ export const usersApp = createHonoWithDB()
 	.get("/:id", async (c) => {
 		const db = c.get("db");
 		const id = c.req.param("id");
-		const result = await sql.getUser(db, { id: Number(id) });
+		const result = await sql.getUserWithRoles(db, { id: Number(id) });
 		if (!result) {
 			return c.json({ error: "ユーザーが見つかりません" }, 404);
 		}
@@ -44,20 +45,25 @@ export const usersApp = createHonoWithDB()
 	.post("/:id/roles", async (c) => {
 		const db = c.get("db");
 		const userId = c.req.param("id");
-		const { roleId } = await c.req.json();
+		const { role } = await c.req.json();
+
+		if (!Object.values(Role).includes(role as Role)) {
+			return c.json({ error: "無効なロールです" }, 400);
+		}
+
 		const result = await sql.assignRoleToUser(db, {
 			userId: Number(userId),
-			roleId: Number(roleId),
+			roleName: role,
 		});
 		return c.json(result, 201);
 	})
-	.delete("/:id/roles/:roleId", async (c) => {
+	.delete("/:id/roles/:role", async (c) => {
 		const db = c.get("db");
 		const userId = c.req.param("id");
-		const roleId = c.req.param("roleId");
+		const role = c.req.param("role");
 		await sql.removeRoleFromUser(db, {
 			userId: Number(userId),
-			roleId: Number(roleId),
+			roleName: role,
 		});
 		return c.text("ロールがユーザーから削除されました", 200);
 	})

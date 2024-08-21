@@ -6,6 +6,9 @@ export const rolesApp = createHonoWithDB()
 		const db = c.get("db");
 		const { name, description } = await c.req.json();
 		const result = await sql.createRole(db, { name, description });
+		if (!result) {
+			return c.json({ error: "ロールがすでに存在しています" }, 400);
+		}
 		return c.json(result, 201);
 	})
 	.get("/", async (c) => {
