@@ -25,3 +25,8 @@ VALUES (1, 'test', 'text', true);
 -- テストフィールド値を作成
 INSERT INTO field_values (item_id, field_id, value)
 VALUES (1, 1, 'test');
+
+
+-- テストユーザーにテストロールを割り当てる
+INSERT INTO user_roles (user_id, role_id)
+VALUES (1, 1);

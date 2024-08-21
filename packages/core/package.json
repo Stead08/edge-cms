@@ -16,19 +16,19 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.8.3",
-    "@cloudflare/vitest-pool-workers": "^0.4.24",
+    "@biomejs/biome": "catalog:",
+    "@cloudflare/vitest-pool-workers": "catalog:",
     "@cloudflare/workers-types": "^4.20240815.0",
-    "@types/node": "^20.9.0",
-    "miniflare": "^3.20240806.1",
-    "typescript": "^5.5.4",
-    "vite": "^5.4.2",
-    "vitest": "1.5.0",
+    "@types/node": "catalog:",
+    "miniflare": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:",
     "wrangler": "^3.72.1"
   },
   "dependencies": {
-    "@hono/zod-validator": "^0.2.2",
+    "@hono/zod-validator": "catalog:",
     "hono": "^4.5.7",
-    "zod": "^3.23.8"
+    "zod": "catalog:"
   }
 }
