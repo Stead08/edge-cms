@@ -11,11 +11,14 @@ describe("users", () => {
 			}),
 		});
 		expect(res.status).toBe(201);
-		expect(await res.json()).toEqual({
+		const result = await res.json();
+		expect(result.isAdmin).toBeFalsy();
+		expect(result).toEqual({
 			id: 2,
 			username: "John Doe",
 			email: "john.doe@example.com",
 			passwordHash: "password",
+			isAdmin: expect.any(Number),
 			createdAt: expect.any(String),
 			updatedAt: expect.any(String),
 		});
@@ -23,11 +26,14 @@ describe("users", () => {
 	it("should get a user", async () => {
 		const res = await SELF.fetch("https://example.com/users/1");
 		expect(res.status).toBe(200);
-		expect(await res.json()).toEqual({
+		const result = await res.json();
+		expect(result.isAdmin).toBeFalsy();
+		expect(result).toEqual({
 			id: 1,
 			username: "test",
 			email: "test@test.com",
 			passwordHash: "test",
+			isAdmin: expect.any(Number),
 			createdAt: expect.any(String),
 			updatedAt: expect.any(String),
 		});
@@ -41,11 +47,14 @@ describe("users", () => {
 			}),
 		});
 		expect(res.status).toBe(200);
-		expect(await res.json()).toEqual({
+		const result = await res.json();
+		expect(result.isAdmin).toBeFalsy();
+		expect(result).toEqual({
 			id: 1,
 			username: "test2",
 			email: "test2@test.com",
 			passwordHash: "test",
+			isAdmin: expect.any(Number),
 			createdAt: expect.any(String),
 			updatedAt: expect.any(String),
 		});
@@ -56,5 +65,56 @@ describe("users", () => {
 		});
 		expect(res.status).toBe(200);
 		expect(await res.text()).toBe("ユーザーが削除されました");
+	});
+	it("should assign a role to a user", async () => {
+		const roleRes = await SELF.fetch("https://example.com/roles", {
+			method: "POST",
+			body: JSON.stringify({
+				name: "TestRole",
+				description: "Test role description",
+			}),
+		});
+		const role = await roleRes.json();
+
+		const userRes = await SELF.fetch("https://example.com/users", {
+			method: "POST",
+			body: JSON.stringify({
+				username: "testuser",
+				email: "testuser@example.com",
+				password: "password",
+			}),
+		});
+		const user = await userRes.json();
+
+		const assignRes = await SELF.fetch(
+			`https://example.com/users/${user.id}/roles`,
+			{
+				method: "POST",
+				body: JSON.stringify({
+					roleId: role.id,
+				}),
+			},
+		);
+		expect(assignRes.status).toBe(201);
+		const assignedRole = await assignRes.json();
+		expect(assignedRole).toEqual({
+			id: expect.any(Number),
+			userId: user.id,
+			roleId: role.id,
+			createdAt: expect.any(String),
+			updatedAt: expect.any(String),
+		});
+	});
+
+	it("should get user roles", async () => {
+		const userRes = await SELF.fetch("https://example.com/users/1/roles");
+		expect(userRes.status).toBe(200);
+		const json = await userRes.json();
+		const roles = json.results;
+		expect(Array.isArray(roles)).toBe(true);
+		expect(roles.length).toBeGreaterThan(0);
+		expect(roles[0]).toHaveProperty("id");
+		expect(roles[0]).toHaveProperty("name");
+		expect(roles[0]).toHaveProperty("description");
 	});
 });

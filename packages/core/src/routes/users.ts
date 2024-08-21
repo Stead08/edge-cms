@@ -10,6 +10,7 @@ export const usersApp = createHonoWithDB()
 			username,
 			email,
 			passwordHash: password,
+			isAdmin: null,
 		});
 		return c.json(result, 201);
 	})
@@ -30,6 +31,7 @@ export const usersApp = createHonoWithDB()
 			id: Number(id),
 			username,
 			email,
+			isAdmin: null,
 		});
 		return c.json(result);
 	})
@@ -38,4 +40,30 @@ export const usersApp = createHonoWithDB()
 		const id = c.req.param("id");
 		await sql.deleteUser(db, { id: Number(id) });
 		return c.text("ユーザーが削除されました", 200);
+	})
+	.post("/:id/roles", async (c) => {
+		const db = c.get("db");
+		const userId = c.req.param("id");
+		const { roleId } = await c.req.json();
+		const result = await sql.assignRoleToUser(db, {
+			userId: Number(userId),
+			roleId: Number(roleId),
+		});
+		return c.json(result, 201);
+	})
+	.delete("/:id/roles/:roleId", async (c) => {
+		const db = c.get("db");
+		const userId = c.req.param("id");
+		const roleId = c.req.param("roleId");
+		await sql.removeRoleFromUser(db, {
+			userId: Number(userId),
+			roleId: Number(roleId),
+		});
+		return c.text("ロールがユーザーから削除されました", 200);
+	})
+	.get("/:id/roles", async (c) => {
+		const db = c.get("db");
+		const userId = c.req.param("id");
+		const result = await sql.getUserRoles(db, { userId: Number(userId) });
+		return c.json(result);
 	});

@@ -1985,7 +1985,7 @@ export function removeRoleFromUser(
 
 const createUserQuery = `-- name: CreateUser :one
 INSERT INTO users (username, email, password_hash, is_admin)
-VALUES (?1, ?2, ?3, ?4)
+VALUES (?1, ?2, ?3, COALESCE(?4, false))
 RETURNING id, username, email, password_hash, is_admin, created_at, updated_at`;
 
 export type CreateUserParams = {

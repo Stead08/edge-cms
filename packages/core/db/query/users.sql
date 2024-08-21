@@ -1,6 +1,6 @@
 -- name: CreateUser :one
 INSERT INTO users (username, email, password_hash, is_admin)
-VALUES (@username, @email, @password_hash, @is_admin)
+VALUES (@username, @email, @password_hash, COALESCE(@is_admin, false))
 RETURNING *;
 
 -- name: GetUser :one
