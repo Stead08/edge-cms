@@ -1592,15 +1592,407 @@ export function countItemsForCollection(
 	};
 }
 
+const createRoleQuery = `-- name: CreateRole :one
+INSERT INTO roles (name, description)
+VALUES (?1, ?2)
+RETURNING id, name, description, created_at, updated_at`;
+
+export type CreateRoleParams = {
+	name: number | string;
+	description: string | null;
+};
+
+export type CreateRoleRow = {
+	id: number;
+	name: number | string;
+	description: string | null;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
+};
+
+type RawCreateRoleRow = {
+	id: number;
+	name: number | string;
+	description: string | null;
+	created_at: number | string | null;
+	updated_at: number | string | null;
+};
+
+export function createRole(
+	d1: D1Database,
+	args: CreateRoleParams,
+): Query<CreateRoleRow | null> {
+	const ps = d1.prepare(createRoleQuery).bind(args.name, args.description);
+	return {
+		then(
+			onFulfilled?: (value: CreateRoleRow | null) => void,
+			onRejected?: (reason?: any) => void,
+		) {
+			ps.first<RawCreateRoleRow | null>()
+				.then((raw: RawCreateRoleRow | null) =>
+					raw
+						? {
+								id: raw.id,
+								name: raw.name,
+								description: raw.description,
+								createdAt: raw.created_at,
+								updatedAt: raw.updated_at,
+							}
+						: null,
+				)
+				.then(onFulfilled)
+				.catch(onRejected);
+		},
+		batch() {
+			return ps;
+		},
+	};
+}
+
+const getRoleQuery = `-- name: GetRole :one
+SELECT id, name, description, created_at, updated_at FROM roles
+WHERE id = ?1 LIMIT 1`;
+
+export type GetRoleParams = {
+	id: number;
+};
+
+export type GetRoleRow = {
+	id: number;
+	name: number | string;
+	description: string | null;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
+};
+
+type RawGetRoleRow = {
+	id: number;
+	name: number | string;
+	description: string | null;
+	created_at: number | string | null;
+	updated_at: number | string | null;
+};
+
+export function getRole(
+	d1: D1Database,
+	args: GetRoleParams,
+): Query<GetRoleRow | null> {
+	const ps = d1.prepare(getRoleQuery).bind(args.id);
+	return {
+		then(
+			onFulfilled?: (value: GetRoleRow | null) => void,
+			onRejected?: (reason?: any) => void,
+		) {
+			ps.first<RawGetRoleRow | null>()
+				.then((raw: RawGetRoleRow | null) =>
+					raw
+						? {
+								id: raw.id,
+								name: raw.name,
+								description: raw.description,
+								createdAt: raw.created_at,
+								updatedAt: raw.updated_at,
+							}
+						: null,
+				)
+				.then(onFulfilled)
+				.catch(onRejected);
+		},
+		batch() {
+			return ps;
+		},
+	};
+}
+
+const listRolesQuery = `-- name: ListRoles :many
+SELECT id, name, description, created_at, updated_at FROM roles`;
+
+export type ListRolesRow = {
+	id: number;
+	name: number | string;
+	description: string | null;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
+};
+
+type RawListRolesRow = {
+	id: number;
+	name: number | string;
+	description: string | null;
+	created_at: number | string | null;
+	updated_at: number | string | null;
+};
+
+export function listRoles(d1: D1Database): Query<D1Result<ListRolesRow>> {
+	const ps = d1.prepare(listRolesQuery);
+	return {
+		then(
+			onFulfilled?: (value: D1Result<ListRolesRow>) => void,
+			onRejected?: (reason?: any) => void,
+		) {
+			ps.all<RawListRolesRow>()
+				.then((r: D1Result<RawListRolesRow>) => {
+					return {
+						...r,
+						results: r.results.map((raw: RawListRolesRow) => {
+							return {
+								id: raw.id,
+								name: raw.name,
+								description: raw.description,
+								createdAt: raw.created_at,
+								updatedAt: raw.updated_at,
+							};
+						}),
+					};
+				})
+				.then(onFulfilled)
+				.catch(onRejected);
+		},
+		batch() {
+			return ps;
+		},
+	};
+}
+
+const updateRoleQuery = `-- name: UpdateRole :one
+UPDATE roles
+SET name = ?1, description = ?2, updated_at = CURRENT_TIMESTAMP
+WHERE id = ?3
+RETURNING id, name, description, created_at, updated_at`;
+
+export type UpdateRoleParams = {
+	name: number | string;
+	description: string | null;
+	id: number;
+};
+
+export type UpdateRoleRow = {
+	id: number;
+	name: number | string;
+	description: string | null;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
+};
+
+type RawUpdateRoleRow = {
+	id: number;
+	name: number | string;
+	description: string | null;
+	created_at: number | string | null;
+	updated_at: number | string | null;
+};
+
+export function updateRole(
+	d1: D1Database,
+	args: UpdateRoleParams,
+): Query<UpdateRoleRow | null> {
+	const ps = d1
+		.prepare(updateRoleQuery)
+		.bind(args.name, args.description, args.id);
+	return {
+		then(
+			onFulfilled?: (value: UpdateRoleRow | null) => void,
+			onRejected?: (reason?: any) => void,
+		) {
+			ps.first<RawUpdateRoleRow | null>()
+				.then((raw: RawUpdateRoleRow | null) =>
+					raw
+						? {
+								id: raw.id,
+								name: raw.name,
+								description: raw.description,
+								createdAt: raw.created_at,
+								updatedAt: raw.updated_at,
+							}
+						: null,
+				)
+				.then(onFulfilled)
+				.catch(onRejected);
+		},
+		batch() {
+			return ps;
+		},
+	};
+}
+
+const deleteRoleQuery = `-- name: DeleteRole :exec
+DELETE FROM roles WHERE id = ?1`;
+
+export type DeleteRoleParams = {
+	id: number;
+};
+
+export function deleteRole(
+	d1: D1Database,
+	args: DeleteRoleParams,
+): Query<D1Result> {
+	const ps = d1.prepare(deleteRoleQuery).bind(args.id);
+	return {
+		then(
+			onFulfilled?: (value: D1Result) => void,
+			onRejected?: (reason?: any) => void,
+		) {
+			ps.run().then(onFulfilled).catch(onRejected);
+		},
+		batch() {
+			return ps;
+		},
+	};
+}
+
+const getUserRolesQuery = `-- name: GetUserRoles :many
+SELECT r.id, r.name, r.description, r.created_at, r.updated_at FROM roles r
+JOIN user_roles ur ON r.id = ur.role_id
+WHERE ur.user_id = ?1`;
+
+export type GetUserRolesParams = {
+	userId: number | null;
+};
+
+export type GetUserRolesRow = {
+	id: number;
+	name: number | string;
+	description: string | null;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
+};
+
+type RawGetUserRolesRow = {
+	id: number;
+	name: number | string;
+	description: string | null;
+	created_at: number | string | null;
+	updated_at: number | string | null;
+};
+
+export function getUserRoles(
+	d1: D1Database,
+	args: GetUserRolesParams,
+): Query<D1Result<GetUserRolesRow>> {
+	const ps = d1.prepare(getUserRolesQuery).bind(args.userId);
+	return {
+		then(
+			onFulfilled?: (value: D1Result<GetUserRolesRow>) => void,
+			onRejected?: (reason?: any) => void,
+		) {
+			ps.all<RawGetUserRolesRow>()
+				.then((r: D1Result<RawGetUserRolesRow>) => {
+					return {
+						...r,
+						results: r.results.map((raw: RawGetUserRolesRow) => {
+							return {
+								id: raw.id,
+								name: raw.name,
+								description: raw.description,
+								createdAt: raw.created_at,
+								updatedAt: raw.updated_at,
+							};
+						}),
+					};
+				})
+				.then(onFulfilled)
+				.catch(onRejected);
+		},
+		batch() {
+			return ps;
+		},
+	};
+}
+
+const assignRoleToUserQuery = `-- name: AssignRoleToUser :one
+INSERT INTO user_roles (user_id, role_id)
+VALUES (?1, ?2)
+RETURNING id, user_id, role_id, created_at, updated_at`;
+
+export type AssignRoleToUserParams = {
+	userId: number | null;
+	roleId: number | null;
+};
+
+export type AssignRoleToUserRow = {
+	id: number;
+	userId: number | null;
+	roleId: number | null;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
+};
+
+type RawAssignRoleToUserRow = {
+	id: number;
+	user_id: number | null;
+	role_id: number | null;
+	created_at: number | string | null;
+	updated_at: number | string | null;
+};
+
+export function assignRoleToUser(
+	d1: D1Database,
+	args: AssignRoleToUserParams,
+): Query<AssignRoleToUserRow | null> {
+	const ps = d1.prepare(assignRoleToUserQuery).bind(args.userId, args.roleId);
+	return {
+		then(
+			onFulfilled?: (value: AssignRoleToUserRow | null) => void,
+			onRejected?: (reason?: any) => void,
+		) {
+			ps.first<RawAssignRoleToUserRow | null>()
+				.then((raw: RawAssignRoleToUserRow | null) =>
+					raw
+						? {
+								id: raw.id,
+								userId: raw.user_id,
+								roleId: raw.role_id,
+								createdAt: raw.created_at,
+								updatedAt: raw.updated_at,
+							}
+						: null,
+				)
+				.then(onFulfilled)
+				.catch(onRejected);
+		},
+		batch() {
+			return ps;
+		},
+	};
+}
+
+const removeRoleFromUserQuery = `-- name: RemoveRoleFromUser :exec
+DELETE FROM user_roles
+WHERE user_id = ?1 AND role_id = ?2`;
+
+export type RemoveRoleFromUserParams = {
+	userId: number | null;
+	roleId: number | null;
+};
+
+export function removeRoleFromUser(
+	d1: D1Database,
+	args: RemoveRoleFromUserParams,
+): Query<D1Result> {
+	const ps = d1.prepare(removeRoleFromUserQuery).bind(args.userId, args.roleId);
+	return {
+		then(
+			onFulfilled?: (value: D1Result) => void,
+			onRejected?: (reason?: any) => void,
+		) {
+			ps.run().then(onFulfilled).catch(onRejected);
+		},
+		batch() {
+			return ps;
+		},
+	};
+}
+
 const createUserQuery = `-- name: CreateUser :one
-INSERT INTO users (username, email, password_hash)
-VALUES (?1, ?2, ?3)
-RETURNING id, username, email, password_hash, created_at, updated_at`;
+INSERT INTO users (username, email, password_hash, is_admin)
+VALUES (?1, ?2, ?3, ?4)
+RETURNING id, username, email, password_hash, is_admin, created_at, updated_at`;
 
 export type CreateUserParams = {
 	username: number | string;
 	email: number | string;
 	passwordHash: number | string;
+	isAdmin: number | string | null;
 };
 
 export type CreateUserRow = {
@@ -1608,6 +2000,7 @@ export type CreateUserRow = {
 	username: number | string;
 	email: number | string;
 	passwordHash: number | string;
+	isAdmin: number | string | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };
@@ -1617,6 +2010,7 @@ type RawCreateUserRow = {
 	username: number | string;
 	email: number | string;
 	password_hash: number | string;
+	is_admin: number | string | null;
 	created_at: number | string | null;
 	updated_at: number | string | null;
 };
@@ -1627,7 +2021,7 @@ export function createUser(
 ): Query<CreateUserRow | null> {
 	const ps = d1
 		.prepare(createUserQuery)
-		.bind(args.username, args.email, args.passwordHash);
+		.bind(args.username, args.email, args.passwordHash, args.isAdmin);
 	return {
 		then(
 			onFulfilled?: (value: CreateUserRow | null) => void,
@@ -1641,6 +2035,7 @@ export function createUser(
 								username: raw.username,
 								email: raw.email,
 								passwordHash: raw.password_hash,
+								isAdmin: raw.is_admin,
 								createdAt: raw.created_at,
 								updatedAt: raw.updated_at,
 							}
@@ -1656,7 +2051,7 @@ export function createUser(
 }
 
 const getUserQuery = `-- name: GetUser :one
-SELECT id, username, email, password_hash, created_at, updated_at FROM users
+SELECT id, username, email, password_hash, is_admin, created_at, updated_at FROM users
 WHERE id = ?1 LIMIT 1`;
 
 export type GetUserParams = {
@@ -1668,6 +2063,7 @@ export type GetUserRow = {
 	username: number | string;
 	email: number | string;
 	passwordHash: number | string;
+	isAdmin: number | string | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };
@@ -1677,6 +2073,7 @@ type RawGetUserRow = {
 	username: number | string;
 	email: number | string;
 	password_hash: number | string;
+	is_admin: number | string | null;
 	created_at: number | string | null;
 	updated_at: number | string | null;
 };
@@ -1699,6 +2096,7 @@ export function getUser(
 								username: raw.username,
 								email: raw.email,
 								passwordHash: raw.password_hash,
+								isAdmin: raw.is_admin,
 								createdAt: raw.created_at,
 								updatedAt: raw.updated_at,
 							}
@@ -1714,7 +2112,7 @@ export function getUser(
 }
 
 const listUsersQuery = `-- name: ListUsers :many
-SELECT id, username, email, password_hash, created_at, updated_at FROM users
+SELECT id, username, email, password_hash, is_admin, created_at, updated_at FROM users
 ORDER BY id`;
 
 export type ListUsersRow = {
@@ -1722,6 +2120,7 @@ export type ListUsersRow = {
 	username: number | string;
 	email: number | string;
 	passwordHash: number | string;
+	isAdmin: number | string | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };
@@ -1731,6 +2130,7 @@ type RawListUsersRow = {
 	username: number | string;
 	email: number | string;
 	password_hash: number | string;
+	is_admin: number | string | null;
 	created_at: number | string | null;
 	updated_at: number | string | null;
 };
@@ -1752,6 +2152,7 @@ export function listUsers(d1: D1Database): Query<D1Result<ListUsersRow>> {
 								username: raw.username,
 								email: raw.email,
 								passwordHash: raw.password_hash,
+								isAdmin: raw.is_admin,
 								createdAt: raw.created_at,
 								updatedAt: raw.updated_at,
 							};
@@ -1769,13 +2170,17 @@ export function listUsers(d1: D1Database): Query<D1Result<ListUsersRow>> {
 
 const updateUserQuery = `-- name: UpdateUser :one
 UPDATE users
-SET username = ?1, email = ?2, updated_at = CURRENT_TIMESTAMP
-WHERE id = ?3
-RETURNING id, username, email, password_hash, created_at, updated_at`;
+SET username = COALESCE(?1, username),
+    email = COALESCE(?2, email),
+    is_admin = COALESCE(?3, is_admin),
+    updated_at = CURRENT_TIMESTAMP
+WHERE id = ?4
+RETURNING id, username, email, password_hash, is_admin, created_at, updated_at`;
 
 export type UpdateUserParams = {
 	username: number | string;
 	email: number | string;
+	isAdmin: number | string | null;
 	id: number;
 };
 
@@ -1784,6 +2189,7 @@ export type UpdateUserRow = {
 	username: number | string;
 	email: number | string;
 	passwordHash: number | string;
+	isAdmin: number | string | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };
@@ -1793,6 +2199,7 @@ type RawUpdateUserRow = {
 	username: number | string;
 	email: number | string;
 	password_hash: number | string;
+	is_admin: number | string | null;
 	created_at: number | string | null;
 	updated_at: number | string | null;
 };
@@ -1803,7 +2210,7 @@ export function updateUser(
 ): Query<UpdateUserRow | null> {
 	const ps = d1
 		.prepare(updateUserQuery)
-		.bind(args.username, args.email, args.id);
+		.bind(args.username, args.email, args.isAdmin, args.id);
 	return {
 		then(
 			onFulfilled?: (value: UpdateUserRow | null) => void,
@@ -1817,6 +2224,7 @@ export function updateUser(
 								username: raw.username,
 								email: raw.email,
 								passwordHash: raw.password_hash,
+								isAdmin: raw.is_admin,
 								createdAt: raw.created_at,
 								updatedAt: raw.updated_at,
 							}
@@ -1844,6 +2252,97 @@ export function deleteUser(
 	args: DeleteUserParams,
 ): Query<D1Result> {
 	const ps = d1.prepare(deleteUserQuery).bind(args.id);
+	return {
+		then(
+			onFulfilled?: (value: D1Result) => void,
+			onRejected?: (reason?: any) => void,
+		) {
+			ps.run().then(onFulfilled).catch(onRejected);
+		},
+		batch() {
+			return ps;
+		},
+	};
+}
+
+const getUserByEmailQuery = `-- name: GetUserByEmail :one
+SELECT id, username, email, password_hash, is_admin, created_at, updated_at FROM users
+WHERE email = ?1 LIMIT 1`;
+
+export type GetUserByEmailParams = {
+	email: number | string;
+};
+
+export type GetUserByEmailRow = {
+	id: number;
+	username: number | string;
+	email: number | string;
+	passwordHash: number | string;
+	isAdmin: number | string | null;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
+};
+
+type RawGetUserByEmailRow = {
+	id: number;
+	username: number | string;
+	email: number | string;
+	password_hash: number | string;
+	is_admin: number | string | null;
+	created_at: number | string | null;
+	updated_at: number | string | null;
+};
+
+export function getUserByEmail(
+	d1: D1Database,
+	args: GetUserByEmailParams,
+): Query<GetUserByEmailRow | null> {
+	const ps = d1.prepare(getUserByEmailQuery).bind(args.email);
+	return {
+		then(
+			onFulfilled?: (value: GetUserByEmailRow | null) => void,
+			onRejected?: (reason?: any) => void,
+		) {
+			ps.first<RawGetUserByEmailRow | null>()
+				.then((raw: RawGetUserByEmailRow | null) =>
+					raw
+						? {
+								id: raw.id,
+								username: raw.username,
+								email: raw.email,
+								passwordHash: raw.password_hash,
+								isAdmin: raw.is_admin,
+								createdAt: raw.created_at,
+								updatedAt: raw.updated_at,
+							}
+						: null,
+				)
+				.then(onFulfilled)
+				.catch(onRejected);
+		},
+		batch() {
+			return ps;
+		},
+	};
+}
+
+const updateUserPasswordQuery = `-- name: UpdateUserPassword :exec
+UPDATE users
+SET password_hash = ?1, updated_at = CURRENT_TIMESTAMP
+WHERE id = ?2`;
+
+export type UpdateUserPasswordParams = {
+	passwordHash: number | string;
+	id: number;
+};
+
+export function updateUserPassword(
+	d1: D1Database,
+	args: UpdateUserPasswordParams,
+): Query<D1Result> {
+	const ps = d1
+		.prepare(updateUserPasswordQuery)
+		.bind(args.passwordHash, args.id);
 	return {
 		then(
 			onFulfilled?: (value: D1Result) => void,

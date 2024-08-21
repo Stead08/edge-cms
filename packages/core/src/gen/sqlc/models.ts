@@ -8,6 +8,7 @@ export type Users = {
 	username: number | string;
 	email: number | string;
 	passwordHash: number | string;
+	isAdmin: number | string | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };
@@ -50,6 +51,22 @@ export type FieldValues = {
 	itemId: number | null;
 	fieldId: number | null;
 	value: string | null;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
+};
+
+export type Roles = {
+	id: number;
+	name: number | string;
+	description: string | null;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
+};
+
+export type UserRoles = {
+	id: number;
+	userId: number | null;
+	roleId: number | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };
