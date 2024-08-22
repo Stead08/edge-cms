@@ -61,7 +61,7 @@ importers:
     dependencies:
       hono:
         specifier: ^4.5.5
-        version: 4.5.7
+        version: 4.5.8
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20240529.0
@@ -86,10 +86,10 @@ importers:
         version: 1.0.10(@auth/core@0.34.2)(hono@4.5.7)(react@18.3.1)
       '@hono/zod-validator':
         specifier: 'catalog:'
-        version: 0.2.2(hono@4.5.7)(zod@3.23.8)
+        version: 0.2.2(hono@4.5.8)(zod@3.23.8)
       hono:
         specifier: ^4.5.7
-        version: 4.5.7
+        version: 4.5.8
       zod:
         specifier: 'catalog:'
         version: 3.23.8
@@ -850,8 +850,8 @@ packages:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
 
-  hono@4.5.7:
-    resolution: {integrity: sha512-7GeBa+zuZ6rXQEcsYvoAafLNgDr3IMxoMlU1JUc23Buy99FaUpjB0viKIFOsfnzMdEp7RhPL6uLYsVuddjdMvw==}
+  hono@4.5.8:
+    resolution: {integrity: sha512-pqpSlcdqGkpTTRpLYU1PnCz52gVr0zVR9H5GzMyJWuKQLLEBQxh96q45QizJ2PPX8NATtz2mu31/PKW/Jt+90Q==}
     engines: {node: '>=16.0.0'}
 
   human-signals@5.0.0:
@@ -1602,6 +1602,7 @@ snapshots:
 
   '@fastify/busboy@2.1.1': {}
 
+  '@hono/zod-validator@0.2.2(hono@4.5.8)(zod@3.23.8)':
   '@hono/auth-js@1.0.10(@auth/core@0.34.2)(hono@4.5.7)(react@18.3.1)':
     dependencies:
       '@auth/core': 0.34.2
@@ -1610,7 +1611,7 @@ snapshots:
 
   '@hono/zod-validator@0.2.2(hono@4.5.7)(zod@3.23.8)':
     dependencies:
-      hono: 4.5.7
+      hono: 4.5.8
       zod: 3.23.8
 
   '@jest/schemas@29.6.3':
@@ -1941,7 +1942,7 @@ snapshots:
     dependencies:
       function-bind: 1.1.2
 
-  hono@4.5.7: {}
+  hono@4.5.8: {}
 
   human-signals@5.0.0: {}
 
