@@ -10,6 +10,7 @@ describe("users", () => {
 				email: "john.doe@example.com",
 				emailVerified: "2024-01-01T00:00:00Z",
 				image: "https://example.com/image.png",
+				password: "password",
 			}),
 		});
 		expect(res.status).toBe(201);
@@ -21,6 +22,7 @@ describe("users", () => {
 			email: "john.doe@example.com",
 			emailVerified: "2024-01-01T00:00:00Z",
 			image: "https://example.com/image.png",
+			passwordhash: expect.any(String),
 		});
 	});
 	it("should get a user", async () => {

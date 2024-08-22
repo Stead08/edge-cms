@@ -1,14 +1,7 @@
-import Credentials from "@auth/core/providers/credentials";
-import {
-	type AuthConfig,
-	authHandler,
-	initAuthConfig,
-	verifyAuth,
-} from "@hono/auth-js";
 import { zValidator } from "@hono/zod-validator";
-import type { Context } from "hono";
 import { z } from "zod";
 import { createHonoWithDB } from "./factory";
+import { authApp } from "./routes/auth";
 import { collectionsApp } from "./routes/collections";
 import { fieldValuesApp } from "./routes/fieldValues";
 import { fieldsApp } from "./routes/fields";
@@ -19,15 +12,13 @@ import { usersApp } from "./routes/users";
 
 export const createEdgeCms = () => {
 	const app = createHonoWithDB()
-		// .use("*", initAuthConfig(getAuthConfig))
-		// .use("/auth", authHandler())
-		// .use("/*", verifyAuth())
 		.route("/users", usersApp)
 		.route("/fields", fieldsApp)
 		.route("/field_values", fieldValuesApp)
 		.route("/collections", collectionsApp)
 		.route("/items", itemsApp)
 		.route("/roles", rolesApp)
+		.route("/auth", authApp)
 		.route("/", rootSlugApp)
 		.get(
 			"/hello",
@@ -49,13 +40,6 @@ export const createEdgeCms = () => {
 
 	return app;
 };
-
-// function getAuthConfig(c: Context): AuthConfig {
-// 	return {
-// 		secret: c.env.AUTH_SECRET,
-// 		providers: [Credentials({})],
-// 	};
-// }
 
 const app = createEdgeCms();
 

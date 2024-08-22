@@ -1,10 +1,14 @@
 import { createHonoWithDB } from "../factory";
 import * as sql from "../gen/sqlc/querier";
+import { hashPassword } from "../utils/auth";
 
 export const usersApp = createHonoWithDB()
 	.post("/", async (c) => {
 		const db = c.get("db");
-		const { id, name, email, emailVerified, image } = await c.req.json();
+		const secretSalt = c.get("auth_secret");
+		const { id, name, email, emailVerified, image, password } =
+			await c.req.json();
+		const passwordhash = await hashPassword(password, secretSalt);
 
 		const result = await sql.createUser(db, {
 			id,
@@ -12,6 +16,7 @@ export const usersApp = createHonoWithDB()
 			email,
 			emailVerified,
 			image,
+			passwordhash,
 		});
 		return c.json(result, 201);
 	})
@@ -33,13 +38,15 @@ export const usersApp = createHonoWithDB()
 	.put("/:id", async (c) => {
 		const db = c.get("db");
 		const id = c.req.param("id");
-		const { name, email, emailVerified, image } = await c.req.json();
+		const { name, email, emailVerified, image, passwordhash } =
+			await c.req.json();
 		const result = await sql.updateUser(db, {
 			id: id ?? null,
 			name: name ?? null,
 			email: email ?? null,
 			emailVerified: emailVerified ?? null,
 			image: image ?? null,
+			passwordhash: passwordhash ?? null,
 		});
 		return c.json(result);
 	})

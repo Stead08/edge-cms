@@ -8,6 +8,7 @@ export type Users = {
 	name: string | null;
 	email: string | null;
 	emailverified: string | null;
+	passwordhash: string;
 	image: string | null;
 };
 
