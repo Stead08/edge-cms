@@ -1,12 +1,20 @@
 -- このファイルはテスト用のデータベーススキーマです。
 
 -- テストユーザーを作成
-INSERT INTO users (username, email, password_hash)
-VALUES ('test', 'test@test.com', 'test');
+INSERT INTO users (id, name, email, emailVerified, image)
+VALUES ('TestUser', 'Test User', 'test@test.com', '2024-01-01T00:00:00Z', 'https://example.com/image.png');
+
+-- テストロールを作成
+INSERT INTO roles (name, description, permissions, assume_role_policy)
+VALUES ('TestAdmin', 'Administrator role', '{"manage": true}', '{"allow": true}');
+
+-- テストユーザーにテストロールを割り当てる
+INSERT INTO user_roles (user_id, role_id)
+VALUES ('TestUser', 1);
 
 -- テストコレクションを作成
 INSERT INTO collections (slug, label, description, access, default_sort, list_searchable_fields)
-VALUES ('test', 'test', 'test', true, 'created_at', 'created_at');
+VALUES ('test', 'Test Collection', 'This is a test collection', true, 'created_at', 'created_at');
 
 -- テストアイテムを作成
 INSERT INTO items (collection_id, status)
@@ -25,8 +33,3 @@ VALUES (1, 'test', 'text', true);
 -- テストフィールド値を作成
 INSERT INTO field_values (item_id, field_id, value)
 VALUES (1, 1, 'test');
-
-
--- テストユーザーにテストロールを割り当てる
-INSERT INTO user_roles (user_id, role_id)
-VALUES (1, 1);

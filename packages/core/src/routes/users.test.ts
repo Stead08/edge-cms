@@ -5,35 +5,35 @@ describe("users", () => {
 		const res = await SELF.fetch("https://example.com/users", {
 			method: "POST",
 			body: JSON.stringify({
-				username: "John Doe",
+				id: "JohnDoe",
+				name: "John Doe",
 				email: "john.doe@example.com",
-				password: "password",
+				emailVerified: "2024-01-01T00:00:00Z",
+				image: "https://example.com/image.png",
 			}),
 		});
 		expect(res.status).toBe(201);
 		const result = await res.json();
 		expect(result.isAdmin).toBeFalsy();
 		expect(result).toEqual({
-			id: 2,
-			username: "John Doe",
+			id: "JohnDoe",
+			name: "John Doe",
 			email: "john.doe@example.com",
-			passwordHash: "password",
-			isAdmin: expect.any(Number),
-			createdAt: expect.any(String),
-			updatedAt: expect.any(String),
+			emailVerified: "2024-01-01T00:00:00Z",
+			image: "https://example.com/image.png",
 		});
 	});
 	it("should get a user", async () => {
-		const res = await SELF.fetch("https://example.com/users/1");
+		const res = await SELF.fetch("https://example.com/users/TestUser");
 		expect(res.status).toBe(200);
 		const result = await res.json();
 		expect(result.isAdmin).toBeFalsy();
 		expect(result).toEqual({
-			id: 1,
-			username: "test",
+			id: "TestUser",
+			name: "Test User",
 			email: "test@test.com",
-			passwordHash: "test",
-			isAdmin: expect.any(Number),
+			emailVerified: "2024-01-01T00:00:00Z",
+			image: "https://example.com/image.png",
 			roles: [
 				{
 					id: 1,
@@ -41,15 +41,13 @@ describe("users", () => {
 					description: "Can view content",
 				},
 			],
-			createdAt: expect.any(String),
-			updatedAt: expect.any(String),
 		});
 	});
 	it("should update a user", async () => {
-		const res = await SELF.fetch("https://example.com/users/1", {
+		const res = await SELF.fetch("https://example.com/users/TestUser", {
 			method: "PUT",
 			body: JSON.stringify({
-				username: "test2",
+				name: "Test User 2",
 				email: "test2@test.com",
 			}),
 		});
@@ -57,13 +55,11 @@ describe("users", () => {
 		const result = await res.json();
 		expect(result.isAdmin).toBeFalsy();
 		expect(result).toEqual({
-			id: 1,
-			username: "test2",
+			id: "TestUser",
+			name: "Test User 2",
 			email: "test2@test.com",
-			passwordHash: "test",
-			isAdmin: expect.any(Number),
-			createdAt: expect.any(String),
-			updatedAt: expect.any(String),
+			emailVerified: "2024-01-01T00:00:00Z",
+			image: "https://example.com/image.png",
 		});
 	});
 	it("should delete a user", async () => {
@@ -77,13 +73,16 @@ describe("users", () => {
 		const userRes = await SELF.fetch("https://example.com/users", {
 			method: "POST",
 			body: JSON.stringify({
-				username: "testuser",
+				id: "testuser",
+				name: "testuser",
 				email: "testuser@example.com",
-				password: "password",
+				emailVerified: "2024-01-01T00:00:00Z",
+				image: "https://example.com/image.png",
 			}),
 		});
+		expect(userRes.status).toBe(201);
 		const user = await userRes.json();
-
+		expect(user.id).toBe("testuser");
 		const assignRes = await SELF.fetch(
 			`https://example.com/users/${user.id}/roles`,
 			{
@@ -98,22 +97,24 @@ describe("users", () => {
 		expect(assignedRoles).toHaveLength(2);
 		expect(assignedRoles[0]).toEqual({
 			id: expect.any(Number),
-			userId: user.id,
 			roleId: expect.any(Number),
 			createdAt: expect.any(String),
 			updatedAt: expect.any(String),
+			userId: user.id,
 		});
 		expect(assignedRoles[1]).toEqual({
 			id: expect.any(Number),
-			userId: user.id,
 			roleId: expect.any(Number),
 			createdAt: expect.any(String),
 			updatedAt: expect.any(String),
+			userId: user.id,
 		});
 	});
 
 	it("should get user roles", async () => {
-		const userRes = await SELF.fetch("https://example.com/users/1/roles");
+		const userRes = await SELF.fetch(
+			"https://example.com/users/TestUser/roles",
+		);
 		expect(userRes.status).toBe(200);
 		const json = await userRes.json();
 		const roles = json.results;
@@ -122,5 +123,15 @@ describe("users", () => {
 		expect(roles[0]).toHaveProperty("id");
 		expect(roles[0]).toHaveProperty("name");
 		expect(roles[0]).toHaveProperty("description");
+	});
+	it("should remove a role from a user", async () => {
+		const res = await SELF.fetch(
+			"https://example.com/users/TestUser/roles/Viewer",
+			{
+				method: "DELETE",
+			},
+		);
+		expect(res.status).toBe(200);
+		expect(await res.text()).toBe("ロールがユーザーから削除されました");
 	});
 });

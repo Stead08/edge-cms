@@ -1,6 +1,6 @@
 -- name: CreateUser :one
-INSERT INTO users (username, email, password_hash, is_admin)
-VALUES (@username, @email, @password_hash, COALESCE(@is_admin, false))
+INSERT INTO users (id, name, email, emailVerified, image)
+VALUES (@id, @name, @email, @emailVerified, @image)
 RETURNING *;
 
 -- name: GetUser :one
@@ -13,10 +13,10 @@ ORDER BY id;
 
 -- name: UpdateUser :one
 UPDATE users
-SET username = COALESCE(@username, username),
+SET name = COALESCE(@name, name),
     email = COALESCE(@email, email),
-    is_admin = COALESCE(@is_admin, is_admin),
-    updated_at = CURRENT_TIMESTAMP
+    emailVerified = COALESCE(@emailVerified, emailVerified),
+    image = COALESCE(@image, image)
 WHERE id = @id
 RETURNING *;
 
@@ -27,11 +27,6 @@ WHERE id = @id;
 -- name: GetUserByEmail :one
 SELECT * FROM users
 WHERE email = @email LIMIT 1;
-
--- name: UpdateUserPassword :exec
-UPDATE users
-SET password_hash = @password_hash, updated_at = CURRENT_TIMESTAMP
-WHERE id = @id;
 
 -- name: GetUserWithRoles :one
 SELECT u.*, json_group_array(

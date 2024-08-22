@@ -1882,7 +1882,7 @@ JOIN user_roles ur ON r.id = ur.role_id
 WHERE ur.user_id = ?1`;
 
 export type GetUserRolesParams = {
-	userId: number | null;
+	userId: string | null;
 };
 
 export type GetUserRolesRow = {
@@ -1950,7 +1950,7 @@ SELECT EXISTS (
 ) as has_role`;
 
 export type HasRoleParams = {
-	userId: number | null;
+	userId: string | null;
 	roleName: number | string;
 };
 
@@ -2061,13 +2061,13 @@ VALUES (?1, (SELECT id FROM roles WHERE name = ?2))
 RETURNING id, user_id, role_id, created_at, updated_at`;
 
 export type AssignRoleToUserParams = {
-	userId: number | null;
+	userId: string | null;
 	roleName: number | string;
 };
 
 export type AssignRoleToUserRow = {
 	id: number;
-	userId: number | null;
+	userId: string | null;
 	roleId: number | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
@@ -2075,7 +2075,7 @@ export type AssignRoleToUserRow = {
 
 type RawAssignRoleToUserRow = {
 	id: number;
-	user_id: number | null;
+	user_id: string | null;
 	role_id: number | null;
 	created_at: number | string | null;
 	updated_at: number | string | null;
@@ -2117,7 +2117,7 @@ DELETE FROM user_roles
 WHERE user_id = ?1 AND role_id = (SELECT id FROM roles WHERE name = ?2)`;
 
 export type RemoveRoleFromUserParams = {
-	userId: number | null;
+	userId: string | null;
 	roleName: number | string;
 };
 
@@ -2142,35 +2142,24 @@ export function removeRoleFromUser(
 }
 
 const createUserQuery = `-- name: CreateUser :one
-INSERT INTO users (username, email, password_hash, is_admin)
-VALUES (?1, ?2, ?3, COALESCE(?4, false))
-RETURNING id, username, email, password_hash, is_admin, created_at, updated_at`;
+INSERT INTO users (id, name, email, emailVerified, image)
+VALUES (?1, ?2, ?3, ?4, ?5)
+RETURNING id, name, email, emailverified, image`;
 
 export type CreateUserParams = {
-	username: number | string;
-	email: number | string;
-	passwordHash: number | string;
-	isAdmin: number | string | null;
+	id: string;
+	name: string | null;
+	email: string | null;
+	emailVerified: string | null;
+	image: string | null;
 };
 
 export type CreateUserRow = {
-	id: number;
-	username: number | string;
-	email: number | string;
-	passwordHash: number | string;
-	isAdmin: number | string | null;
-	createdAt: number | string | null;
-	updatedAt: number | string | null;
-};
-
-type RawCreateUserRow = {
-	id: number;
-	username: number | string;
-	email: number | string;
-	password_hash: number | string;
-	is_admin: number | string | null;
-	created_at: number | string | null;
-	updated_at: number | string | null;
+	id: string;
+	name: string | null;
+	email: string | null;
+	emailverified: string | null;
+	image: string | null;
 };
 
 export function createUser(
@@ -2179,28 +2168,13 @@ export function createUser(
 ): Query<CreateUserRow | null> {
 	const ps = d1
 		.prepare(createUserQuery)
-		.bind(args.username, args.email, args.passwordHash, args.isAdmin);
+		.bind(args.id, args.name, args.email, args.emailVerified, args.image);
 	return {
 		then(
 			onFulfilled?: (value: CreateUserRow | null) => void,
 			onRejected?: (reason?: any) => void,
 		) {
-			ps.first<RawCreateUserRow | null>()
-				.then((raw: RawCreateUserRow | null) =>
-					raw
-						? {
-								id: raw.id,
-								username: raw.username,
-								email: raw.email,
-								passwordHash: raw.password_hash,
-								isAdmin: raw.is_admin,
-								createdAt: raw.created_at,
-								updatedAt: raw.updated_at,
-							}
-						: null,
-				)
-				.then(onFulfilled)
-				.catch(onRejected);
+			ps.first<CreateUserRow | null>().then(onFulfilled).catch(onRejected);
 		},
 		batch() {
 			return ps;
@@ -2209,31 +2183,19 @@ export function createUser(
 }
 
 const getUserQuery = `-- name: GetUser :one
-SELECT id, username, email, password_hash, is_admin, created_at, updated_at FROM users
+SELECT id, name, email, emailverified, image FROM users
 WHERE id = ?1 LIMIT 1`;
 
 export type GetUserParams = {
-	id: number;
+	id: string;
 };
 
 export type GetUserRow = {
-	id: number;
-	username: number | string;
-	email: number | string;
-	passwordHash: number | string;
-	isAdmin: number | string | null;
-	createdAt: number | string | null;
-	updatedAt: number | string | null;
-};
-
-type RawGetUserRow = {
-	id: number;
-	username: number | string;
-	email: number | string;
-	password_hash: number | string;
-	is_admin: number | string | null;
-	created_at: number | string | null;
-	updated_at: number | string | null;
+	id: string;
+	name: string | null;
+	email: string | null;
+	emailverified: string | null;
+	image: string | null;
 };
 
 export function getUser(
@@ -2246,22 +2208,7 @@ export function getUser(
 			onFulfilled?: (value: GetUserRow | null) => void,
 			onRejected?: (reason?: any) => void,
 		) {
-			ps.first<RawGetUserRow | null>()
-				.then((raw: RawGetUserRow | null) =>
-					raw
-						? {
-								id: raw.id,
-								username: raw.username,
-								email: raw.email,
-								passwordHash: raw.password_hash,
-								isAdmin: raw.is_admin,
-								createdAt: raw.created_at,
-								updatedAt: raw.updated_at,
-							}
-						: null,
-				)
-				.then(onFulfilled)
-				.catch(onRejected);
+			ps.first<GetUserRow | null>().then(onFulfilled).catch(onRejected);
 		},
 		batch() {
 			return ps;
@@ -2270,27 +2217,15 @@ export function getUser(
 }
 
 const listUsersQuery = `-- name: ListUsers :many
-SELECT id, username, email, password_hash, is_admin, created_at, updated_at FROM users
+SELECT id, name, email, emailverified, image FROM users
 ORDER BY id`;
 
 export type ListUsersRow = {
-	id: number;
-	username: number | string;
-	email: number | string;
-	passwordHash: number | string;
-	isAdmin: number | string | null;
-	createdAt: number | string | null;
-	updatedAt: number | string | null;
-};
-
-type RawListUsersRow = {
-	id: number;
-	username: number | string;
-	email: number | string;
-	password_hash: number | string;
-	is_admin: number | string | null;
-	created_at: number | string | null;
-	updated_at: number | string | null;
+	id: string;
+	name: string | null;
+	email: string | null;
+	emailverified: string | null;
+	image: string | null;
 };
 
 export function listUsers(d1: D1Database): Query<D1Result<ListUsersRow>> {
@@ -2300,25 +2235,7 @@ export function listUsers(d1: D1Database): Query<D1Result<ListUsersRow>> {
 			onFulfilled?: (value: D1Result<ListUsersRow>) => void,
 			onRejected?: (reason?: any) => void,
 		) {
-			ps.all<RawListUsersRow>()
-				.then((r: D1Result<RawListUsersRow>) => {
-					return {
-						...r,
-						results: r.results.map((raw: RawListUsersRow) => {
-							return {
-								id: raw.id,
-								username: raw.username,
-								email: raw.email,
-								passwordHash: raw.password_hash,
-								isAdmin: raw.is_admin,
-								createdAt: raw.created_at,
-								updatedAt: raw.updated_at,
-							};
-						}),
-					};
-				})
-				.then(onFulfilled)
-				.catch(onRejected);
+			ps.all<ListUsersRow>().then(onFulfilled).catch(onRejected);
 		},
 		batch() {
 			return ps;
@@ -2328,38 +2245,27 @@ export function listUsers(d1: D1Database): Query<D1Result<ListUsersRow>> {
 
 const updateUserQuery = `-- name: UpdateUser :one
 UPDATE users
-SET username = COALESCE(?1, username),
+SET name = COALESCE(?1, name),
     email = COALESCE(?2, email),
-    is_admin = COALESCE(?3, is_admin),
-    updated_at = CURRENT_TIMESTAMP
-WHERE id = ?4
-RETURNING id, username, email, password_hash, is_admin, created_at, updated_at`;
+    emailVerified = COALESCE(?3, emailVerified),
+    image = COALESCE(?4, image)
+WHERE id = ?5
+RETURNING id, name, email, emailverified, image`;
 
 export type UpdateUserParams = {
-	username: number | string;
-	email: number | string;
-	isAdmin: number | string | null;
-	id: number;
+	name: string | null;
+	email: string | null;
+	emailVerified: string | null;
+	image: string | null;
+	id: string;
 };
 
 export type UpdateUserRow = {
-	id: number;
-	username: number | string;
-	email: number | string;
-	passwordHash: number | string;
-	isAdmin: number | string | null;
-	createdAt: number | string | null;
-	updatedAt: number | string | null;
-};
-
-type RawUpdateUserRow = {
-	id: number;
-	username: number | string;
-	email: number | string;
-	password_hash: number | string;
-	is_admin: number | string | null;
-	created_at: number | string | null;
-	updated_at: number | string | null;
+	id: string;
+	name: string | null;
+	email: string | null;
+	emailverified: string | null;
+	image: string | null;
 };
 
 export function updateUser(
@@ -2368,28 +2274,13 @@ export function updateUser(
 ): Query<UpdateUserRow | null> {
 	const ps = d1
 		.prepare(updateUserQuery)
-		.bind(args.username, args.email, args.isAdmin, args.id);
+		.bind(args.name, args.email, args.emailVerified, args.image, args.id);
 	return {
 		then(
 			onFulfilled?: (value: UpdateUserRow | null) => void,
 			onRejected?: (reason?: any) => void,
 		) {
-			ps.first<RawUpdateUserRow | null>()
-				.then((raw: RawUpdateUserRow | null) =>
-					raw
-						? {
-								id: raw.id,
-								username: raw.username,
-								email: raw.email,
-								passwordHash: raw.password_hash,
-								isAdmin: raw.is_admin,
-								createdAt: raw.created_at,
-								updatedAt: raw.updated_at,
-							}
-						: null,
-				)
-				.then(onFulfilled)
-				.catch(onRejected);
+			ps.first<UpdateUserRow | null>().then(onFulfilled).catch(onRejected);
 		},
 		batch() {
 			return ps;
@@ -2402,7 +2293,7 @@ DELETE FROM users
 WHERE id = ?1`;
 
 export type DeleteUserParams = {
-	id: number;
+	id: string;
 };
 
 export function deleteUser(
@@ -2424,31 +2315,19 @@ export function deleteUser(
 }
 
 const getUserByEmailQuery = `-- name: GetUserByEmail :one
-SELECT id, username, email, password_hash, is_admin, created_at, updated_at FROM users
+SELECT id, name, email, emailverified, image FROM users
 WHERE email = ?1 LIMIT 1`;
 
 export type GetUserByEmailParams = {
-	email: number | string;
+	email: string | null;
 };
 
 export type GetUserByEmailRow = {
-	id: number;
-	username: number | string;
-	email: number | string;
-	passwordHash: number | string;
-	isAdmin: number | string | null;
-	createdAt: number | string | null;
-	updatedAt: number | string | null;
-};
-
-type RawGetUserByEmailRow = {
-	id: number;
-	username: number | string;
-	email: number | string;
-	password_hash: number | string;
-	is_admin: number | string | null;
-	created_at: number | string | null;
-	updated_at: number | string | null;
+	id: string;
+	name: string | null;
+	email: string | null;
+	emailverified: string | null;
+	image: string | null;
 };
 
 export function getUserByEmail(
@@ -2461,52 +2340,7 @@ export function getUserByEmail(
 			onFulfilled?: (value: GetUserByEmailRow | null) => void,
 			onRejected?: (reason?: any) => void,
 		) {
-			ps.first<RawGetUserByEmailRow | null>()
-				.then((raw: RawGetUserByEmailRow | null) =>
-					raw
-						? {
-								id: raw.id,
-								username: raw.username,
-								email: raw.email,
-								passwordHash: raw.password_hash,
-								isAdmin: raw.is_admin,
-								createdAt: raw.created_at,
-								updatedAt: raw.updated_at,
-							}
-						: null,
-				)
-				.then(onFulfilled)
-				.catch(onRejected);
-		},
-		batch() {
-			return ps;
-		},
-	};
-}
-
-const updateUserPasswordQuery = `-- name: UpdateUserPassword :exec
-UPDATE users
-SET password_hash = ?1, updated_at = CURRENT_TIMESTAMP
-WHERE id = ?2`;
-
-export type UpdateUserPasswordParams = {
-	passwordHash: number | string;
-	id: number;
-};
-
-export function updateUserPassword(
-	d1: D1Database,
-	args: UpdateUserPasswordParams,
-): Query<D1Result> {
-	const ps = d1
-		.prepare(updateUserPasswordQuery)
-		.bind(args.passwordHash, args.id);
-	return {
-		then(
-			onFulfilled?: (value: D1Result) => void,
-			onRejected?: (reason?: any) => void,
-		) {
-			ps.run().then(onFulfilled).catch(onRejected);
+			ps.first<GetUserByEmailRow | null>().then(onFulfilled).catch(onRejected);
 		},
 		batch() {
 			return ps;
@@ -2515,7 +2349,7 @@ export function updateUserPassword(
 }
 
 const getUserWithRolesQuery = `-- name: GetUserWithRoles :one
-SELECT u.id, u.username, u.email, u.password_hash, u.is_admin, u.created_at, u.updated_at, json_group_array(
+SELECT u.id, u.name, u.email, u.emailverified, u.image, json_group_array(
   json_object(
     'id', r.id,
     'name', r.name,
@@ -2530,28 +2364,15 @@ GROUP BY u.id
 LIMIT 1`;
 
 export type GetUserWithRolesParams = {
-	id: number;
+	id: string;
 };
 
 export type GetUserWithRolesRow = {
-	id: number;
-	username: number | string;
-	email: number | string;
-	passwordHash: number | string;
-	isAdmin: number | string | null;
-	createdAt: number | string | null;
-	updatedAt: number | string | null;
-	roles: number | string | null;
-};
-
-type RawGetUserWithRolesRow = {
-	id: number;
-	username: number | string;
-	email: number | string;
-	password_hash: number | string;
-	is_admin: number | string | null;
-	created_at: number | string | null;
-	updated_at: number | string | null;
+	id: string;
+	name: string | null;
+	email: string | null;
+	emailverified: string | null;
+	image: string | null;
 	roles: number | string | null;
 };
 
@@ -2565,21 +2386,7 @@ export function getUserWithRoles(
 			onFulfilled?: (value: GetUserWithRolesRow | null) => void,
 			onRejected?: (reason?: any) => void,
 		) {
-			ps.first<RawGetUserWithRolesRow | null>()
-				.then((raw: RawGetUserWithRolesRow | null) =>
-					raw
-						? {
-								id: raw.id,
-								username: raw.username,
-								email: raw.email,
-								passwordHash: raw.password_hash,
-								isAdmin: raw.is_admin,
-								createdAt: raw.created_at,
-								updatedAt: raw.updated_at,
-								roles: raw.roles,
-							}
-						: null,
-				)
+			ps.first<GetUserWithRolesRow | null>()
 				.then(onFulfilled)
 				.catch(onRejected);
 		},
@@ -2601,7 +2408,7 @@ SELECT EXISTS (
 ) as has_permission`;
 
 export type CheckUserPermissionParams = {
-	userId: number;
+	userId: string;
 	action: string | null;
 	resource: string | null;
 };
