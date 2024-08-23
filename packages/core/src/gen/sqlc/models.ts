@@ -4,13 +4,42 @@
 //   sqlc-gen-ts-d1 v0.0.0-a@dfd4bfef4736967ca17cc23d18de20920fbd196998fe7aa191a205439d63fb58
 
 export type Users = {
-	id: number;
-	username: number | string;
-	email: number | string;
-	passwordHash: number | string;
-	isAdmin: number | string | null;
-	createdAt: number | string | null;
-	updatedAt: number | string | null;
+	id: string;
+	name: string | null;
+	email: string | null;
+	emailverified: string | null;
+	passwordhash: string;
+	image: string | null;
+};
+
+export type Accounts = {
+	id: string;
+	userid: string;
+	type: string;
+	provider: string;
+	provideraccountid: string;
+	refreshToken: string | null;
+	accessToken: string | null;
+	expiresAt: number | string | null;
+	tokenType: string | null;
+	scope: string | null;
+	idToken: string | null;
+	sessionState: string | null;
+	oauthTokenSecret: string | null;
+	oauthToken: string | null;
+};
+
+export type Sessions = {
+	id: string;
+	sessiontoken: string;
+	userid: string;
+	expires: string;
+};
+
+export type VerificationTokens = {
+	identifier: string;
+	token: string;
+	expires: string;
 };
 
 export type Collections = {
@@ -67,7 +96,7 @@ export type Roles = {
 
 export type UserRoles = {
 	id: number;
-	userId: number | null;
+	userId: string | null;
 	roleId: number | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
