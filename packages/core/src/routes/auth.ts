@@ -48,7 +48,6 @@ export const authApp = createHonoWithDB()
 		const payload = c.get("jwtPayload");
 		const userId = payload.id;
 		const db = c.get("db");
-
 		try {
 			const user = await sql.getUser(db, { id: userId });
 			if (!user) {

@@ -107,11 +107,20 @@ describe("Auth Routes", () => {
 		expect(user).toHaveProperty("name", "User Info");
 	});
 
-	it("should return an error for unauthorized access", async () => {
+	it("should return an error for unauthorized access with no headers Authorization", async () => {
 		const res = await SELF.fetch("https://example.com/auth/me", {
 			method: "GET",
 		});
 
+		expect(res.status).toBe(401);
+	});
+	it("should return an error for unauthorized access with invalid Bearer token", async () => {
+		const res = await SELF.fetch("https://example.com/auth/me", {
+			method: "GET",
+			headers: {
+				Authorization: "Bearer it-is-very-secret",
+			},
+		});
 		expect(res.status).toBe(401);
 	});
 });

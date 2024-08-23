@@ -20,9 +20,7 @@ describe("users", () => {
 			id: "JohnDoe",
 			name: "John Doe",
 			email: "john.doe@example.com",
-			emailVerified: "2024-01-01T00:00:00Z",
 			image: "https://example.com/image.png",
-			passwordhash: expect.any(String),
 		});
 	});
 	it("should get a user", async () => {

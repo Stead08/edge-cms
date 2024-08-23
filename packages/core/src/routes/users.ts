@@ -18,7 +18,18 @@ export const usersApp = createHonoWithDB()
 			image,
 			passwordhash,
 		});
-		return c.json(result, 201);
+		if (!result) {
+			return c.json({ error: "ユーザーを作成できませんでした。" }, 500);
+		}
+		return c.json(
+			{
+				id: result.id,
+				name: result.name,
+				email: result.email,
+				image: result.image,
+			},
+			201,
+		);
 	})
 	.get("/:id", async (c) => {
 		const db = c.get("db");

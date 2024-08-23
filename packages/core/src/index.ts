@@ -19,6 +19,25 @@ export const createEdgeCms = () => {
 		.route("/items", itemsApp)
 		.route("/roles", rolesApp)
 		.route("/auth", authApp)
+		.get("/kv", async (c) => {
+			const test = c.req.query("test") ?? "no test";
+			if (test) {
+				await c.env.KV.put("test", JSON.stringify(test));
+			}
+			const output_test = (await c.env.KV.get("test")) ?? "no test";
+			return c.text(output_test);
+		})
+		.post("/r2", async (c) => {
+			const r2 = c.get("r2");
+			const params = await c.req.json();
+			const res = await r2.put(params.id, JSON.stringify(params));
+			if (!res) {
+				return new Response("Cannot upload asset", {
+					status: 500,
+				});
+			}
+			return c.json({ status: "uploaded successfully", key: res.key }, 200);
+		})
 		.route("/", rootSlugApp)
 		.get(
 			"/hello",
