@@ -3,7 +3,7 @@ CREATE TABLE users (
     name text DEFAULT NULL,
     email text DEFAULT NULL,
     emailVerified datetime DEFAULT NULL,
-    passwordHash text NOT NULL,
+    passwordhash text NOT NULL,
     image text DEFAULT NULL, 
     PRIMARY KEY (id)
 );
