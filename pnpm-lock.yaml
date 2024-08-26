@@ -18,9 +18,6 @@ catalogs:
     '@types/node':
       specifier: ^20.9.0
       version: 20.16.1
-    hono:
-      specifier: ^4.5.7
-      version: 4.5.8
     lefthook:
       specifier: ^1.7.14
       version: 1.7.14
@@ -91,7 +88,7 @@ importers:
         version: 2.1.1
       hono:
         specifier: 'catalog:'
-        version: 4.5.8
+        version: 4.5.9
       isbot:
         specifier: ^4.1.0
         version: 4.4.0
@@ -116,7 +113,7 @@ importers:
         version: 4.20240821.1
       '@hono/vite-dev-server':
         specifier: ^0.14.0
-        version: 0.14.0(hono@4.5.8)
+        version: 0.14.0(hono@4.5.9)
       '@remix-run/dev':
         specifier: ^2.11.2
         version: 2.11.2(@remix-run/react@2.11.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.5.4))(@remix-run/serve@2.11.2(typescript@5.5.4))(@types/node@22.5.0)(typescript@5.5.4)(vite@5.4.2(@types/node@22.5.0))(wrangler@3.72.2(@cloudflare/workers-types@4.20240821.1))
@@ -158,7 +155,7 @@ importers:
     dependencies:
       hono:
         specifier: ^4.5.5
-        version: 4.5.8
+        version: 4.5.9
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20240529.0
@@ -174,10 +171,10 @@ importers:
     dependencies:
       '@hono/zod-validator':
         specifier: 'catalog:'
-        version: 0.2.2(hono@4.5.8)(zod@3.23.8)
+        version: 0.2.2(hono@4.5.9)(zod@3.23.8)
       hono:
         specifier: 'catalog:'
-        version: 4.5.8
+        version: 4.5.9
       zod:
         specifier: 'catalog:'
         version: 3.23.8
@@ -2230,8 +2227,8 @@ packages:
   hast-util-whitespace@2.0.1:
     resolution: {integrity: sha512-nAxA0v8+vXSBDt3AnRUNjyRIQ0rD+ntpbAp4LnPkumc5M9yUbSMa4XDU9Q6etY4f1Wp4bNgvc1yjiZtsTTrSng==}
 
-  hono@4.5.8:
-    resolution: {integrity: sha512-pqpSlcdqGkpTTRpLYU1PnCz52gVr0zVR9H5GzMyJWuKQLLEBQxh96q45QizJ2PPX8NATtz2mu31/PKW/Jt+90Q==}
+  hono@4.5.9:
+    resolution: {integrity: sha512-zz8ktqMDRrZETjxBrv8C5PQRFbrTRCLNVAjD1SNQyOzv4VjmX68Uxw83xQ6oxdAB60HiWnGEatiKA8V3SZLDkQ==}
     engines: {node: '>=16.0.0'}
 
   hookable@5.5.3:
@@ -4618,10 +4615,10 @@ snapshots:
 
   '@hono/node-server@1.12.1': {}
 
-  '@hono/vite-dev-server@0.14.0(hono@4.5.8)':
+  '@hono/vite-dev-server@0.14.0(hono@4.5.9)':
     dependencies:
       '@hono/node-server': 1.12.1
-      hono: 4.5.8
+      hono: 4.5.9
       miniflare: 3.20240821.0
       minimatch: 9.0.5
     transitivePeerDependencies:
@@ -4629,9 +4626,9 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@hono/zod-validator@0.2.2(hono@4.5.8)(zod@3.23.8)':
+  '@hono/zod-validator@0.2.2(hono@4.5.9)(zod@3.23.8)':
     dependencies:
-      hono: 4.5.8
+      hono: 4.5.9
       zod: 3.23.8
 
   '@isaacs/cliui@8.0.2':
@@ -5089,7 +5086,7 @@ snapshots:
       '@babel/plugin-syntax-typescript': 7.25.4(@babel/core@7.25.2)
       '@vanilla-extract/babel-plugin-debug-ids': 1.0.6
       '@vanilla-extract/css': 1.15.5
-      esbuild: 0.17.19
+      esbuild: 0.17.6
       eval: 0.1.8
       find-up: 5.0.0
       javascript-stringify: 2.1.0
@@ -6097,7 +6094,7 @@ snapshots:
 
   hast-util-whitespace@2.0.1: {}
 
-  hono@4.5.8: {}
+  hono@4.5.9: {}
 
   hookable@5.5.3: {}
 
