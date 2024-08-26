@@ -8,6 +8,8 @@ pre-push:
   commands:
     test:
       run: turbo test
+    build admin:
+      run: turbo build --filter admin
 #   commands:
 #     packages-audit:
 #       tags: frontend security
