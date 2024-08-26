@@ -29,7 +29,13 @@ export const collectionsApp = createHonoWithDB()
 		});
 		return c.json(result, 201);
 	})
-
+	// List all collections
+	.get("/", async (c) => {
+		const db = c.get("db");
+		const result = await sql.listCollections(db);
+		const count = await sql.countCollections(db);
+		return c.json({ results: result.results, total_count: count?.count });
+	})
 	// Get a collection by ID
 	.get("/:id", async (c) => {
 		const db = c.get("db");
@@ -78,12 +84,6 @@ export const collectionsApp = createHonoWithDB()
 		const id = c.req.param("id");
 		await sql.deleteCollection(db, { id: Number(id) });
 		return c.text("コレクションが削除されました", 200);
-	})
-
-	// List all collections
-	.get("/", async (c) => {
-		const db = c.get("db");
-		const result = await sql.listCollections(db);
-		const count = await sql.countCollections(db);
-		return c.json({ results: result.results, total_count: count?.count });
 	});
+
+
