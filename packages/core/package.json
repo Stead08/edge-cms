@@ -24,7 +24,7 @@
     "typescript": "catalog:",
     "vite": "catalog:",
     "vitest": "catalog:",
-    "wrangler": "^3.72.1"
+    "wrangler": "catalog:"
   },
   "dependencies": {
     "@hono/zod-validator": "catalog:",
