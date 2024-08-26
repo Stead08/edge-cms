@@ -12,7 +12,6 @@ import { usersApp } from "./routes/users";
 
 export const createEdgeCms = () => {
 	const app = createHonoWithDB()
-		.basePath("/api")
 		.route("/users", usersApp)
 		.route("/fields", fieldsApp)
 		.route("/field_values", fieldValuesApp)
