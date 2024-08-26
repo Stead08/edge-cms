@@ -1,56 +1,75 @@
-import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
-import { createRequestHandler, type ServerBuild } from "@remix-run/cloudflare";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore This file won’t exist if it hasn’t yet been built
-import * as build from "./build/server"; // eslint-disable-line import/no-unresolved
-// eslint-disable-next-line import/no-unresolved
-import __STATIC_CONTENT_MANIFEST from "__STATIC_CONTENT_MANIFEST";
+import { getAssetFromKV } from '@cloudflare/kv-asset-handler'
+import type { RequestHandler } from '@remix-run/cloudflare'
+import { type AppLoadContext, createRequestHandler } from '@remix-run/cloudflare'
+import { Hono } from 'hono'
+import { poweredBy } from 'hono/powered-by'
+import * as build from './build/server'
 
-const MANIFEST = JSON.parse(__STATIC_CONTENT_MANIFEST);
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const handleRemixRequest = createRequestHandler(build as any as ServerBuild);
+const app = new Hono<{
+  Bindings: {
+    MY_VAR: string,
+    API: Fetcher,
+    __STATIC_CONTENT: KVNamespace,
+  }
+}>()
 
-export default {
-  async fetch(request, env, ctx) {
-    const waitUntil = ctx.waitUntil.bind(ctx);
-    const passThroughOnException = ctx.passThroughOnException.bind(ctx);
-    try {
-      const url = new URL(request.url);
-      const ttl = url.pathname.startsWith("/assets/")
-        ? 60 * 60 * 24 * 365 // 1 year
-        : 60 * 5; // 5 minutes
-      return await getAssetFromKV(
-        { request, waitUntil },
-        {
-          ASSET_NAMESPACE: env.__STATIC_CONTENT,
-          ASSET_MANIFEST: MANIFEST,
-          cacheControl: {
-            browserTTL: ttl,
-            edgeTTL: ttl,
-          },
-        }
-      );
-    } catch (error) {
-      // No-op
+let handler: RequestHandler | undefined
+
+app.get('/hono', (c) => c.text(`Hono, ${c.env.MY_VAR}`))
+
+app.on(
+  'GET',
+  ['/assets/*', '/favicon.ico'],
+  async (c) => {
+    if (process.env.NODE_ENV !== 'development' || import.meta.env.PROD) {
+      const manifest = await import('__STATIC_CONTENT_MANIFEST')
+      try {
+        return await getAssetFromKV({
+          request: c.req.raw,
+          waitUntil: c.executionCtx.waitUntil.bind(c.executionCtx)
+        }, {
+          ASSET_NAMESPACE: c.env.__STATIC_CONTENT,
+          ASSET_MANIFEST: JSON.parse(manifest.default),
+        })
+      } catch (e) {
+        return c.notFound()
+      }
     }
+  }
+)
+app.get('/api/*', async (c) => {
+  const res = await c.env.API.fetch(c.req.raw);
+  console.log(res);
+  return res;
+})
 
-    try {
-      const loadContext = {
-        cloudflare: {
-          // This object matches the return value from Wrangler's
-          // `getPlatformProxy` used during development via Remix's
-          // `cloudflareDevProxyVitePlugin`:
-          // https://developers.cloudflare.com/workers/wrangler/api/#getplatformproxy
-          cf: request.cf,
-          ctx: { waitUntil, passThroughOnException },
-          caches,
-          env,
-        },
-      };
-      return await handleRemixRequest(request, loadContext);
-    } catch (error) {
-      console.log(error);
-      return new Response("An unexpected error occurred", { status: 500 });
+app.use(
+  async (c, next) => {
+    c.env.MY_VAR = 'Hello from Hono'
+    return next()
+  }
+)
+
+app.all('*', async (c) => {
+  const remixContext = {
+    cloudflare: { env: c.env }
+  } as unknown as AppLoadContext
+
+  if (process.env.NODE_ENV !== 'development' || import.meta.env.PROD) {
+    // wrangler
+    // production
+    const handleRemixRequest = createRequestHandler(build, 'production')
+    return handleRemixRequest(c.req.raw, remixContext)
+  // biome-ignore lint/style/noUselessElse: wrangler deployがelseがないと動かないので仕方なく。
+  } else {
+    if (!handler) {
+      // @ts-expect-error it's not typed
+      const build = await import('virtual:remix/server-build')
+      const { createRequestHandler } = await import('@remix-run/cloudflare')
+      handler = createRequestHandler(build, 'development')
     }
-  },
-} satisfies ExportedHandler<Env & { __STATIC_CONTENT: KVNamespace<string> }>;
+    return handler(c.req.raw, remixContext)
+  }
+})
+
+export default app

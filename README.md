@@ -8,7 +8,7 @@
 ## 採用技術
 
 - Cloudflare群
-  - Cloudflare workers
+  - Cloudflare workers (with service bindings)
   - Cloudflare D1 (Sqlite)
   - Cloudflare R2
   - Cloudflare Pages

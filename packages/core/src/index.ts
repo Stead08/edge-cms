@@ -12,6 +12,7 @@ import { usersApp } from "./routes/users";
 
 export const createEdgeCms = () => {
 	const app = createHonoWithDB()
+		.basePath("/api")
 		.route("/users", usersApp)
 		.route("/fields", fieldsApp)
 		.route("/field_values", fieldValuesApp)
@@ -38,7 +39,6 @@ export const createEdgeCms = () => {
 			}
 			return c.json({ status: "uploaded successfully", key: res.key }, 200);
 		})
-		.route("/", rootSlugApp)
 		.get(
 			"/hello",
 			zValidator(
@@ -53,6 +53,8 @@ export const createEdgeCms = () => {
 				return c.text(`Hello ${name}`);
 			},
 		)
+		.route("/", rootSlugApp)
+
 		.get("/", (c) => {
 			return c.text("Hello Hono");
 		});

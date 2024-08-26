@@ -1,6 +1,8 @@
 name = "sandbox"
 compatibility_date = "2024-08-17"
 
+[dev]
+port = 8787
 # [vars]
 # MY_VAR = "my-variable"
 
@@ -8,13 +10,13 @@ compatibility_date = "2024-08-17"
 AUTH_SECRET = "test"
 JWT_SECRET = "test"
 
-# [[kv_namespaces]]
-# binding = "MY_KV_NAMESPACE"
-# id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+[[kv_namespaces]]
+binding = "KV"
+id = "a840e781a3584292ad292d29bd312782"
 
-# [[r2_buckets]]
-# binding = "MY_BUCKET"
-# bucket_name = "my-bucket"
+[[r2_buckets]]
+binding = "R2"
+bucket_name = "edge-cms-bucket"
 
 [[d1_databases]]
 binding = "DB"                                       # i.e. available in your Worker on env.DB

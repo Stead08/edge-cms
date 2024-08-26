@@ -25,10 +25,13 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tailwind-merge": "^2.5.2",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "hono": "catalog:"
   },
   "devDependencies": {
+    "@biomejs/biome": "catalog:",
     "@cloudflare/workers-types": "^4.20240512.0",
+    "@hono/vite-dev-server": "^0.14.0",
     "@remix-run/dev": "^2.11.2",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
@@ -38,8 +41,7 @@
     "typescript": "^5.1.6",
     "vite": "^5.1.0",
     "vite-tsconfig-paths": "^5.0.0",
-    "wrangler": "catalog:",
-    "@biomejs/biome": "catalog:"
+    "wrangler": "catalog:"
   },
   "engines": {
     "node": ">=20.0.0"
