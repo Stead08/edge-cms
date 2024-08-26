@@ -27,13 +27,6 @@ jobs:
           node-version: '20' 
           cache: 'pnpm'
 
-      - name: Install dependencies
-        run: |
-          pnpm install 
-
-      - name: Build
-        run: |
-          pnpm build --filter admin
       - name: Cache build output
         uses: actions/cache@v4
         with:
@@ -42,3 +35,12 @@ jobs:
           key: ${{ runner.os }}-pnpm-${{ hashFiles(format('{0}{1}', github.workspace, '/package-lock.json')) }}
           restore-keys: |
             ${{ runner.os }}-pnpm-
+
+      - name: Install dependencies
+        run: |
+          pnpm install 
+
+      - name: Build
+        run: |
+          pnpm build --filter admin
+
