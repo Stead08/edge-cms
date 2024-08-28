@@ -22,11 +22,11 @@ describe("Collections Test", () => {
 				label: "create_field_values",
 				description: "create_field_values",
 				access: true,
-				default_sort: "created_at",
-				list_searchable_fields: ["created_at"],
+				defaultSort: "created_at", // 修正
+				listSearchableFields: ["created_at"], // 修正
 				pagination: false,
-				default_limit: 10,
-				max_limit: 100,
+				defaultLimit: 10, // 修正
+				maxLimit: 100, // 修正
 			}),
 		});
 		const collection = await collection_res.json();
@@ -45,11 +45,11 @@ describe("Collections Test", () => {
 					label: "test",
 					description: "test",
 					access: true,
-					default_sort: "created_at",
-					list_searchable_fields: ["created_at"],
+					defaultSort: "created_at", // 修正
+					listSearchableFields: ["created_at"], // 修正
 					pagination: false,
-					default_limit: 10,
-					max_limit: 100,
+					defaultLimit: 10, // 修正
+					maxLimit: 100, // 修正
 				}),
 			},
 		);
@@ -63,6 +63,7 @@ describe("Collections Test", () => {
 				method: "PUT",
 				body: JSON.stringify({
 					slug: "test",
+					label: "test",
 				}),
 			},
 		);

@@ -33,3 +33,7 @@ VALUES (1, 'test', 'text', true);
 -- テストフィールド値を作成
 INSERT INTO field_values (item_id, field_id, value)
 VALUES (1, 1, 'test');
+
+-- テストフィールドテンプレートを作成
+INSERT INTO field_templates (name, type, required)
+VALUES ('test', 'text', true);

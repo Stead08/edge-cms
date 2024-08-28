@@ -30,7 +30,7 @@ export const rootSlugApp = createHonoWithDB()
 		});
 
 		// フィールド情報を取得
-		const fields = await sql.getFieldsForCollection(db, {
+		const fields = await sql.getFieldsByCollection(db, {
 			collectionId: collection.id,
 		});
 
@@ -88,7 +88,7 @@ export const rootSlugApp = createHonoWithDB()
 		}
 
 		// フィールド情報を取得
-		const fields = await sql.getFieldsForCollection(db, {
+		const fields = await sql.getFieldsByCollection(db, {
 			collectionId: collection.id,
 		});
 

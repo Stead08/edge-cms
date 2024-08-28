@@ -55,6 +55,33 @@ export type Collections = {
 	pagination: number | string | null;
 	defaultLimit: number | null;
 	maxLimit: number | null;
+	metadata: number | string | null;
+};
+
+export type FieldTemplates = {
+	id: number;
+	name: number | string;
+	type: number | string;
+	required: number | string | null;
+	defaultValue: string | null;
+	options: number | string | null;
+	metadata: number | string | null;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
+	version: number | null;
+};
+
+export type Fields = {
+	id: number;
+	collectionId: number | null;
+	templateId: number | null;
+	name: number | string;
+	type: number | string;
+	required: number | string | null;
+	defaultValue: string | null;
+	options: number | string | null;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
 };
 
 export type Items = {
@@ -63,16 +90,9 @@ export type Items = {
 	status: number | string | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
-};
-
-export type Fields = {
-	id: number;
-	collectionId: number | null;
-	name: number | string;
-	type: number | string;
-	required: number | string | null;
-	createdAt: number | string | null;
-	updatedAt: number | string | null;
+	publishedAt: number | string | null;
+	version: number | null;
+	metadata: number | string | null;
 };
 
 export type FieldValues = {
@@ -82,6 +102,7 @@ export type FieldValues = {
 	value: string | null;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
+	version: number | null;
 };
 
 export type Roles = {

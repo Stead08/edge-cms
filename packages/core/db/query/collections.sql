@@ -1,6 +1,6 @@
 -- name: CreateCollection :one
-INSERT INTO collections (slug, label, description, access, default_sort, list_searchable_fields, pagination, default_limit, max_limit)
-VALUES (@slug, @label, @description, @access, @default_sort, @list_searchable_fields, @pagination, @default_limit, @max_limit)
+INSERT INTO collections (slug, label, description, access, default_sort, list_searchable_fields, pagination, default_limit, max_limit, metadata)
+VALUES (@slug, @label, @description, @access, @default_sort, @list_searchable_fields, @pagination, @default_limit, @max_limit, @metadata)
 RETURNING *;
 
 -- name: GetCollection :one
@@ -20,6 +20,7 @@ SET slug = COALESCE(@slug, slug),
     pagination = COALESCE(@pagination, pagination),
     default_limit = COALESCE(@default_limit, default_limit),
     max_limit = COALESCE(@max_limit, max_limit),
+    metadata = COALESCE(@metadata, metadata),
     updated_at = CURRENT_TIMESTAMP
 WHERE id = @id
 RETURNING *;

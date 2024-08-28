@@ -3,6 +3,7 @@ import { z } from "zod";
 import { createHonoWithDB } from "./factory";
 import { authApp } from "./routes/auth";
 import { collectionsApp } from "./routes/collections";
+import { fieldTemplatesApp } from "./routes/fieldTemplates";
 import { fieldValuesApp } from "./routes/fieldValues";
 import { fieldsApp } from "./routes/fields";
 import { itemsApp } from "./routes/items";
@@ -15,6 +16,7 @@ export const createEdgeCms = () => {
 		.route("/users", usersApp)
 		.route("/fields", fieldsApp)
 		.route("/field_values", fieldValuesApp)
+		.route("/field_templates", fieldTemplatesApp)
 		.route("/collections", collectionsApp)
 		.route("/items", itemsApp)
 		.route("/roles", rolesApp)
