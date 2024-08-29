@@ -185,6 +185,9 @@ importers:
       '@biomejs/biome':
         specifier: 'catalog:'
         version: 1.8.3
+      '@cfworker/json-schema':
+        specifier: 2.0.1
+        version: 2.0.1
       '@cloudflare/vitest-pool-workers':
         specifier: 'catalog:'
         version: 0.4.24(@cloudflare/workers-types@4.20240821.1)(@vitest/runner@1.5.3)(@vitest/snapshot@1.5.3)(vitest@1.5.0(@types/node@20.16.1))
@@ -480,6 +483,9 @@ packages:
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [win32]
+
+  '@cfworker/json-schema@2.0.1':
+    resolution: {integrity: sha512-1w7xVrTFjAWBVaOWRH5AMdKpJdltF4iy/d93E7qj8Rox6yY9OzEW1aC7T5eONrDOxXrlnsclPw9v24XW2c0mkg==}
 
   '@cloudflare/kv-asset-handler@0.1.3':
     resolution: {integrity: sha512-FNcunDuTmEfQTLRLtA6zz+buIXUHj1soPvSWzzQFBC+n2lsy+CGf/NIrR3SEPCmsVNQj70/Jx2lViCpq+09YpQ==}
@@ -4306,6 +4312,8 @@ snapshots:
 
   '@biomejs/cli-win32-x64@1.8.3':
     optional: true
+
+  '@cfworker/json-schema@2.0.1': {}
 
   '@cloudflare/kv-asset-handler@0.1.3':
     dependencies:

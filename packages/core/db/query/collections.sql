@@ -1,6 +1,6 @@
 -- name: CreateCollection :one
-INSERT INTO collections (slug, label, description, access, default_sort, list_searchable_fields, pagination, default_limit, max_limit, metadata)
-VALUES (@slug, @label, @description, @access, @default_sort, @list_searchable_fields, @pagination, @default_limit, @max_limit, @metadata)
+INSERT INTO collections (slug, label, description, fields)
+VALUES (@slug, @label, @description, @fields)
 RETURNING *;
 
 -- name: GetCollection :one
@@ -14,13 +14,7 @@ UPDATE collections
 SET slug = COALESCE(@slug, slug),
     label = COALESCE(@label, label),
     description = COALESCE(@description, description),
-    access = COALESCE(@access, access),
-    default_sort = COALESCE(@default_sort, default_sort),
-    list_searchable_fields = COALESCE(@list_searchable_fields, list_searchable_fields),
-    pagination = COALESCE(@pagination, pagination),
-    default_limit = COALESCE(@default_limit, default_limit),
-    max_limit = COALESCE(@max_limit, max_limit),
-    metadata = COALESCE(@metadata, metadata),
+    fields = COALESCE(@fields, fields),
     updated_at = CURRENT_TIMESTAMP
 WHERE id = @id
 RETURNING *;

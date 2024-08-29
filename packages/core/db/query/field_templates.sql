@@ -28,6 +28,3 @@ DELETE FROM field_templates WHERE id = @id;
 -- name: GetFieldTemplateVersion :one
 SELECT version FROM field_templates WHERE id = @id LIMIT 1;
 
--- name: ListFieldsUsingTemplate :many
-SELECT * FROM fields
-WHERE template_id = @template_id;

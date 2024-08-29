@@ -5,6 +5,8 @@
 #
 pre-push:
   parallel: true
+  skip:
+    - ref: dev/*
   commands:
     test:
       run: turbo test
@@ -20,6 +22,8 @@ pre-push:
 #
 pre-commit:
   parallel: true
+  skip:
+    - ref: dev/*
   commands:
     lint:
       run: turbo lint

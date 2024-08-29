@@ -1,6 +1,6 @@
 -- name: CreateItem :one
-INSERT INTO items (collection_id, status, metadata, version)
-VALUES (@collection_id, @status, @metadata, 1)
+INSERT INTO items (collection_id, data, version)
+VALUES (@collection_id, @data, 1)
 RETURNING *;
 
 -- name: GetItem :one
@@ -9,14 +9,12 @@ WHERE id = @id LIMIT 1;
 
 -- name: ListItems :many
 SELECT * FROM items
-WHERE collection_id = @collection_id AND (status = @status OR @status IS NULL)
+WHERE collection_id = @collection_id
 ORDER BY id;
 
 -- name: UpdateItem :one
 UPDATE items
-SET status = COALESCE(@status, status),
-    metadata = COALESCE(@metadata, metadata),
-    version = version + 1,
+SET data = COALESCE(@data, data),
     updated_at = CURRENT_TIMESTAMP
 WHERE id = @id
 RETURNING *;
@@ -38,7 +36,3 @@ LIMIT @limit OFFSET @offset;
 -- name: CountItemsForCollection :one
 SELECT COUNT(*) AS count FROM items
 WHERE collection_id = @collection_id;
-
--- name: GetItemVersion :one
-SELECT version FROM items
-WHERE id = @id LIMIT 1;

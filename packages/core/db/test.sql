@@ -26,13 +26,6 @@ VALUES (1, 'draft');
 INSERT INTO items (collection_id, status)
 VALUES (1, 'unpublished');
 
--- テストフィールドを作成
-INSERT INTO fields (collection_id, name, type, required)
-VALUES (1, 'test', 'text', true);
-
--- テストフィールド値を作成
-INSERT INTO field_values (item_id, field_id, value)
-VALUES (1, 1, 'test');
 
 -- テストフィールドテンプレートを作成
 INSERT INTO field_templates (name, type, required)
