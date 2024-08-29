@@ -1,6 +1,6 @@
 -- name: CreateUser :one
-INSERT INTO users (id, name, email, passwordhash)
-VALUES (@id, @name, @email, @passwordhash)
+INSERT INTO users (id, name, email)
+VALUES (@id, @name, @email)
 RETURNING *;
 
 -- name: GetUser :one
@@ -18,8 +18,7 @@ ORDER BY id;
 -- name: UpdateUser :one
 UPDATE users
 SET name = COALESCE(@name, name),
-    email = COALESCE(@email, email),
-    passwordhash = COALESCE(@passwordhash, passwordhash)
+    email = COALESCE(@email, email)
 WHERE id = @id
 RETURNING id, name, email;
 

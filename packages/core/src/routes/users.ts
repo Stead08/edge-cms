@@ -1,19 +1,15 @@
 import { createHonoWithDB } from "../factory";
 import * as sql from "../gen/sqlc/querier";
-import { hashPassword } from "../utils/auth";
 
 export const usersApp = createHonoWithDB()
 	.post("/", async (c) => {
 		const db = c.get("db");
-		const secretSalt = c.get("auth_secret");
-		const { id, name, email, password } = await c.req.json();
-		const passwordhash = await hashPassword(password, secretSalt);
+		const { id, name, email } = await c.req.json();
 
 		const result = await sql.createUser(db, {
 			id,
 			name,
 			email,
-			passwordhash,
 		});
 		if (!result) {
 			return c.json({ error: "ユーザーを作成できませんでした。" }, 500);
@@ -45,12 +41,11 @@ export const usersApp = createHonoWithDB()
 	.put("/:id", async (c) => {
 		const db = c.get("db");
 		const id = c.req.param("id");
-		const { name, email, passwordhash } = await c.req.json();
+		const { name, email } = await c.req.json();
 		const result = await sql.updateUser(db, {
 			id: id ?? null,
 			name: name ?? null,
 			email: email ?? null,
-			passwordhash: passwordhash ?? null,
 		});
 		return c.json(result);
 	})

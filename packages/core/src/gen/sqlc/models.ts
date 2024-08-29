@@ -7,7 +7,6 @@ export type Users = {
 	id: string;
 	name: string | null;
 	email: string | null;
-	passwordhash: string;
 };
 
 export type Collections = {

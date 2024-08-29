@@ -2891,31 +2891,27 @@ export function removeRoleFromUser(
 }
 
 const createUserQuery = `-- name: CreateUser :one
-INSERT INTO users (id, name, email, passwordhash)
-VALUES (?1, ?2, ?3, ?4)
-RETURNING id, name, email, passwordhash`;
+INSERT INTO users (id, name, email)
+VALUES (?1, ?2, ?3)
+RETURNING id, name, email`;
 
 export type CreateUserParams = {
 	id: string;
 	name: string | null;
 	email: string | null;
-	passwordhash: string;
 };
 
 export type CreateUserRow = {
 	id: string;
 	name: string | null;
 	email: string | null;
-	passwordhash: string;
 };
 
 export function createUser(
 	d1: D1Database,
 	args: CreateUserParams,
 ): Query<CreateUserRow | null> {
-	const ps = d1
-		.prepare(createUserQuery)
-		.bind(args.id, args.name, args.email, args.passwordhash);
+	const ps = d1.prepare(createUserQuery).bind(args.id, args.name, args.email);
 	return {
 		then(
 			onFulfilled?: (value: CreateUserRow | null) => void,
@@ -2962,7 +2958,7 @@ export function getUser(
 }
 
 const getUserWithPasswordHashQuery = `-- name: GetUserWithPasswordHash :one
-SELECT id, name, email, passwordhash FROM users
+SELECT id, name, email FROM users
 WHERE id = ?1 LIMIT 1`;
 
 export type GetUserWithPasswordHashParams = {
@@ -2973,7 +2969,6 @@ export type GetUserWithPasswordHashRow = {
 	id: string;
 	name: string | null;
 	email: string | null;
-	passwordhash: string;
 };
 
 export function getUserWithPasswordHash(
@@ -3024,15 +3019,13 @@ export function listUsers(d1: D1Database): Query<D1Result<ListUsersRow>> {
 const updateUserQuery = `-- name: UpdateUser :one
 UPDATE users
 SET name = COALESCE(?1, name),
-    email = COALESCE(?2, email),
-    passwordhash = COALESCE(?3, passwordhash)
-WHERE id = ?4
+    email = COALESCE(?2, email)
+WHERE id = ?3
 RETURNING id, name, email`;
 
 export type UpdateUserParams = {
 	name: string | null;
 	email: string | null;
-	passwordhash: string;
 	id: string;
 };
 
@@ -3046,9 +3039,7 @@ export function updateUser(
 	d1: D1Database,
 	args: UpdateUserParams,
 ): Query<UpdateUserRow | null> {
-	const ps = d1
-		.prepare(updateUserQuery)
-		.bind(args.name, args.email, args.passwordhash, args.id);
+	const ps = d1.prepare(updateUserQuery).bind(args.name, args.email, args.id);
 	return {
 		then(
 			onFulfilled?: (value: UpdateUserRow | null) => void,

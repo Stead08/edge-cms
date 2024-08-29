@@ -1,7 +1,6 @@
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import { createHonoWithDB } from "./factory";
-import { authApp } from "./routes/auth";
 import { collectionsApp } from "./routes/collections";
 import { fieldTemplatesApp } from "./routes/fieldTemplates";
 import { fieldValuesApp } from "./routes/fieldValues";
@@ -20,7 +19,6 @@ export const createEdgeCms = () => {
 		.route("/collections", collectionsApp)
 		.route("/items", itemsApp)
 		.route("/roles", rolesApp)
-		.route("/auth", authApp)
 		.get("/kv", async (c) => {
 			const test = c.req.query("test") ?? "no test";
 			if (test) {
