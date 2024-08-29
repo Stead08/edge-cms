@@ -7,39 +7,7 @@ export type Users = {
 	id: string;
 	name: string | null;
 	email: string | null;
-	emailverified: string | null;
 	passwordhash: string;
-	image: string | null;
-};
-
-export type Accounts = {
-	id: string;
-	userid: string;
-	type: string;
-	provider: string;
-	provideraccountid: string;
-	refreshToken: string | null;
-	accessToken: string | null;
-	expiresAt: number | string | null;
-	tokenType: string | null;
-	scope: string | null;
-	idToken: string | null;
-	sessionState: string | null;
-	oauthTokenSecret: string | null;
-	oauthToken: string | null;
-};
-
-export type Sessions = {
-	id: string;
-	sessiontoken: string;
-	userid: string;
-	expires: string;
-};
-
-export type VerificationTokens = {
-	identifier: string;
-	token: string;
-	expires: string;
 };
 
 export type Collections = {

@@ -6,16 +6,13 @@ export const usersApp = createHonoWithDB()
 	.post("/", async (c) => {
 		const db = c.get("db");
 		const secretSalt = c.get("auth_secret");
-		const { id, name, email, emailVerified, image, password } =
-			await c.req.json();
+		const { id, name, email, password } = await c.req.json();
 		const passwordhash = await hashPassword(password, secretSalt);
 
 		const result = await sql.createUser(db, {
 			id,
 			name,
 			email,
-			emailVerified,
-			image,
 			passwordhash,
 		});
 		if (!result) {
@@ -26,7 +23,6 @@ export const usersApp = createHonoWithDB()
 				id: result.id,
 				name: result.name,
 				email: result.email,
-				image: result.image,
 			},
 			201,
 		);
@@ -49,14 +45,11 @@ export const usersApp = createHonoWithDB()
 	.put("/:id", async (c) => {
 		const db = c.get("db");
 		const id = c.req.param("id");
-		const { name, email, emailVerified, image, passwordhash } =
-			await c.req.json();
+		const { name, email, passwordhash } = await c.req.json();
 		const result = await sql.updateUser(db, {
 			id: id ?? null,
 			name: name ?? null,
 			email: email ?? null,
-			emailVerified: emailVerified ?? null,
-			image: image ?? null,
 			passwordhash: passwordhash ?? null,
 		});
 		return c.json(result);

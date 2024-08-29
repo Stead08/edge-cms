@@ -2891,26 +2891,22 @@ export function removeRoleFromUser(
 }
 
 const createUserQuery = `-- name: CreateUser :one
-INSERT INTO users (id, name, email, emailVerified, passwordhash, image)
-VALUES (?1, ?2, ?3, ?4, ?5, ?6)
-RETURNING id, name, email, emailverified, passwordhash, image`;
+INSERT INTO users (id, name, email, passwordhash)
+VALUES (?1, ?2, ?3, ?4)
+RETURNING id, name, email, passwordhash`;
 
 export type CreateUserParams = {
 	id: string;
 	name: string | null;
 	email: string | null;
-	emailVerified: string | null;
 	passwordhash: string;
-	image: string | null;
 };
 
 export type CreateUserRow = {
 	id: string;
 	name: string | null;
 	email: string | null;
-	emailverified: string | null;
 	passwordhash: string;
-	image: string | null;
 };
 
 export function createUser(
@@ -2919,14 +2915,7 @@ export function createUser(
 ): Query<CreateUserRow | null> {
 	const ps = d1
 		.prepare(createUserQuery)
-		.bind(
-			args.id,
-			args.name,
-			args.email,
-			args.emailVerified,
-			args.passwordhash,
-			args.image,
-		);
+		.bind(args.id, args.name, args.email, args.passwordhash);
 	return {
 		then(
 			onFulfilled?: (value: CreateUserRow | null) => void,
@@ -2941,7 +2930,7 @@ export function createUser(
 }
 
 const getUserQuery = `-- name: GetUser :one
-SELECT id, name, email, emailVerified, image FROM users
+SELECT id, name, email FROM users
 WHERE id = ?1 LIMIT 1`;
 
 export type GetUserParams = {
@@ -2952,8 +2941,6 @@ export type GetUserRow = {
 	id: string;
 	name: string | null;
 	email: string | null;
-	emailverified: string | null;
-	image: string | null;
 };
 
 export function getUser(
@@ -2975,7 +2962,7 @@ export function getUser(
 }
 
 const getUserWithPasswordHashQuery = `-- name: GetUserWithPasswordHash :one
-SELECT id, name, email, emailverified, passwordhash, image FROM users
+SELECT id, name, email, passwordhash FROM users
 WHERE id = ?1 LIMIT 1`;
 
 export type GetUserWithPasswordHashParams = {
@@ -2986,9 +2973,7 @@ export type GetUserWithPasswordHashRow = {
 	id: string;
 	name: string | null;
 	email: string | null;
-	emailverified: string | null;
 	passwordhash: string;
-	image: string | null;
 };
 
 export function getUserWithPasswordHash(
@@ -3012,15 +2997,13 @@ export function getUserWithPasswordHash(
 }
 
 const listUsersQuery = `-- name: ListUsers :many
-SELECT id, name, email, emailVerified, image FROM users
+SELECT id, name, email FROM users
 ORDER BY id`;
 
 export type ListUsersRow = {
 	id: string;
 	name: string | null;
 	email: string | null;
-	emailverified: string | null;
-	image: string | null;
 };
 
 export function listUsers(d1: D1Database): Query<D1Result<ListUsersRow>> {
@@ -3042,17 +3025,13 @@ const updateUserQuery = `-- name: UpdateUser :one
 UPDATE users
 SET name = COALESCE(?1, name),
     email = COALESCE(?2, email),
-    emailVerified = COALESCE(?3, emailVerified),
-    image = COALESCE(?4, image),
-    passwordhash = COALESCE(?5, passwordhash)
-WHERE id = ?6
-RETURNING id, name, email, emailVerified, image`;
+    passwordhash = COALESCE(?3, passwordhash)
+WHERE id = ?4
+RETURNING id, name, email`;
 
 export type UpdateUserParams = {
 	name: string | null;
 	email: string | null;
-	emailVerified: string | null;
-	image: string | null;
 	passwordhash: string;
 	id: string;
 };
@@ -3061,8 +3040,6 @@ export type UpdateUserRow = {
 	id: string;
 	name: string | null;
 	email: string | null;
-	emailverified: string | null;
-	image: string | null;
 };
 
 export function updateUser(
@@ -3071,14 +3048,7 @@ export function updateUser(
 ): Query<UpdateUserRow | null> {
 	const ps = d1
 		.prepare(updateUserQuery)
-		.bind(
-			args.name,
-			args.email,
-			args.emailVerified,
-			args.image,
-			args.passwordhash,
-			args.id,
-		);
+		.bind(args.name, args.email, args.passwordhash, args.id);
 	return {
 		then(
 			onFulfilled?: (value: UpdateUserRow | null) => void,
@@ -3119,7 +3089,7 @@ export function deleteUser(
 }
 
 const getUserByEmailQuery = `-- name: GetUserByEmail :one
-SELECT id, name, email, emailVerified, image FROM users
+SELECT id, name, email FROM users
 WHERE email = ?1 LIMIT 1`;
 
 export type GetUserByEmailParams = {
@@ -3130,8 +3100,6 @@ export type GetUserByEmailRow = {
 	id: string;
 	name: string | null;
 	email: string | null;
-	emailverified: string | null;
-	image: string | null;
 };
 
 export function getUserByEmail(
@@ -3153,7 +3121,7 @@ export function getUserByEmail(
 }
 
 const getUserWithRolesQuery = `-- name: GetUserWithRoles :one
-SELECT u.id, u.name, u.email, u.emailVerified, u.image, json_group_array(
+SELECT u.id, u.name, u.email, json_group_array(
   json_object(
     'id', r.id,
     'name', r.name,
@@ -3175,8 +3143,6 @@ export type GetUserWithRolesRow = {
 	id: string;
 	name: string | null;
 	email: string | null;
-	emailverified: string | null;
-	image: string | null;
 	roles: number | string | null;
 };
 

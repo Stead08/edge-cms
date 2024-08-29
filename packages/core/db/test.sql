@@ -1,8 +1,8 @@
 -- このファイルはテスト用のデータベーススキーマです。
 
 -- テストユーザーを作成
-INSERT INTO users (id, name, email, emailVerified, passwordHash, image)
-VALUES ('TestUser', 'Test User', 'test@test.com', '2024-01-01T00:00:00Z', ":b3effd8fc47d700fd2634c4e9732c60b70599108a889f4032b867f7429f45eed", 'https://example.com/image.png');
+INSERT INTO users (id, name, email, passwordHash)
+VALUES ('TestUser', 'Test User', 'test@test.com', ":b3effd8fc47d700fd2634c4e9732c60b70599108a889f4032b867f7429f45eed");
 
 -- テストロールを作成
 INSERT INTO roles (name, description, permissions, assume_role_policy)

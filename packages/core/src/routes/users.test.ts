@@ -8,8 +8,6 @@ describe("users", () => {
 				id: "JohnDoe",
 				name: "John Doe",
 				email: "john.doe@example.com",
-				emailVerified: "2024-01-01T00:00:00Z",
-				image: "https://example.com/image.png",
 				password: "password",
 			}),
 		});
@@ -20,7 +18,6 @@ describe("users", () => {
 			id: "JohnDoe",
 			name: "John Doe",
 			email: "john.doe@example.com",
-			image: "https://example.com/image.png",
 		});
 	});
 	it("should get a user", async () => {
@@ -32,8 +29,6 @@ describe("users", () => {
 			id: "TestUser",
 			name: "Test User",
 			email: "test@test.com",
-			emailVerified: "2024-01-01T00:00:00Z",
-			image: "https://example.com/image.png",
 			roles: [
 				{
 					id: 1,
@@ -58,8 +53,6 @@ describe("users", () => {
 			id: "TestUser",
 			name: "Test User 2",
 			email: "test2@test.com",
-			emailVerified: "2024-01-01T00:00:00Z",
-			image: "https://example.com/image.png",
 		});
 	});
 	it("should delete a user", async () => {
@@ -76,8 +69,6 @@ describe("users", () => {
 				id: "testuser",
 				name: "testuser",
 				email: "testuser@example.com",
-				emailVerified: "2024-01-01T00:00:00Z",
-				image: "https://example.com/image.png",
 			}),
 		});
 		expect(userRes.status).toBe(201);

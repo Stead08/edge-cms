@@ -1,10 +1,10 @@
 -- name: CreateUser :one
-INSERT INTO users (id, name, email, emailVerified, passwordhash, image)
-VALUES (@id, @name, @email, @emailVerified, @passwordhash, @image)
+INSERT INTO users (id, name, email, passwordhash)
+VALUES (@id, @name, @email, @passwordhash)
 RETURNING *;
 
 -- name: GetUser :one
-SELECT id, name, email, emailVerified, image FROM users
+SELECT id, name, email FROM users
 WHERE id = @id LIMIT 1;
 
 -- name: GetUserWithPasswordHash :one
@@ -12,29 +12,27 @@ SELECT * FROM users
 WHERE id = @id LIMIT 1;
 
 -- name: ListUsers :many
-SELECT id, name, email, emailVerified, image FROM users
+SELECT id, name, email FROM users
 ORDER BY id;
 
 -- name: UpdateUser :one
 UPDATE users
 SET name = COALESCE(@name, name),
     email = COALESCE(@email, email),
-    emailVerified = COALESCE(@emailVerified, emailVerified),
-    image = COALESCE(@image, image),
     passwordhash = COALESCE(@passwordhash, passwordhash)
 WHERE id = @id
-RETURNING id, name, email, emailVerified, image;
+RETURNING id, name, email;
 
 -- name: DeleteUser :exec
 DELETE FROM users
 WHERE id = @id;
 
 -- name: GetUserByEmail :one
-SELECT id, name, email, emailVerified, image FROM users
+SELECT id, name, email FROM users
 WHERE email = @email LIMIT 1;
 
 -- name: GetUserWithRoles :one
-SELECT u.id, u.name, u.email, u.emailVerified, u.image, json_group_array(
+SELECT u.id, u.name, u.email, json_group_array(
   json_object(
     'id', r.id,
     'name', r.name,
