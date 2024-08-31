@@ -1,10 +1,10 @@
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import { createHonoWithDB } from "./factory";
+import { collectionManagerApp } from "./routes/collectionManager";
 import { rolesApp } from "./routes/roles";
 import { usersApp } from "./routes/users";
 import { workspacesApp } from "./routes/workspaces";
-import { collectionManagerApp } from "./routes/collectionManager";
 
 export const createEdgeCms = () => {
 	const app = createHonoWithDB()

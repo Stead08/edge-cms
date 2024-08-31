@@ -4,53 +4,52 @@
 //   sqlc-gen-ts-d1 v0.0.0-a@dfd4bfef4736967ca17cc23d18de20920fbd196998fe7aa191a205439d63fb58
 
 export type Users = {
-  id: string;
-  name: string;
-  email: string;
+	id: string;
+	name: string;
+	email: string;
 };
 
 export type Workspaces = {
-  id: string;
-  name: number | string;
-  slug: number | string;
-  createdAt: number | string | null;
-  updatedAt: number | string | null;
+	id: string;
+	name: number | string;
+	slug: number | string;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
 };
 
 export type Collections = {
-  id: string;
-  workspaceId: string;
-  name: number | string;
-  slug: number | string;
-  schema: number | string;
-  createdAt: number | string | null;
-  updatedAt: number | string | null;
+	id: string;
+	workspaceId: string;
+	name: number | string;
+	slug: number | string;
+	schema: number | string;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
 };
 
 export type Items = {
-  id: string;
-  collectionId: string;
-  data: number | string;
-  status: number | string;
-  createdAt: number | string | null;
-  updatedAt: number | string | null;
+	id: string;
+	collectionId: string;
+	data: number | string;
+	status: number | string;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
 };
 
 export type Roles = {
-  id: number;
-  name: number | string;
-  description: string | null;
-  permissions: number | string;
-  assumeRolePolicy: number | string | null;
-  createdAt: number | string | null;
-  updatedAt: number | string | null;
+	id: number;
+	name: number | string;
+	description: string | null;
+	permissions: number | string;
+	assumeRolePolicy: number | string | null;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
 };
 
 export type UserRoles = {
-  id: number;
-  userId: string | null;
-  roleId: number | null;
-  createdAt: number | string | null;
-  updatedAt: number | string | null;
+	id: number;
+	userId: string | null;
+	roleId: number | null;
+	createdAt: number | string | null;
+	updatedAt: number | string | null;
 };
-
