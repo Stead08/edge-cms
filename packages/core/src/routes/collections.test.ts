@@ -1,81 +1,54 @@
-// collectionsのテスト
 import { SELF } from "cloudflare:test";
 
 describe("Collections Test", () => {
-	it("should get a collection", async () => {
-		const collection_res = await SELF.fetch(
-			"https://example.com/collections/1",
-		);
-		const collection = await collection_res.json();
-		expect(collection.slug).toBe("test");
-	});
-	it("should list collections", async () => {
-		const collection_res = await SELF.fetch("https://example.com/collections");
-		const collection = await collection_res.json();
-		expect(collection.total_count).toBe(1);
-	});
-	it("should create a collection", async () => {
-		const collection_res = await SELF.fetch("https://example.com/collections", {
+	it("should update a collection", async () => {
+		const createRes = await SELF.fetch("https://example.com/collection", {
 			method: "POST",
 			body: JSON.stringify({
-				slug: "create_field_values",
-				label: "create_field_values",
-				description: "create_field_values",
-				access: true,
-				defaultSort: "created_at", // 修正
-				listSearchableFields: ["created_at"], // 修正
-				pagination: false,
-				defaultLimit: 10, // 修正
-				maxLimit: 100, // 修正
+				workspace_id: "test-workspace_aabbccdd",
+				name: "Test Collection",
+				slug: "test-collection-1",
+				schema: {
+					type: "object",
+					properties: {
+						title: { type: "string" },
+						content: { type: "string" },
+					},
+				},
 			}),
 		});
-		const collection = await collection_res.json();
-		expect(collection.slug).toBe("create_field_values");
-		expect(collection.label).toBe("create_field_values");
-		expect(collection.description).toBe("create_field_values");
-		expect(collection.access).toBe(1);
-	});
-	it("should update a collection", async () => {
+		const id = (await createRes.json()).id;
 		const collection_res = await SELF.fetch(
-			"https://example.com/collections/1",
+			`https://example.com/workspaces/test-workspace_aabbccdd/${id}`,
 			{
 				method: "PUT",
 				body: JSON.stringify({
-					slug: "test",
-					label: "test",
-					description: "test",
-					access: true,
-					defaultSort: "created_at", // 修正
-					listSearchableFields: ["created_at"], // 修正
-					pagination: false,
-					defaultLimit: 10, // 修正
-					maxLimit: 100, // 修正
+					name: "Updated Test Collection",
+					schema: {
+						type: "object",
+						properties: {
+							title: { type: "string" },
+							content: { type: "string" },
+							author: { type: "string" },
+						},
+					},
 				}),
 			},
 		);
 		const collection = await collection_res.json();
-		expect(collection.slug).toBe("test");
-	});
-	it("should update a partial collection", async () => {
-		const collection_res = await SELF.fetch(
-			"https://example.com/collections/1",
-			{
-				method: "PUT",
-				body: JSON.stringify({
-					slug: "test",
-					label: "test",
-				}),
-			},
-		);
 		expect(collection_res.status).toBe(200);
+		expect(collection.name).toBe("Updated Test Collection");
+		expect(collection.schema.properties.author).toBeDefined();
 	});
+
 	it("should delete a collection", async () => {
 		const collection_res = await SELF.fetch(
-			"https://example.com/collections/1",
+			"https://example.com/workspaces/test-workspace_aabbccdd/test-collection",
 			{
 				method: "DELETE",
 			},
 		);
 		expect(collection_res.status).toBe(200);
+		expect(await collection_res.text()).toBe("コレクションが削除されました");
 	});
 });

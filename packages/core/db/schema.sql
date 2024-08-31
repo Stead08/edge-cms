@@ -1,12 +1,12 @@
 CREATE TABLE users (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name text DEFAULT NULL,
-    email text DEFAULT NULL,
+    id TEXT NOT NULL,
+    name text NOT NULL,
+    email text NOT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE workspaces (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  id TEXT NOT NULL PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
   slug VARCHAR(100) NOT NULL UNIQUE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
@@ -14,8 +14,8 @@ CREATE TABLE workspaces (
 );
 
 CREATE TABLE collections (
-  id SERIAL PRIMARY KEY,
-  workspace_id INTEGER REFERENCES workspaces(id) ON DELETE CASCADE,
+  id TEXT NOT NULL PRIMARY KEY, 
+  workspace_id TEXT NOT NULL REFERENCES workspaces(id) ON DELETE CASCADE,
   name VARCHAR(100) NOT NULL,
   slug VARCHAR(100) NOT NULL,
   schema JSONB NOT NULL,
@@ -25,9 +25,10 @@ CREATE TABLE collections (
 );
 
 CREATE TABLE items (
-  id SERIAL PRIMARY KEY,
-  collection_id INTEGER REFERENCES collections(id) ON DELETE CASCADE,
+  id TEXT NOT NULL PRIMARY KEY, --UUID
+  collection_id TEXT NOT NULL REFERENCES collections(id) ON DELETE CASCADE,
   data JSONB NOT NULL,
+  status VARCHAR(20) NOT NULL, -- ステータスカラムを追加
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );

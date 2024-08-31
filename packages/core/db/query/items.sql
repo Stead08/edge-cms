@@ -1,6 +1,6 @@
 -- name: CreateItem :one
-INSERT INTO items (collection_id, data, version)
-VALUES (@collection_id, @data, 1)
+INSERT INTO items (id, collection_id, data, status)
+VALUES (@id, @collection_id, @data, @status)
 RETURNING *;
 
 -- name: GetItem :one
@@ -14,8 +14,7 @@ ORDER BY id;
 
 -- name: UpdateItem :one
 UPDATE items
-SET data = COALESCE(@data, data),
-    updated_at = CURRENT_TIMESTAMP
+SET data = COALESCE(@data, data)
 WHERE id = @id
 RETURNING *;
 

@@ -5,37 +5,33 @@
 
 export type Users = {
   id: string;
-  name: string | null;
-  email: string | null;
+  name: string;
+  email: string;
+};
+
+export type Workspaces = {
+  id: string;
+  name: number | string;
+  slug: number | string;
+  createdAt: number | string | null;
+  updatedAt: number | string | null;
 };
 
 export type Collections = {
-  id: number;
-  slug: number | string;
-  label: number | string;
-  description: string | null;
-  fields: number | string;
-  createdAt: number | string | null;
-  updatedAt: number | string | null;
-};
-
-export type FieldTemplates = {
-  id: number;
+  id: string;
+  workspaceId: string;
   name: number | string;
-  type: number | string;
-  required: number | string | null;
-  defaultValue: string | null;
-  options: number | string | null;
-  metadata: number | string | null;
+  slug: number | string;
+  schema: number | string;
   createdAt: number | string | null;
   updatedAt: number | string | null;
-  version: number | null;
 };
 
 export type Items = {
-  id: number;
-  collectionId: number | null;
+  id: string;
+  collectionId: string;
   data: number | string;
+  status: number | string;
   createdAt: number | string | null;
   updatedAt: number | string | null;
 };

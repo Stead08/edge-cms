@@ -1,29 +1,25 @@
 -- name: CreateCollection :one
-INSERT INTO collections (slug, label, description, fields)
-VALUES (@slug, @label, @description, @fields)
+INSERT INTO collections (id, workspace_id, name, slug, schema)
+VALUES (@id, @workspace_id, @name, @slug, @schema)
 RETURNING *;
 
 -- name: GetCollection :one
-SELECT * FROM collections WHERE id = @id LIMIT 1;
+SELECT * FROM collections
+WHERE id = @id LIMIT 1;
 
--- name: GetCollectionBySlug :one
-SELECT * FROM collections WHERE slug = @slug LIMIT 1;
+-- name: ListCollections :many
+SELECT * FROM collections
+WHERE workspace_id = @workspace_id
+ORDER BY id;
 
 -- name: UpdateCollection :one
 UPDATE collections
-SET slug = COALESCE(@slug, slug),
-    label = COALESCE(@label, label),
-    description = COALESCE(@description, description),
-    fields = COALESCE(@fields, fields),
-    updated_at = CURRENT_TIMESTAMP
+SET name = COALESCE(@name, name),
+    slug = COALESCE(@slug, slug),
+    schema = COALESCE(@schema, schema)
 WHERE id = @id
 RETURNING *;
 
 -- name: DeleteCollection :exec
-DELETE FROM collections WHERE id = @id;
-
--- name: ListCollections :many
-SELECT * FROM collections;
-
--- name: CountCollections :one
-SELECT COUNT(id) AS count FROM collections;
+DELETE FROM collections
+WHERE id = @id;

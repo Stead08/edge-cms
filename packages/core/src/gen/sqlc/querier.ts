@@ -10,33 +10,34 @@ type Query<T> = {
   batch(): D1PreparedStatement;
 }
 const createCollectionQuery = `-- name: CreateCollection :one
-INSERT INTO collections (slug, label, description, fields)
-VALUES (?1, ?2, ?3, ?4)
-RETURNING id, slug, label, description, fields, created_at, updated_at`;
+INSERT INTO collections (id, workspace_id, name, slug, schema)
+VALUES (?1, ?2, ?3, ?4, ?5)
+RETURNING id, workspace_id, name, slug, schema, created_at, updated_at`;
 
 export type CreateCollectionParams = {
+  id: string;
+  workspaceId: string;
+  name: number | string;
   slug: number | string;
-  label: number | string;
-  description: string | null;
-  fields: number | string;
+  schema: number | string;
 };
 
 export type CreateCollectionRow = {
-  id: number;
+  id: string;
+  workspaceId: string;
+  name: number | string;
   slug: number | string;
-  label: number | string;
-  description: string | null;
-  fields: number | string;
+  schema: number | string;
   createdAt: number | string | null;
   updatedAt: number | string | null;
 };
 
 type RawCreateCollectionRow = {
-  id: number;
+  id: string;
+  workspace_id: string;
+  name: number | string;
   slug: number | string;
-  label: number | string;
-  description: string | null;
-  fields: number | string;
+  schema: number | string;
   created_at: number | string | null;
   updated_at: number | string | null;
 };
@@ -47,16 +48,16 @@ export function createCollection(
 ): Query<CreateCollectionRow | null> {
   const ps = d1
     .prepare(createCollectionQuery)
-    .bind(args.slug, args.label, args.description, args.fields);
+    .bind(args.id, args.workspaceId, args.name, args.slug, args.schema);
   return {
     then(onFulfilled?: (value: CreateCollectionRow | null) => void, onRejected?: (reason?: any) => void) {
       ps.first<RawCreateCollectionRow | null>()
         .then((raw: RawCreateCollectionRow | null) => raw ? {
           id: raw.id,
+          workspaceId: raw.workspace_id,
+          name: raw.name,
           slug: raw.slug,
-          label: raw.label,
-          description: raw.description,
-          fields: raw.fields,
+          schema: raw.schema,
           createdAt: raw.created_at,
           updatedAt: raw.updated_at,
         } : null)
@@ -67,28 +68,29 @@ export function createCollection(
 }
 
 const getCollectionQuery = `-- name: GetCollection :one
-SELECT id, slug, label, description, fields, created_at, updated_at FROM collections WHERE id = ?1 LIMIT 1`;
+SELECT id, workspace_id, name, slug, schema, created_at, updated_at FROM collections
+WHERE id = ?1 LIMIT 1`;
 
 export type GetCollectionParams = {
-  id: number;
+  id: string;
 };
 
 export type GetCollectionRow = {
-  id: number;
+  id: string;
+  workspaceId: string;
+  name: number | string;
   slug: number | string;
-  label: number | string;
-  description: string | null;
-  fields: number | string;
+  schema: number | string;
   createdAt: number | string | null;
   updatedAt: number | string | null;
 };
 
 type RawGetCollectionRow = {
-  id: number;
+  id: string;
+  workspace_id: string;
+  name: number | string;
   slug: number | string;
-  label: number | string;
-  description: string | null;
-  fields: number | string;
+  schema: number | string;
   created_at: number | string | null;
   updated_at: number | string | null;
 };
@@ -105,10 +107,10 @@ export function getCollection(
       ps.first<RawGetCollectionRow | null>()
         .then((raw: RawGetCollectionRow | null) => raw ? {
           id: raw.id,
+          workspaceId: raw.workspace_id,
+          name: raw.name,
           slug: raw.slug,
-          label: raw.label,
-          description: raw.description,
-          fields: raw.fields,
+          schema: raw.schema,
           createdAt: raw.created_at,
           updatedAt: raw.updated_at,
         } : null)
@@ -118,52 +120,57 @@ export function getCollection(
   }
 }
 
-const getCollectionBySlugQuery = `-- name: GetCollectionBySlug :one
-SELECT id, slug, label, description, fields, created_at, updated_at FROM collections WHERE slug = ?1 LIMIT 1`;
+const listCollectionsQuery = `-- name: ListCollections :many
+SELECT id, workspace_id, name, slug, schema, created_at, updated_at FROM collections
+WHERE workspace_id = ?1
+ORDER BY id`;
 
-export type GetCollectionBySlugParams = {
-  slug: number | string;
+export type ListCollectionsParams = {
+  workspaceId: string;
 };
 
-export type GetCollectionBySlugRow = {
-  id: number;
+export type ListCollectionsRow = {
+  id: string;
+  workspaceId: string;
+  name: number | string;
   slug: number | string;
-  label: number | string;
-  description: string | null;
-  fields: number | string;
+  schema: number | string;
   createdAt: number | string | null;
   updatedAt: number | string | null;
 };
 
-type RawGetCollectionBySlugRow = {
-  id: number;
+type RawListCollectionsRow = {
+  id: string;
+  workspace_id: string;
+  name: number | string;
   slug: number | string;
-  label: number | string;
-  description: string | null;
-  fields: number | string;
+  schema: number | string;
   created_at: number | string | null;
   updated_at: number | string | null;
 };
 
-export function getCollectionBySlug(
+export function listCollections(
   d1: D1Database,
-  args: GetCollectionBySlugParams
-): Query<GetCollectionBySlugRow | null> {
+  args: ListCollectionsParams
+): Query<D1Result<ListCollectionsRow>> {
   const ps = d1
-    .prepare(getCollectionBySlugQuery)
-    .bind(args.slug);
+    .prepare(listCollectionsQuery)
+    .bind(args.workspaceId);
   return {
-    then(onFulfilled?: (value: GetCollectionBySlugRow | null) => void, onRejected?: (reason?: any) => void) {
-      ps.first<RawGetCollectionBySlugRow | null>()
-        .then((raw: RawGetCollectionBySlugRow | null) => raw ? {
-          id: raw.id,
-          slug: raw.slug,
-          label: raw.label,
-          description: raw.description,
-          fields: raw.fields,
-          createdAt: raw.created_at,
-          updatedAt: raw.updated_at,
-        } : null)
+    then(onFulfilled?: (value: D1Result<ListCollectionsRow>) => void, onRejected?: (reason?: any) => void) {
+      ps.all<RawListCollectionsRow>()
+        .then((r: D1Result<RawListCollectionsRow>) => { return {
+          ...r,
+          results: r.results.map((raw: RawListCollectionsRow) => { return {
+            id: raw.id,
+            workspaceId: raw.workspace_id,
+            name: raw.name,
+            slug: raw.slug,
+            schema: raw.schema,
+            createdAt: raw.created_at,
+            updatedAt: raw.updated_at,
+          }}),
+        }})
         .then(onFulfilled).catch(onRejected);
     },
     batch() { return ps; },
@@ -172,38 +179,35 @@ export function getCollectionBySlug(
 
 const updateCollectionQuery = `-- name: UpdateCollection :one
 UPDATE collections
-SET slug = COALESCE(?1, slug),
-    label = COALESCE(?2, label),
-    description = COALESCE(?3, description),
-    fields = COALESCE(?4, fields),
-    updated_at = CURRENT_TIMESTAMP
-WHERE id = ?5
-RETURNING id, slug, label, description, fields, created_at, updated_at`;
+SET name = COALESCE(?1, name),
+    slug = COALESCE(?2, slug),
+    schema = COALESCE(?3, schema)
+WHERE id = ?4
+RETURNING id, workspace_id, name, slug, schema, created_at, updated_at`;
 
 export type UpdateCollectionParams = {
+  name: number | string;
   slug: number | string;
-  label: number | string;
-  description: string | null;
-  fields: number | string;
-  id: number;
+  schema: number | string;
+  id: string;
 };
 
 export type UpdateCollectionRow = {
-  id: number;
+  id: string;
+  workspaceId: string;
+  name: number | string;
   slug: number | string;
-  label: number | string;
-  description: string | null;
-  fields: number | string;
+  schema: number | string;
   createdAt: number | string | null;
   updatedAt: number | string | null;
 };
 
 type RawUpdateCollectionRow = {
-  id: number;
+  id: string;
+  workspace_id: string;
+  name: number | string;
   slug: number | string;
-  label: number | string;
-  description: string | null;
-  fields: number | string;
+  schema: number | string;
   created_at: number | string | null;
   updated_at: number | string | null;
 };
@@ -214,16 +218,16 @@ export function updateCollection(
 ): Query<UpdateCollectionRow | null> {
   const ps = d1
     .prepare(updateCollectionQuery)
-    .bind(args.slug, args.label, args.description, args.fields, args.id);
+    .bind(args.name, args.slug, args.schema, args.id);
   return {
     then(onFulfilled?: (value: UpdateCollectionRow | null) => void, onRejected?: (reason?: any) => void) {
       ps.first<RawUpdateCollectionRow | null>()
         .then((raw: RawUpdateCollectionRow | null) => raw ? {
           id: raw.id,
+          workspaceId: raw.workspace_id,
+          name: raw.name,
           slug: raw.slug,
-          label: raw.label,
-          description: raw.description,
-          fields: raw.fields,
+          schema: raw.schema,
           createdAt: raw.created_at,
           updatedAt: raw.updated_at,
         } : null)
@@ -234,10 +238,11 @@ export function updateCollection(
 }
 
 const deleteCollectionQuery = `-- name: DeleteCollection :exec
-DELETE FROM collections WHERE id = ?1`;
+DELETE FROM collections
+WHERE id = ?1`;
 
 export type DeleteCollectionParams = {
-  id: number;
+  id: string;
 };
 
 export function deleteCollection(
@@ -256,412 +261,32 @@ export function deleteCollection(
   }
 }
 
-const listCollectionsQuery = `-- name: ListCollections :many
-SELECT id, slug, label, description, fields, created_at, updated_at FROM collections`;
-
-export type ListCollectionsRow = {
-  id: number;
-  slug: number | string;
-  label: number | string;
-  description: string | null;
-  fields: number | string;
-  createdAt: number | string | null;
-  updatedAt: number | string | null;
-};
-
-type RawListCollectionsRow = {
-  id: number;
-  slug: number | string;
-  label: number | string;
-  description: string | null;
-  fields: number | string;
-  created_at: number | string | null;
-  updated_at: number | string | null;
-};
-
-export function listCollections(
-  d1: D1Database
-): Query<D1Result<ListCollectionsRow>> {
-  const ps = d1
-    .prepare(listCollectionsQuery);
-  return {
-    then(onFulfilled?: (value: D1Result<ListCollectionsRow>) => void, onRejected?: (reason?: any) => void) {
-      ps.all<RawListCollectionsRow>()
-        .then((r: D1Result<RawListCollectionsRow>) => { return {
-          ...r,
-          results: r.results.map((raw: RawListCollectionsRow) => { return {
-            id: raw.id,
-            slug: raw.slug,
-            label: raw.label,
-            description: raw.description,
-            fields: raw.fields,
-            createdAt: raw.created_at,
-            updatedAt: raw.updated_at,
-          }}),
-        }})
-        .then(onFulfilled).catch(onRejected);
-    },
-    batch() { return ps; },
-  }
-}
-
-const countCollectionsQuery = `-- name: CountCollections :one
-SELECT COUNT(id) AS count FROM collections`;
-
-export type CountCollectionsRow = {
-  count: number;
-};
-
-export function countCollections(
-  d1: D1Database
-): Query<CountCollectionsRow | null> {
-  const ps = d1
-    .prepare(countCollectionsQuery);
-  return {
-    then(onFulfilled?: (value: CountCollectionsRow | null) => void, onRejected?: (reason?: any) => void) {
-      ps.first<CountCollectionsRow | null>()
-        .then(onFulfilled).catch(onRejected);
-    },
-    batch() { return ps; },
-  }
-}
-
-const createFieldTemplateQuery = `-- name: CreateFieldTemplate :one
-INSERT INTO field_templates (name, type, required, default_value, options, metadata)
-VALUES (?1, ?2, ?3, ?4, ?5, ?6)
-RETURNING id, name, type, required, default_value, options, metadata, created_at, updated_at, version`;
-
-export type CreateFieldTemplateParams = {
-  name: number | string;
-  type: number | string;
-  required: number | string | null;
-  defaultValue: string | null;
-  options: number | string | null;
-  metadata: number | string | null;
-};
-
-export type CreateFieldTemplateRow = {
-  id: number;
-  name: number | string;
-  type: number | string;
-  required: number | string | null;
-  defaultValue: string | null;
-  options: number | string | null;
-  metadata: number | string | null;
-  createdAt: number | string | null;
-  updatedAt: number | string | null;
-  version: number | null;
-};
-
-type RawCreateFieldTemplateRow = {
-  id: number;
-  name: number | string;
-  type: number | string;
-  required: number | string | null;
-  default_value: string | null;
-  options: number | string | null;
-  metadata: number | string | null;
-  created_at: number | string | null;
-  updated_at: number | string | null;
-  version: number | null;
-};
-
-export function createFieldTemplate(
-  d1: D1Database,
-  args: CreateFieldTemplateParams
-): Query<CreateFieldTemplateRow | null> {
-  const ps = d1
-    .prepare(createFieldTemplateQuery)
-    .bind(args.name, args.type, args.required, args.defaultValue, args.options, args.metadata);
-  return {
-    then(onFulfilled?: (value: CreateFieldTemplateRow | null) => void, onRejected?: (reason?: any) => void) {
-      ps.first<RawCreateFieldTemplateRow | null>()
-        .then((raw: RawCreateFieldTemplateRow | null) => raw ? {
-          id: raw.id,
-          name: raw.name,
-          type: raw.type,
-          required: raw.required,
-          defaultValue: raw.default_value,
-          options: raw.options,
-          metadata: raw.metadata,
-          createdAt: raw.created_at,
-          updatedAt: raw.updated_at,
-          version: raw.version,
-        } : null)
-        .then(onFulfilled).catch(onRejected);
-    },
-    batch() { return ps; },
-  }
-}
-
-const getFieldTemplateQuery = `-- name: GetFieldTemplate :one
-SELECT id, name, type, required, default_value, options, metadata, created_at, updated_at, version FROM field_templates WHERE id = ?1 LIMIT 1`;
-
-export type GetFieldTemplateParams = {
-  id: number;
-};
-
-export type GetFieldTemplateRow = {
-  id: number;
-  name: number | string;
-  type: number | string;
-  required: number | string | null;
-  defaultValue: string | null;
-  options: number | string | null;
-  metadata: number | string | null;
-  createdAt: number | string | null;
-  updatedAt: number | string | null;
-  version: number | null;
-};
-
-type RawGetFieldTemplateRow = {
-  id: number;
-  name: number | string;
-  type: number | string;
-  required: number | string | null;
-  default_value: string | null;
-  options: number | string | null;
-  metadata: number | string | null;
-  created_at: number | string | null;
-  updated_at: number | string | null;
-  version: number | null;
-};
-
-export function getFieldTemplate(
-  d1: D1Database,
-  args: GetFieldTemplateParams
-): Query<GetFieldTemplateRow | null> {
-  const ps = d1
-    .prepare(getFieldTemplateQuery)
-    .bind(args.id);
-  return {
-    then(onFulfilled?: (value: GetFieldTemplateRow | null) => void, onRejected?: (reason?: any) => void) {
-      ps.first<RawGetFieldTemplateRow | null>()
-        .then((raw: RawGetFieldTemplateRow | null) => raw ? {
-          id: raw.id,
-          name: raw.name,
-          type: raw.type,
-          required: raw.required,
-          defaultValue: raw.default_value,
-          options: raw.options,
-          metadata: raw.metadata,
-          createdAt: raw.created_at,
-          updatedAt: raw.updated_at,
-          version: raw.version,
-        } : null)
-        .then(onFulfilled).catch(onRejected);
-    },
-    batch() { return ps; },
-  }
-}
-
-const listFieldTemplatesQuery = `-- name: ListFieldTemplates :many
-SELECT id, name, type, required, default_value, options, metadata, created_at, updated_at, version FROM field_templates ORDER BY name`;
-
-export type ListFieldTemplatesRow = {
-  id: number;
-  name: number | string;
-  type: number | string;
-  required: number | string | null;
-  defaultValue: string | null;
-  options: number | string | null;
-  metadata: number | string | null;
-  createdAt: number | string | null;
-  updatedAt: number | string | null;
-  version: number | null;
-};
-
-type RawListFieldTemplatesRow = {
-  id: number;
-  name: number | string;
-  type: number | string;
-  required: number | string | null;
-  default_value: string | null;
-  options: number | string | null;
-  metadata: number | string | null;
-  created_at: number | string | null;
-  updated_at: number | string | null;
-  version: number | null;
-};
-
-export function listFieldTemplates(
-  d1: D1Database
-): Query<D1Result<ListFieldTemplatesRow>> {
-  const ps = d1
-    .prepare(listFieldTemplatesQuery);
-  return {
-    then(onFulfilled?: (value: D1Result<ListFieldTemplatesRow>) => void, onRejected?: (reason?: any) => void) {
-      ps.all<RawListFieldTemplatesRow>()
-        .then((r: D1Result<RawListFieldTemplatesRow>) => { return {
-          ...r,
-          results: r.results.map((raw: RawListFieldTemplatesRow) => { return {
-            id: raw.id,
-            name: raw.name,
-            type: raw.type,
-            required: raw.required,
-            defaultValue: raw.default_value,
-            options: raw.options,
-            metadata: raw.metadata,
-            createdAt: raw.created_at,
-            updatedAt: raw.updated_at,
-            version: raw.version,
-          }}),
-        }})
-        .then(onFulfilled).catch(onRejected);
-    },
-    batch() { return ps; },
-  }
-}
-
-const updateFieldTemplateQuery = `-- name: UpdateFieldTemplate :one
-UPDATE field_templates
-SET name = COALESCE(?1, name),
-    type = COALESCE(?2, type),
-    required = COALESCE(?3, required),
-    default_value = COALESCE(?4, default_value),
-    options = COALESCE(?5, options),
-    metadata = COALESCE(?6, metadata),
-    version = version + 1,
-    updated_at = CURRENT_TIMESTAMP
-WHERE id = ?7
-RETURNING id, name, type, required, default_value, options, metadata, created_at, updated_at, version`;
-
-export type UpdateFieldTemplateParams = {
-  name: number | string;
-  type: number | string;
-  required: number | string | null;
-  defaultValue: string | null;
-  options: number | string | null;
-  metadata: number | string | null;
-  id: number;
-};
-
-export type UpdateFieldTemplateRow = {
-  id: number;
-  name: number | string;
-  type: number | string;
-  required: number | string | null;
-  defaultValue: string | null;
-  options: number | string | null;
-  metadata: number | string | null;
-  createdAt: number | string | null;
-  updatedAt: number | string | null;
-  version: number | null;
-};
-
-type RawUpdateFieldTemplateRow = {
-  id: number;
-  name: number | string;
-  type: number | string;
-  required: number | string | null;
-  default_value: string | null;
-  options: number | string | null;
-  metadata: number | string | null;
-  created_at: number | string | null;
-  updated_at: number | string | null;
-  version: number | null;
-};
-
-export function updateFieldTemplate(
-  d1: D1Database,
-  args: UpdateFieldTemplateParams
-): Query<UpdateFieldTemplateRow | null> {
-  const ps = d1
-    .prepare(updateFieldTemplateQuery)
-    .bind(args.name, args.type, args.required, args.defaultValue, args.options, args.metadata, args.id);
-  return {
-    then(onFulfilled?: (value: UpdateFieldTemplateRow | null) => void, onRejected?: (reason?: any) => void) {
-      ps.first<RawUpdateFieldTemplateRow | null>()
-        .then((raw: RawUpdateFieldTemplateRow | null) => raw ? {
-          id: raw.id,
-          name: raw.name,
-          type: raw.type,
-          required: raw.required,
-          defaultValue: raw.default_value,
-          options: raw.options,
-          metadata: raw.metadata,
-          createdAt: raw.created_at,
-          updatedAt: raw.updated_at,
-          version: raw.version,
-        } : null)
-        .then(onFulfilled).catch(onRejected);
-    },
-    batch() { return ps; },
-  }
-}
-
-const deleteFieldTemplateQuery = `-- name: DeleteFieldTemplate :exec
-DELETE FROM field_templates WHERE id = ?1`;
-
-export type DeleteFieldTemplateParams = {
-  id: number;
-};
-
-export function deleteFieldTemplate(
-  d1: D1Database,
-  args: DeleteFieldTemplateParams
-): Query<D1Result> {
-  const ps = d1
-    .prepare(deleteFieldTemplateQuery)
-    .bind(args.id);
-  return {
-    then(onFulfilled?: (value: D1Result) => void, onRejected?: (reason?: any) => void) {
-      ps.run()
-        .then(onFulfilled).catch(onRejected);
-    },
-    batch() { return ps; },
-  }
-}
-
-const getFieldTemplateVersionQuery = `-- name: GetFieldTemplateVersion :one
-SELECT version FROM field_templates WHERE id = ?1 LIMIT 1`;
-
-export type GetFieldTemplateVersionParams = {
-  id: number;
-};
-
-export type GetFieldTemplateVersionRow = {
-  version: number | null;
-};
-
-export function getFieldTemplateVersion(
-  d1: D1Database,
-  args: GetFieldTemplateVersionParams
-): Query<GetFieldTemplateVersionRow | null> {
-  const ps = d1
-    .prepare(getFieldTemplateVersionQuery)
-    .bind(args.id);
-  return {
-    then(onFulfilled?: (value: GetFieldTemplateVersionRow | null) => void, onRejected?: (reason?: any) => void) {
-      ps.first<GetFieldTemplateVersionRow | null>()
-        .then(onFulfilled).catch(onRejected);
-    },
-    batch() { return ps; },
-  }
-}
-
 const createItemQuery = `-- name: CreateItem :one
-INSERT INTO items (collection_id, data, version)
-VALUES (?1, ?2, 1)
-RETURNING id, collection_id, data, created_at, updated_at`;
+INSERT INTO items (id, collection_id, data, status)
+VALUES (?1, ?2, ?3, ?4)
+RETURNING id, collection_id, data, status, created_at, updated_at`;
 
 export type CreateItemParams = {
-  collectionId: number | null;
+  id: string;
+  collectionId: string;
   data: number | string;
+  status: number | string;
 };
 
 export type CreateItemRow = {
-  id: number;
-  collectionId: number | null;
+  id: string;
+  collectionId: string;
   data: number | string;
+  status: number | string;
   createdAt: number | string | null;
   updatedAt: number | string | null;
 };
 
 type RawCreateItemRow = {
-  id: number;
-  collection_id: number | null;
+  id: string;
+  collection_id: string;
   data: number | string;
+  status: number | string;
   created_at: number | string | null;
   updated_at: number | string | null;
 };
@@ -672,7 +297,7 @@ export function createItem(
 ): Query<CreateItemRow | null> {
   const ps = d1
     .prepare(createItemQuery)
-    .bind(args.collectionId, args.data);
+    .bind(args.id, args.collectionId, args.data, args.status);
   return {
     then(onFulfilled?: (value: CreateItemRow | null) => void, onRejected?: (reason?: any) => void) {
       ps.first<RawCreateItemRow | null>()
@@ -680,6 +305,7 @@ export function createItem(
           id: raw.id,
           collectionId: raw.collection_id,
           data: raw.data,
+          status: raw.status,
           createdAt: raw.created_at,
           updatedAt: raw.updated_at,
         } : null)
@@ -690,25 +316,27 @@ export function createItem(
 }
 
 const getItemQuery = `-- name: GetItem :one
-SELECT id, collection_id, data, created_at, updated_at FROM items
+SELECT id, collection_id, data, status, created_at, updated_at FROM items
 WHERE id = ?1 LIMIT 1`;
 
 export type GetItemParams = {
-  id: number;
+  id: string;
 };
 
 export type GetItemRow = {
-  id: number;
-  collectionId: number | null;
+  id: string;
+  collectionId: string;
   data: number | string;
+  status: number | string;
   createdAt: number | string | null;
   updatedAt: number | string | null;
 };
 
 type RawGetItemRow = {
-  id: number;
-  collection_id: number | null;
+  id: string;
+  collection_id: string;
   data: number | string;
+  status: number | string;
   created_at: number | string | null;
   updated_at: number | string | null;
 };
@@ -727,6 +355,7 @@ export function getItem(
           id: raw.id,
           collectionId: raw.collection_id,
           data: raw.data,
+          status: raw.status,
           createdAt: raw.created_at,
           updatedAt: raw.updated_at,
         } : null)
@@ -737,26 +366,28 @@ export function getItem(
 }
 
 const listItemsQuery = `-- name: ListItems :many
-SELECT id, collection_id, data, created_at, updated_at FROM items
+SELECT id, collection_id, data, status, created_at, updated_at FROM items
 WHERE collection_id = ?1
 ORDER BY id`;
 
 export type ListItemsParams = {
-  collectionId: number | null;
+  collectionId: string;
 };
 
 export type ListItemsRow = {
-  id: number;
-  collectionId: number | null;
+  id: string;
+  collectionId: string;
   data: number | string;
+  status: number | string;
   createdAt: number | string | null;
   updatedAt: number | string | null;
 };
 
 type RawListItemsRow = {
-  id: number;
-  collection_id: number | null;
+  id: string;
+  collection_id: string;
   data: number | string;
+  status: number | string;
   created_at: number | string | null;
   updated_at: number | string | null;
 };
@@ -777,6 +408,7 @@ export function listItems(
             id: raw.id,
             collectionId: raw.collection_id,
             data: raw.data,
+            status: raw.status,
             createdAt: raw.created_at,
             updatedAt: raw.updated_at,
           }}),
@@ -789,28 +421,29 @@ export function listItems(
 
 const updateItemQuery = `-- name: UpdateItem :one
 UPDATE items
-SET data = COALESCE(?1, data),
-    updated_at = CURRENT_TIMESTAMP
+SET data = COALESCE(?1, data)
 WHERE id = ?2
-RETURNING id, collection_id, data, created_at, updated_at`;
+RETURNING id, collection_id, data, status, created_at, updated_at`;
 
 export type UpdateItemParams = {
   data: number | string;
-  id: number;
+  id: string;
 };
 
 export type UpdateItemRow = {
-  id: number;
-  collectionId: number | null;
+  id: string;
+  collectionId: string;
   data: number | string;
+  status: number | string;
   createdAt: number | string | null;
   updatedAt: number | string | null;
 };
 
 type RawUpdateItemRow = {
-  id: number;
-  collection_id: number | null;
+  id: string;
+  collection_id: string;
   data: number | string;
+  status: number | string;
   created_at: number | string | null;
   updated_at: number | string | null;
 };
@@ -829,6 +462,7 @@ export function updateItem(
           id: raw.id,
           collectionId: raw.collection_id,
           data: raw.data,
+          status: raw.status,
           createdAt: raw.created_at,
           updatedAt: raw.updated_at,
         } : null)
@@ -843,7 +477,7 @@ DELETE FROM items
 WHERE id = ?1`;
 
 export type DeleteItemParams = {
-  id: number;
+  id: string;
 };
 
 export function deleteItem(
@@ -863,26 +497,28 @@ export function deleteItem(
 }
 
 const getItemByCollectionAndIdQuery = `-- name: GetItemByCollectionAndId :one
-SELECT id, collection_id, data, created_at, updated_at FROM items
+SELECT id, collection_id, data, status, created_at, updated_at FROM items
 WHERE collection_id = ?1 AND id = ?2 LIMIT 1`;
 
 export type GetItemByCollectionAndIdParams = {
-  collectionId: number | null;
-  id: number;
+  collectionId: string;
+  id: string;
 };
 
 export type GetItemByCollectionAndIdRow = {
-  id: number;
-  collectionId: number | null;
+  id: string;
+  collectionId: string;
   data: number | string;
+  status: number | string;
   createdAt: number | string | null;
   updatedAt: number | string | null;
 };
 
 type RawGetItemByCollectionAndIdRow = {
-  id: number;
-  collection_id: number | null;
+  id: string;
+  collection_id: string;
   data: number | string;
+  status: number | string;
   created_at: number | string | null;
   updated_at: number | string | null;
 };
@@ -901,6 +537,7 @@ export function getItemByCollectionAndId(
           id: raw.id,
           collectionId: raw.collection_id,
           data: raw.data,
+          status: raw.status,
           createdAt: raw.created_at,
           updatedAt: raw.updated_at,
         } : null)
@@ -911,29 +548,31 @@ export function getItemByCollectionAndId(
 }
 
 const listItemsForCollectionQuery = `-- name: ListItemsForCollection :many
-SELECT id, collection_id, data, created_at, updated_at FROM items
+SELECT id, collection_id, data, status, created_at, updated_at FROM items
 WHERE collection_id = ?1
 ORDER BY created_at DESC
 LIMIT ?3 OFFSET ?2`;
 
 export type ListItemsForCollectionParams = {
-  collectionId: number | null;
+  collectionId: string;
   offset: number;
   limit: number;
 };
 
 export type ListItemsForCollectionRow = {
-  id: number;
-  collectionId: number | null;
+  id: string;
+  collectionId: string;
   data: number | string;
+  status: number | string;
   createdAt: number | string | null;
   updatedAt: number | string | null;
 };
 
 type RawListItemsForCollectionRow = {
-  id: number;
-  collection_id: number | null;
+  id: string;
+  collection_id: string;
   data: number | string;
+  status: number | string;
   created_at: number | string | null;
   updated_at: number | string | null;
 };
@@ -954,6 +593,7 @@ export function listItemsForCollection(
             id: raw.id,
             collectionId: raw.collection_id,
             data: raw.data,
+            status: raw.status,
             createdAt: raw.created_at,
             updatedAt: raw.updated_at,
           }}),
@@ -969,7 +609,7 @@ SELECT COUNT(*) AS count FROM items
 WHERE collection_id = ?1`;
 
 export type CountItemsForCollectionParams = {
-  collectionId: number | null;
+  collectionId: string;
 };
 
 export type CountItemsForCollectionRow = {
@@ -1467,14 +1107,14 @@ RETURNING id, name, email`;
 
 export type CreateUserParams = {
   id: string;
-  name: string | null;
-  email: string | null;
+  name: string;
+  email: string;
 };
 
 export type CreateUserRow = {
   id: string;
-  name: string | null;
-  email: string | null;
+  name: string;
+  email: string;
 };
 
 export function createUser(
@@ -1503,8 +1143,8 @@ export type GetUserParams = {
 
 export type GetUserRow = {
   id: string;
-  name: string | null;
-  email: string | null;
+  name: string;
+  email: string;
 };
 
 export function getUser(
@@ -1533,8 +1173,8 @@ export type GetUserWithPasswordHashParams = {
 
 export type GetUserWithPasswordHashRow = {
   id: string;
-  name: string | null;
-  email: string | null;
+  name: string;
+  email: string;
 };
 
 export function getUserWithPasswordHash(
@@ -1559,8 +1199,8 @@ ORDER BY id`;
 
 export type ListUsersRow = {
   id: string;
-  name: string | null;
-  email: string | null;
+  name: string;
+  email: string;
 };
 
 export function listUsers(
@@ -1585,15 +1225,15 @@ WHERE id = ?3
 RETURNING id, name, email`;
 
 export type UpdateUserParams = {
-  name: string | null;
-  email: string | null;
+  name: string;
+  email: string;
   id: string;
 };
 
 export type UpdateUserRow = {
   id: string;
-  name: string | null;
-  email: string | null;
+  name: string;
+  email: string;
 };
 
 export function updateUser(
@@ -1641,13 +1281,13 @@ SELECT id, name, email FROM users
 WHERE email = ?1 LIMIT 1`;
 
 export type GetUserByEmailParams = {
-  email: string | null;
+  email: string;
 };
 
 export type GetUserByEmailRow = {
   id: string;
-  name: string | null;
-  email: string | null;
+  name: string;
+  email: string;
 };
 
 export function getUserByEmail(
@@ -1687,8 +1327,8 @@ export type GetUserWithRolesParams = {
 
 export type GetUserWithRolesRow = {
   id: string;
-  name: string | null;
-  email: string | null;
+  name: string;
+  email: string;
   roles: number | string | null;
 };
 
@@ -1746,6 +1386,270 @@ export function checkUserPermission(
         .then((raw: RawCheckUserPermissionRow | null) => raw ? {
           hasPermission: raw.has_permission,
         } : null)
+        .then(onFulfilled).catch(onRejected);
+    },
+    batch() { return ps; },
+  }
+}
+
+const createWorkspaceQuery = `-- name: CreateWorkspace :one
+INSERT INTO workspaces (id, name, slug)
+VALUES (?1, ?2, ?3)
+RETURNING id, name, slug, created_at, updated_at`;
+
+export type CreateWorkspaceParams = {
+  id: string;
+  name: number | string;
+  slug: number | string;
+};
+
+export type CreateWorkspaceRow = {
+  id: string;
+  name: number | string;
+  slug: number | string;
+  createdAt: number | string | null;
+  updatedAt: number | string | null;
+};
+
+type RawCreateWorkspaceRow = {
+  id: string;
+  name: number | string;
+  slug: number | string;
+  created_at: number | string | null;
+  updated_at: number | string | null;
+};
+
+export function createWorkspace(
+  d1: D1Database,
+  args: CreateWorkspaceParams
+): Query<CreateWorkspaceRow | null> {
+  const ps = d1
+    .prepare(createWorkspaceQuery)
+    .bind(args.id, args.name, args.slug);
+  return {
+    then(onFulfilled?: (value: CreateWorkspaceRow | null) => void, onRejected?: (reason?: any) => void) {
+      ps.first<RawCreateWorkspaceRow | null>()
+        .then((raw: RawCreateWorkspaceRow | null) => raw ? {
+          id: raw.id,
+          name: raw.name,
+          slug: raw.slug,
+          createdAt: raw.created_at,
+          updatedAt: raw.updated_at,
+        } : null)
+        .then(onFulfilled).catch(onRejected);
+    },
+    batch() { return ps; },
+  }
+}
+
+const getWorkspaceByIdQuery = `-- name: GetWorkspaceById :one
+SELECT id, name, slug, created_at, updated_at FROM workspaces
+WHERE id = ?1 LIMIT 1`;
+
+export type GetWorkspaceByIdParams = {
+  id: string;
+};
+
+export type GetWorkspaceByIdRow = {
+  id: string;
+  name: number | string;
+  slug: number | string;
+  createdAt: number | string | null;
+  updatedAt: number | string | null;
+};
+
+type RawGetWorkspaceByIdRow = {
+  id: string;
+  name: number | string;
+  slug: number | string;
+  created_at: number | string | null;
+  updated_at: number | string | null;
+};
+
+export function getWorkspaceById(
+  d1: D1Database,
+  args: GetWorkspaceByIdParams
+): Query<GetWorkspaceByIdRow | null> {
+  const ps = d1
+    .prepare(getWorkspaceByIdQuery)
+    .bind(args.id);
+  return {
+    then(onFulfilled?: (value: GetWorkspaceByIdRow | null) => void, onRejected?: (reason?: any) => void) {
+      ps.first<RawGetWorkspaceByIdRow | null>()
+        .then((raw: RawGetWorkspaceByIdRow | null) => raw ? {
+          id: raw.id,
+          name: raw.name,
+          slug: raw.slug,
+          createdAt: raw.created_at,
+          updatedAt: raw.updated_at,
+        } : null)
+        .then(onFulfilled).catch(onRejected);
+    },
+    batch() { return ps; },
+  }
+}
+
+const getWorkspaceBySlugQuery = `-- name: GetWorkspaceBySlug :one
+SELECT id, name, slug, created_at, updated_at FROM workspaces
+WHERE slug = ?1 LIMIT 1`;
+
+export type GetWorkspaceBySlugParams = {
+  slug: number | string;
+};
+
+export type GetWorkspaceBySlugRow = {
+  id: string;
+  name: number | string;
+  slug: number | string;
+  createdAt: number | string | null;
+  updatedAt: number | string | null;
+};
+
+type RawGetWorkspaceBySlugRow = {
+  id: string;
+  name: number | string;
+  slug: number | string;
+  created_at: number | string | null;
+  updated_at: number | string | null;
+};
+
+export function getWorkspaceBySlug(
+  d1: D1Database,
+  args: GetWorkspaceBySlugParams
+): Query<GetWorkspaceBySlugRow | null> {
+  const ps = d1
+    .prepare(getWorkspaceBySlugQuery)
+    .bind(args.slug);
+  return {
+    then(onFulfilled?: (value: GetWorkspaceBySlugRow | null) => void, onRejected?: (reason?: any) => void) {
+      ps.first<RawGetWorkspaceBySlugRow | null>()
+        .then((raw: RawGetWorkspaceBySlugRow | null) => raw ? {
+          id: raw.id,
+          name: raw.name,
+          slug: raw.slug,
+          createdAt: raw.created_at,
+          updatedAt: raw.updated_at,
+        } : null)
+        .then(onFulfilled).catch(onRejected);
+    },
+    batch() { return ps; },
+  }
+}
+
+const listWorkspacesQuery = `-- name: ListWorkspaces :many
+SELECT id, name, slug, created_at, updated_at FROM workspaces
+ORDER BY id`;
+
+export type ListWorkspacesRow = {
+  id: string;
+  name: number | string;
+  slug: number | string;
+  createdAt: number | string | null;
+  updatedAt: number | string | null;
+};
+
+type RawListWorkspacesRow = {
+  id: string;
+  name: number | string;
+  slug: number | string;
+  created_at: number | string | null;
+  updated_at: number | string | null;
+};
+
+export function listWorkspaces(
+  d1: D1Database
+): Query<D1Result<ListWorkspacesRow>> {
+  const ps = d1
+    .prepare(listWorkspacesQuery);
+  return {
+    then(onFulfilled?: (value: D1Result<ListWorkspacesRow>) => void, onRejected?: (reason?: any) => void) {
+      ps.all<RawListWorkspacesRow>()
+        .then((r: D1Result<RawListWorkspacesRow>) => { return {
+          ...r,
+          results: r.results.map((raw: RawListWorkspacesRow) => { return {
+            id: raw.id,
+            name: raw.name,
+            slug: raw.slug,
+            createdAt: raw.created_at,
+            updatedAt: raw.updated_at,
+          }}),
+        }})
+        .then(onFulfilled).catch(onRejected);
+    },
+    batch() { return ps; },
+  }
+}
+
+const updateWorkspaceQuery = `-- name: UpdateWorkspace :one
+UPDATE workspaces
+SET name = COALESCE(?1, name),
+    slug = COALESCE(?2, slug)
+WHERE id = ?3
+RETURNING id, name, slug, created_at, updated_at`;
+
+export type UpdateWorkspaceParams = {
+  name: number | string;
+  slug: number | string;
+  id: string;
+};
+
+export type UpdateWorkspaceRow = {
+  id: string;
+  name: number | string;
+  slug: number | string;
+  createdAt: number | string | null;
+  updatedAt: number | string | null;
+};
+
+type RawUpdateWorkspaceRow = {
+  id: string;
+  name: number | string;
+  slug: number | string;
+  created_at: number | string | null;
+  updated_at: number | string | null;
+};
+
+export function updateWorkspace(
+  d1: D1Database,
+  args: UpdateWorkspaceParams
+): Query<UpdateWorkspaceRow | null> {
+  const ps = d1
+    .prepare(updateWorkspaceQuery)
+    .bind(args.name, args.slug, args.id);
+  return {
+    then(onFulfilled?: (value: UpdateWorkspaceRow | null) => void, onRejected?: (reason?: any) => void) {
+      ps.first<RawUpdateWorkspaceRow | null>()
+        .then((raw: RawUpdateWorkspaceRow | null) => raw ? {
+          id: raw.id,
+          name: raw.name,
+          slug: raw.slug,
+          createdAt: raw.created_at,
+          updatedAt: raw.updated_at,
+        } : null)
+        .then(onFulfilled).catch(onRejected);
+    },
+    batch() { return ps; },
+  }
+}
+
+const deleteWorkspaceQuery = `-- name: DeleteWorkspace :exec
+DELETE FROM workspaces
+WHERE id = ?1`;
+
+export type DeleteWorkspaceParams = {
+  id: string;
+};
+
+export function deleteWorkspace(
+  d1: D1Database,
+  args: DeleteWorkspaceParams
+): Query<D1Result> {
+  const ps = d1
+    .prepare(deleteWorkspaceQuery)
+    .bind(args.id);
+  return {
+    then(onFulfilled?: (value: D1Result) => void, onRejected?: (reason?: any) => void) {
+      ps.run()
         .then(onFulfilled).catch(onRejected);
     },
     batch() { return ps; },

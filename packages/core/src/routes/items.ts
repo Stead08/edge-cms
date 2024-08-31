@@ -1,134 +1,112 @@
 import { z } from "zod";
 import { createHonoWithDB } from "../factory";
 import * as sql from "../gen/sqlc/querier";
-
-const statusSchema = z.enum(["draft", "published", "unpublished"]);
+import { validateJson } from "../utils/jsonValidator";
 
 const itemSchema = z.object({
-	collection_id: z.number().int().positive(),
-	status: statusSchema.default("draft"),
-	metadata: z.record(z.unknown()).optional(),
+	collection_id: z.string(),
+	status: z.string(),
+	data: z.record(z.unknown()), // JSONスキーマでバリデーションされたデータ
 });
 
 export const itemsApp = createHonoWithDB()
-	.post("/", async (c) => {
+	.post("/items", async (c) => {
 		const db = c.get("db");
 		const body = await c.req.json();
-		try {
-			const validatedData = itemSchema.parse(body);
-			const result = await sql.createItem(db, {
-				collectionId: validatedData.collection_id,
-				status: validatedData.status,
-				metadata: validatedData.metadata
-					? JSON.stringify(validatedData.metadata)
-					: null,
-			});
-			return c.json(result, 201);
-		} catch (error) {
-			return c.json({ error: "バリデーションエラー", details: error }, 400);
-		}
-	})
-	.get("/:id", async (c) => {
-		const db = c.get("db");
-		const id = c.req.param("id");
-		const result = await sql.getItem(db, { id: Number(id) });
-		if (!result) {
-			return c.json({ error: "アイテムが見つかりません" }, 404);
-		}
-		return c.json({
-			...result,
-			metadata: result.metadata ? JSON.parse(result.metadata.toString()) : null,
-		});
-	})
-	.put("/:id", async (c) => {
-		const db = c.get("db");
-		const id = c.req.param("id");
-		const body = await c.req.json();
-		const validatedData = itemSchema.partial().parse(body);
+		const validatedData = itemSchema.parse(body);
 
-		const currentVersion = await sql.getItemVersion(db, { id: Number(id) });
-		if (!currentVersion) {
-			return c.json({ error: "アイテムが見つかりません" }, 404);
-		}
-
-		const result = await sql.updateItem(db, {
-			id: Number(id),
-			status: validatedData.status ?? "draft",
-			metadata: validatedData.metadata
-				? JSON.stringify(validatedData.metadata)
-				: null,
-		});
-		return c.json({
-			...result,
-			metadata: result?.metadata
-				? JSON.parse(result.metadata.toString())
-				: null,
-		});
-	})
-	.delete("/:id", async (c) => {
-		const db = c.get("db");
-		const id = c.req.param("id");
-		await sql.deleteItem(db, { id: Number(id) });
-		return c.text("アイテムが削除されました", 200);
-	})
-	.get("/collection/:collection_slug", async (c) => {
-		const db = c.get("db");
-		const collectionSlug = c.req.param("collection_slug");
-		const page = Number(c.req.query("page") || "1");
-		const limit = Number(c.req.query("limit") || "10");
-		const status = c.req.query("status") || "draft";
-		const offset = (page - 1) * limit;
-
-		const collection = await sql.getCollectionBySlug(db, {
-			slug: collectionSlug,
+		const collection = await sql.getCollection(db, {
+			id: validatedData.collection_id,
 		});
 		if (!collection) {
 			return c.json({ error: "コレクションが見つかりません" }, 404);
 		}
 
-		const items = await sql.listItemsForCollection(db, {
-			collectionId: collection.id,
-			limit: limit,
-			offset: offset,
-		});
+		// コレクションのスキーマに対してデータをバリデーション
+		const collectionSchema = JSON.parse(collection.schema as string);
+		const isValid = validateJson(validatedData.data, collectionSchema);
+		if (!isValid.valid) {
+			return c.json({ error: isValid.errors }, 400);
+		}
 
-		const totalItems = await sql.countItemsForCollection(db, {
-			collectionId: collection.id,
+		const result = await sql.createItem(db, {
+			id: crypto.randomUUID().toString(),
+			collectionId: validatedData.collection_id,
+			data: JSON.stringify(validatedData.data),
+			status: validatedData.status,
 		});
-		if (!totalItems) {
+		if (!result) {
+			return c.json({ error: "アイテムの作成に失敗しました" }, 500);
+		}
+		return c.json(
+			{
+				...result,
+				data: JSON.parse(result.data.toString()),
+			},
+			201,
+		);
+	})
+	.get("/", async (c) => {
+		const db = c.get("db");
+		const collectionId = c.req.param("id");
+		if (!collectionId) {
+			return c.json({ error: "コレクションIDが指定されていません" }, 400);
+		}
+		const result = await sql.listItems(db, { collectionId: collectionId });
+		return c.json(result);
+	})
+	.get("/:item_id", async (c) => {
+		const db = c.get("db");
+		const id = c.req.param("item_id");
+		const result = await sql.getItem(db, { id: id });
+		if (!result) {
+			return c.json({ error: "アイテムが見つかりません" }, 404);
+		}
+		return c.json({
+			...result,
+			data: JSON.parse(result.data.toString()),
+		});
+	})
+	.put("/:item_id", async (c) => {
+		const db = c.get("db");
+		const id = c.req.param("item_id");
+		const body = await c.req.json();
+		const validatedData = itemSchema.partial().parse(body);
+
+		const item = await sql.getItem(db, { id: id });
+		if (!item) {
 			return c.json({ error: "アイテムが見つかりません" }, 404);
 		}
 
-		const fields = await sql.getFieldsByCollection(db, {
-			collectionId: collection.id,
+		const collection = await sql.getCollection(db, { id: item.collectionId });
+		if (!collection) {
+			return c.json({ error: "コレクションが見つかりません" }, 404);
+		}
+
+		// コレクションのスキーマに対してデータをバリデーション
+		if (validatedData.data) {
+			const collectionSchema = JSON.parse(collection.schema as string);
+			const isValid = validateJson(validatedData.data, collectionSchema);
+			if (!isValid) {
+				return c.json({ error: "データがスキーマに一致しません" }, 400);
+			}
+		}
+
+		const result = await sql.updateItem(db, {
+			id: id,
+			data: validatedData.data ? JSON.stringify(validatedData.data) : item.data,
 		});
-
-		const itemsWithContent = await Promise.all(
-			items.results
-				.filter((item) => item.status === status)
-				.map(async (item) => {
-					const fieldValues = await sql.getFieldValuesForItem(db, {
-						itemId: item.id,
-					});
-					const content = fieldValues.results.map((fv) => {
-						const field = fields.results.find((f) => f.id === fv.fieldId);
-						return {
-							name: field?.name,
-							type: field?.type,
-							value: fv.value,
-						};
-					});
-					return { ...item, content };
-				}),
-		);
-
+		if (!result) {
+			return c.json({ error: "アイテムの更新に失敗しました" }, 500);
+		}
 		return c.json({
-			items: itemsWithContent,
-			pagination: {
-				page,
-				limit,
-				totalItems: totalItems.count,
-				totalPages: Math.ceil(totalItems.count / limit),
-			},
+			...result,
+			data: JSON.parse(result.data.toString()),
 		});
+	})
+	.delete("/:item_id", async (c) => {
+		const db = c.get("db");
+		const id = c.req.param("item_id");
+		await sql.deleteItem(db, { id: id });
+		return c.text("アイテムが削除されました", 200);
 	});
