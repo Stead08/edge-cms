@@ -12,14 +12,23 @@ export const workspacesApp = createHonoWithDB()
 	.post("/", async (c) => {
 		const db = c.get("db");
 		const body = await c.req.json();
-		const validatedData = workspaceSchema.parse(body);
-		const id = `${validatedData.slug}_${crypto.randomUUID().slice(0, 8)}`;
-		const result = await sql.createWorkspace(db, {
-			id: id,
-			name: validatedData.name,
-			slug: validatedData.slug,
-		});
-		return c.json(result, 201);
+		try {
+			const validatedData = workspaceSchema.parse(body);
+			const id = `${validatedData.slug}_${crypto.randomUUID().slice(0, 8)}`;
+			const result = await sql.createWorkspace(db, {
+				id: id,
+				name: validatedData.name,
+				slug: validatedData.slug,
+			});
+			return c.json(result, 201);
+		} catch (error) {
+			return c.json({ error: error }, 400);
+		}
+	})
+	.get("/", async (c) => {
+		const db = c.get("db");
+		const result = await sql.listWorkspaces(db);
+		return c.json(result);
 	})
 	.get("/:id", async (c) => {
 		const db = c.get("db");

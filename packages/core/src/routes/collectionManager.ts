@@ -12,18 +12,22 @@ const collectionSchema = z.object({
 export const collectionManagerApp = createHonoWithDB()
 	.post("/", async (c) => {
 		const db = c.get("db");
-		const body = await c.req.json();
-		const validatedData = collectionSchema.parse(body);
-		const id = crypto.randomUUID().toString();
+		try {
+			const body = await c.req.json();
+			const validatedData = collectionSchema.parse(body);
+			const id = crypto.randomUUID().toString();
 
-		const result = await sql.createCollection(db, {
-			id: id,
-			workspaceId: validatedData.workspace_id,
-			name: validatedData.name,
-			slug: validatedData.slug,
-			schema: JSON.stringify(validatedData.schema),
-		});
-		return c.json(result, 201);
+			const result = await sql.createCollection(db, {
+				id: id,
+				workspaceId: validatedData.workspace_id,
+				name: validatedData.name,
+				slug: validatedData.slug,
+				schema: JSON.stringify(validatedData.schema),
+			});
+			return c.json(result, 201);
+		} catch (error) {
+			return c.json({ error: error }, 400);
+		}
 	})
 	.get("/:workspace_id", async (c) => {
 		const db = c.get("db");

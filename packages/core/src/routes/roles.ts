@@ -1,5 +1,13 @@
+import { z } from "zod";
 import { createHonoWithDB } from "../factory";
 import * as sql from "../gen/sqlc/querier";
+
+const updateRoleSchema = z.object({
+	name: z.string().min(1),
+	description: z.string().min(1),
+	permissions: z.record(z.boolean()).optional(),
+	assumeRolePolicy: z.record(z.boolean()).optional(),
+});
 
 export const rolesApp = createHonoWithDB()
 	.post("/", async (c) => {
@@ -51,26 +59,37 @@ export const rolesApp = createHonoWithDB()
 	.put("/:id", async (c) => {
 		const db = c.get("db");
 		const id = c.req.param("id");
-		const { name, description, permissions, assumeRolePolicy } =
-			await c.req.json();
-		const result = await sql.updateRole(db, {
-			id: Number(id),
-			name,
-			description,
-			permissions: JSON.stringify(permissions),
-			assumeRolePolicy: JSON.stringify(assumeRolePolicy),
-		});
-		if (!result) {
-			return c.json({ error: "ロールが見つかりません" }, 404);
-		}
-		if (result.permissions && result.assumeRolePolicy) {
-			return c.json({
-				...result,
-				permissions: JSON.parse(result.permissions.toString()),
-				assumeRolePolicy: JSON.parse(result.assumeRolePolicy.toString()),
+		try {
+			const json = await c.req.json();
+			const { name, description, permissions, assumeRolePolicy } =
+				updateRoleSchema.parse(json);
+
+			const role = await sql.getRole(db, { id: Number(id) });
+			if (!role) {
+				return c.json({ error: "ロールが見つかりません" }, 404);
+			}
+			const result = await sql.updateRole(db, {
+				id: Number(id),
+				name,
+				description,
+				permissions: JSON.stringify(permissions) ?? role.permissions,
+				assumeRolePolicy:
+					JSON.stringify(assumeRolePolicy) ?? role.assumeRolePolicy,
 			});
+			if (!result) {
+				return c.json({ error: "ロールが見つかりません" }, 404);
+			}
+			if (result.permissions && result.assumeRolePolicy) {
+				return c.json({
+					...result,
+					permissions: JSON.parse(result.permissions.toString()),
+					assumeRolePolicy: JSON.parse(result.assumeRolePolicy.toString()),
+				});
+			}
+			return c.json({ error: "ロールが見つかりません" }, 404);
+		} catch (_error) {
+			return c.text("ロールの更新に失敗しました", 400);
 		}
-		return c.json({ error: "ロールが見つかりません" }, 404);
 	})
 	.delete("/:id", async (c) => {
 		const db = c.get("db");

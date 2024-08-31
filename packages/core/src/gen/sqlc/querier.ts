@@ -1027,7 +1027,7 @@ JOIN user_roles ur ON r.id = ur.role_id
 WHERE ur.user_id = ?1`;
 
 export type GetUserRolesParams = {
-	userId: string | null;
+	userId: string;
 };
 
 export type GetUserRolesRow = {
@@ -1095,7 +1095,7 @@ SELECT EXISTS (
 ) as has_role`;
 
 export type HasRoleParams = {
-	userId: string | null;
+	userId: string;
 	roleName: number | string;
 };
 
@@ -1206,22 +1206,22 @@ VALUES (?1, (SELECT id FROM roles WHERE name = ?2))
 RETURNING id, user_id, role_id, created_at, updated_at`;
 
 export type AssignRoleToUserParams = {
-	userId: string | null;
+	userId: string;
 	roleName: number | string;
 };
 
 export type AssignRoleToUserRow = {
 	id: number;
-	userId: string | null;
-	roleId: number | null;
+	userId: string;
+	roleId: number;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };
 
 type RawAssignRoleToUserRow = {
 	id: number;
-	user_id: string | null;
-	role_id: number | null;
+	user_id: string;
+	role_id: number;
 	created_at: number | string | null;
 	updated_at: number | string | null;
 };
@@ -1262,7 +1262,7 @@ DELETE FROM user_roles
 WHERE user_id = ?1 AND role_id = (SELECT id FROM roles WHERE name = ?2)`;
 
 export type RemoveRoleFromUserParams = {
-	userId: string | null;
+	userId: string;
 	roleName: number | string;
 };
 

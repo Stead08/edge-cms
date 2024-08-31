@@ -48,8 +48,8 @@ export type Roles = {
 
 export type UserRoles = {
 	id: number;
-	userId: string | null;
-	roleId: number | null;
+	userId: string;
+	roleId: number;
 	createdAt: number | string | null;
 	updatedAt: number | string | null;
 };

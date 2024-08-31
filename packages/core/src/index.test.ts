@@ -33,4 +33,24 @@ describe("index", () => {
 			key: expect.any(String),
 		});
 	});
+	it("should handle non-existent routes", async () => {
+		const res = await SELF.fetch("https://example.com/non-existent-route");
+		expect(res.status).toBe(404);
+	});
+	it("should handle method not allowed", async () => {
+		const res = await SELF.fetch("https://example.com/", {
+			method: "POST",
+		});
+		expect(res.status).toBe(405);
+	});
+	it("should handle invalid JSON in r2 upload", async () => {
+		const res = await SELF.fetch("https://example.com/r2", {
+			method: "POST",
+			body: "invalid json",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+		expect(res.status).toBe(400);
+	});
 });

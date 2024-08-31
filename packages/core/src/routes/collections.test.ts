@@ -51,4 +51,17 @@ describe("Collections Test", () => {
 		expect(collection_res.status).toBe(200);
 		expect(await collection_res.text()).toBe("コレクションが削除されました");
 	});
+
+	it("should not update a non-existent collection", async () => {
+		const res = await SELF.fetch(
+			"https://example.com/workspaces/test-workspace_aabbccdd/collections/non-existent-id",
+			{
+				method: "PUT",
+				body: JSON.stringify({
+					name: "Updated Collection",
+				}),
+			},
+		);
+		expect(res.status).toBe(404);
+	});
 });

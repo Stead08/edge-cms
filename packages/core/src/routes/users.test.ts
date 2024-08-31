@@ -125,4 +125,30 @@ describe("users", () => {
 		expect(res.status).toBe(200);
 		expect(await res.text()).toBe("ロールがユーザーから削除されました");
 	});
+	it("should not create a user with invalid email", async () => {
+		const res = await SELF.fetch("https://example.com/users", {
+			method: "POST",
+			body: JSON.stringify({
+				id: "InvalidUser",
+				name: "Invalid User",
+				email: "invalid-email",
+			}),
+		});
+		expect(res.status).toBe(400);
+	});
+
+	it("should return 404 for non-existent user", async () => {
+		const res = await SELF.fetch("https://example.com/users/non-existent-id");
+		expect(res.status).toBe(404);
+	});
+
+	it("should not assign non-existent role to a user", async () => {
+		const res = await SELF.fetch("https://example.com/users/TestUser/roles", {
+			method: "POST",
+			body: JSON.stringify({
+				roles: ["NonExistentRole"],
+			}),
+		});
+		expect(res.status).toBe(400);
+	});
 });

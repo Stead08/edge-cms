@@ -12,39 +12,43 @@ const itemSchema = z.object({
 export const itemsApp = createHonoWithDB()
 	.post("/items", async (c) => {
 		const db = c.get("db");
-		const body = await c.req.json();
-		const validatedData = itemSchema.parse(body);
+		try {
+			const body = await c.req.json();
+			const validatedData = itemSchema.parse(body);
 
-		const collection = await sql.getCollection(db, {
-			id: validatedData.collection_id,
-		});
-		if (!collection) {
-			return c.json({ error: "コレクションが見つかりません" }, 404);
-		}
+			const collection = await sql.getCollection(db, {
+				id: validatedData.collection_id,
+			});
+			if (!collection) {
+				return c.json({ error: "コレクションが見つかりません" }, 404);
+			}
 
-		// コレクションのスキーマに対してデータをバリデーション
-		const collectionSchema = JSON.parse(collection.schema as string);
-		const isValid = validateJson(validatedData.data, collectionSchema);
-		if (!isValid.valid) {
-			return c.json({ error: isValid.errors }, 400);
-		}
+			// コレクションのスキーマに対してデータをバリデーション
+			const collectionSchema = JSON.parse(collection.schema as string);
+			const isValid = validateJson(validatedData.data, collectionSchema);
+			if (!isValid.valid) {
+				return c.json({ error: isValid.errors }, 400);
+			}
 
-		const result = await sql.createItem(db, {
-			id: crypto.randomUUID().toString(),
-			collectionId: validatedData.collection_id,
-			data: JSON.stringify(validatedData.data),
-			status: validatedData.status,
-		});
-		if (!result) {
-			return c.json({ error: "アイテムの作成に失敗しました" }, 500);
+			const result = await sql.createItem(db, {
+				id: crypto.randomUUID().toString(),
+				collectionId: validatedData.collection_id,
+				data: JSON.stringify(validatedData.data),
+				status: validatedData.status,
+			});
+			if (!result) {
+				return c.json({ error: "アイテムの作成に失敗しました" }, 500);
+			}
+			return c.json(
+				{
+					...result,
+					data: JSON.parse(result.data.toString()),
+				},
+				201,
+			);
+		} catch (error) {
+			return c.json({ error: error }, 400);
 		}
-		return c.json(
-			{
-				...result,
-				data: JSON.parse(result.data.toString()),
-			},
-			201,
-		);
 	})
 	.get("/", async (c) => {
 		const db = c.get("db");
@@ -86,9 +90,12 @@ export const itemsApp = createHonoWithDB()
 		// コレクションのスキーマに対してデータをバリデーション
 		if (validatedData.data) {
 			const collectionSchema = JSON.parse(collection.schema as string);
-			const isValid = validateJson(validatedData.data, collectionSchema);
-			if (!isValid) {
-				return c.json({ error: "データがスキーマに一致しません" }, 400);
+			const validationResult = validateJson(
+				validatedData.data,
+				collectionSchema,
+			);
+			if (!validationResult.valid) {
+				return c.json({ error: validationResult.errors }, 400);
 			}
 		}
 

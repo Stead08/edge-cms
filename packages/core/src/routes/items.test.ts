@@ -41,6 +41,30 @@ describe("Items Test", () => {
 		expect(res.status).toBe(400);
 	});
 
+	it("should not create an item with missing required fields", async () => {
+		const res = await SELF.fetch(
+			"https://example.com/workspaces/test-workspace_aabbccdd/test-collection/items",
+			{
+				method: "POST",
+				body: JSON.stringify({
+					data: {
+						// title is missing
+						content: "This is a test item",
+					},
+					status: "draft",
+				}),
+			},
+		);
+		expect(res.status).toBe(400);
+	});
+
+	it("should return 404 for non-existent item", async () => {
+		const res = await SELF.fetch(
+			"https://example.com/workspaces/test-workspace_aabbccdd/test-collection/non-existent-id",
+		);
+		expect(res.status).toBe(404);
+	});
+
 	it("should get an item by ID", async () => {
 		const res = await SELF.fetch(
 			"https://example.com/workspaces/test-workspace_aabbccdd/test-collection/c851a41a-8ec6-41ac-bedc-73b2b2614f4d",
@@ -79,6 +103,22 @@ describe("Items Test", () => {
 		const item = await res.json();
 		expect(item.data.title).toBe("Updated Test Item");
 		expect(item.status).toBe("published");
+	});
+
+	it("should not update an item with invalid data", async () => {
+		const res = await SELF.fetch(
+			"https://example.com/workspaces/test-workspace_aabbccdd/test-collection/c851a41a-8ec6-41ac-bedc-73b2b2614f4d",
+			{
+				method: "PUT",
+				body: JSON.stringify({
+					data: {
+						title: 123, // Should be a string
+						content: "Updated content",
+					},
+				}),
+			},
+		);
+		expect(res.status).toBe(400);
 	});
 
 	it("should delete an item by ID", async () => {

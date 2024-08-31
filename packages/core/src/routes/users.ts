@@ -1,27 +1,43 @@
+import { z } from "zod";
 import { createHonoWithDB } from "../factory";
 import * as sql from "../gen/sqlc/querier";
+
+const createUserSchema = z.object({
+	id: z.string(),
+	name: z.string(),
+	email: z.string().email(),
+});
+
+const roleSchema = z.object({
+	roles: z.array(z.string()),
+});
 
 export const usersApp = createHonoWithDB()
 	.post("/", async (c) => {
 		const db = c.get("db");
-		const { id, name, email } = await c.req.json();
+		try {
+			const json = await c.req.json();
+			const { id, name, email } = createUserSchema.parse(json);
 
-		const result = await sql.createUser(db, {
-			id,
-			name,
-			email,
-		});
-		if (!result) {
-			return c.json({ error: "ユーザーを作成できませんでした。" }, 500);
+			const result = await sql.createUser(db, {
+				id,
+				name,
+				email,
+			});
+			if (!result) {
+				return c.json({ error: "ユーザーを作成できませんでした。" }, 500);
+			}
+			return c.json(
+				{
+					id: result.id,
+					name: result.name,
+					email: result.email,
+				},
+				201,
+			);
+		} catch (error) {
+			return c.json({ error: error }, 400);
 		}
-		return c.json(
-			{
-				id: result.id,
-				name: result.name,
-				email: result.email,
-			},
-			201,
-		);
 	})
 	.get("/:id", async (c) => {
 		const db = c.get("db");
@@ -58,24 +74,25 @@ export const usersApp = createHonoWithDB()
 	.post("/:id/roles", async (c) => {
 		const db = c.get("db");
 		const userId = c.req.param("id");
-		const { roles } = await c.req.json();
+		try {
+			const json = await c.req.json();
+			const { roles } = roleSchema.parse(json);
 
-		if (
-			!Array.isArray(roles) ||
-			!roles.every((role) => typeof role === "string")
-		) {
-			return c.json({ error: "無効なロール形式です" }, 400);
+			const results = await Promise.all(
+				roles.map((role) =>
+					sql.assignRoleToUser(db, {
+						userId: userId,
+						roleName: role,
+					}),
+				),
+			);
+			if (results.some((result) => result === null)) {
+				return c.json({ error: "ロールの割り当てに失敗しました" }, 400);
+			}
+			return c.json(results, 201);
+		} catch (_error) {
+			return c.text("ロールの割り当てに失敗しました", 400);
 		}
-
-		const results = await Promise.all(
-			roles.map((role) =>
-				sql.assignRoleToUser(db, {
-					userId: userId,
-					roleName: role,
-				}),
-			),
-		);
-		return c.json(results, 201);
 	})
 	.delete("/:id/roles/:role", async (c) => {
 		const db = c.get("db");

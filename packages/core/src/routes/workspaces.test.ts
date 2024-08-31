@@ -63,4 +63,31 @@ describe("Workspaces Test", () => {
 		expect(res.status).toBe(200);
 		expect(await res.text()).toBe("ワークスペースが削除されました");
 	});
+
+	it("should not create a workspace with invalid data", async () => {
+		const res = await SELF.fetch("https://example.com/workspaces", {
+			method: "POST",
+			body: JSON.stringify({
+				name: "", // Empty name
+				slug: "invalid-slug!",
+			}),
+		});
+		expect(res.status).toBe(400);
+	});
+
+	it("should list all workspaces", async () => {
+		const res = await SELF.fetch("https://example.com/workspaces");
+		expect(res.status).toBe(200);
+		const json = await res.json();
+		const workspaces = json.results;
+		expect(Array.isArray(workspaces)).toBe(true);
+		expect(workspaces.length).toBeGreaterThan(0);
+	});
+
+	it("should return 404 for non-existent workspace", async () => {
+		const res = await SELF.fetch(
+			"https://example.com/workspaces/non-existent-id",
+		);
+		expect(res.status).toBe(404);
+	});
 });

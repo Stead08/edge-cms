@@ -6,6 +6,11 @@ import { rolesApp } from "./routes/roles";
 import { usersApp } from "./routes/users";
 import { workspacesApp } from "./routes/workspaces";
 
+const r2Schema = z.object({
+	id: z.string(),
+	name: z.string(),
+});
+
 export const createEdgeCms = () => {
 	const app = createHonoWithDB()
 		.route("/users", usersApp)
@@ -22,14 +27,22 @@ export const createEdgeCms = () => {
 		})
 		.post("/r2", async (c) => {
 			const r2 = c.get("r2");
-			const params = await c.req.json();
-			const res = await r2.put(params.id, JSON.stringify(params));
-			if (!res) {
-				return new Response("Cannot upload asset", {
-					status: 500,
-				});
+			try {
+				const params = await c.req.json();
+				const validatedData = r2Schema.parse(params);
+				const res = await r2.put(
+					validatedData.id,
+					JSON.stringify(validatedData),
+				);
+				if (!res) {
+					return new Response("Cannot upload asset", {
+						status: 500,
+					});
+				}
+				return c.json({ status: "uploaded successfully", key: res.key }, 200);
+			} catch (error) {
+				return c.json({ error: error }, 400);
 			}
-			return c.json({ status: "uploaded successfully", key: res.key }, 200);
 		})
 		.get(
 			"/hello",
@@ -48,6 +61,13 @@ export const createEdgeCms = () => {
 
 		.get("/", (c) => {
 			return c.text("Hello Hono");
+		})
+		.all("/", (c) => {
+			return c.text("method not allowed", 405);
+		})
+		.onError((err, c) => {
+			console.log(err);
+			return c.text(err.message, 500);
 		});
 
 	return app;
