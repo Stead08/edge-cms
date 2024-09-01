@@ -38,13 +38,13 @@ export const sidelinks: SideLink[] = [
 	{
 		title: "Dashboard",
 		label: "",
-		href: "/",
+		href: "/admin/dashboard",
 		icon: <IconLayoutDashboard size={18} />,
 	},
 	{
-		title: "Tasks",
+		title: "Collections",
 		label: "3",
-		href: "/tasks",
+		href: "/admin/collections",
 		icon: <IconChecklist size={18} />,
 	},
 	{

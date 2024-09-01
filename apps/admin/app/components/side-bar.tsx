@@ -15,7 +15,6 @@ import { Suspense, useEffect, useState } from "react";
 import { Button } from "./custom/button";
 import { Layout } from "./custom/layout";
 
-import { useLoaderData } from "@remix-run/react";
 import { type ClientResponse, hc } from "hono/client";
 import type { AppType } from "../../../sandbox/src/index";
 
@@ -180,7 +179,6 @@ export default function Sidebar({
 					isCollapsed={isCollapsed}
 					links={sidelinks}
 				/>
-
 				{/* Scrollbar width toggle button */}
 				<Button
 					onClick={() => setIsCollapsed((prev) => !prev)}
