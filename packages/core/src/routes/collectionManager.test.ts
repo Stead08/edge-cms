@@ -42,4 +42,18 @@ describe("createCollection test", () => {
 		expect(collection_res.status).toBe(200);
 		expect(await collection_res.json()).toBeDefined();
 	});
+	it("should get a collection schema", async () => {
+		const collection_res = await SELF.fetch(
+			"https://example.com/collection/test-workspace_aabbccdd/test-collection/schema",
+		);
+		expect(collection_res.status).toBe(200);
+		const json = await collection_res.json();
+		expect(json).toEqual({
+			type: "object",
+			properties: {
+				title: { type: "string" },
+				content: { type: "string" },
+			},
+		});
+	});
 });

@@ -23,3 +23,7 @@ RETURNING *;
 -- name: DeleteCollection :exec
 DELETE FROM collections
 WHERE id = @id;
+
+-- name: GetCollectionSchema :one
+SELECT schema FROM collections
+WHERE id = @id AND workspace_id = @workspace_id;

@@ -29,6 +29,19 @@ export const collectionManagerApp = createHonoWithDB()
 			return c.json({ error: error }, 400);
 		}
 	})
+	.get("/:workspace_id/:collection_id/schema", async (c) => {
+		const db = c.get("db");
+		const workspaceId = c.req.param("workspace_id");
+		const collectionId = c.req.param("collection_id");
+		const result = await sql.getCollectionSchema(db, {
+			workspaceId: workspaceId,
+			id: collectionId,
+		});
+		if (!result) {
+			return c.json({ error: "Collection not found" }, 404);
+		}
+		return c.json(JSON.parse(result.schema as string));
+	})
 	.get("/:workspace_id", async (c) => {
 		const db = c.get("db");
 		const workspaceId = c.req.param("workspace_id");

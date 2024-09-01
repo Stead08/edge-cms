@@ -306,6 +306,41 @@ export function deleteCollection(
 	};
 }
 
+const getCollectionSchemaQuery = `-- name: GetCollectionSchema :one
+SELECT schema FROM collections
+WHERE id = ?1 AND workspace_id = ?2`;
+
+export type GetCollectionSchemaParams = {
+	id: string;
+	workspaceId: string;
+};
+
+export type GetCollectionSchemaRow = {
+	schema: number | string;
+};
+
+export function getCollectionSchema(
+	d1: D1Database,
+	args: GetCollectionSchemaParams,
+): Query<GetCollectionSchemaRow | null> {
+	const ps = d1
+		.prepare(getCollectionSchemaQuery)
+		.bind(args.id, args.workspaceId);
+	return {
+		then(
+			onFulfilled?: (value: GetCollectionSchemaRow | null) => void,
+			onRejected?: (reason?: any) => void,
+		) {
+			ps.first<GetCollectionSchemaRow | null>()
+				.then(onFulfilled)
+				.catch(onRejected);
+		},
+		batch() {
+			return ps;
+		},
+	};
+}
+
 const createItemQuery = `-- name: CreateItem :one
 INSERT INTO items (id, collection_id, data, status)
 VALUES (?1, ?2, ?3, ?4)
