@@ -1,22 +1,74 @@
 import Nav from "@/components/nav";
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
 import { sidelinks } from "@/data/sidelinks";
 import { cn } from "@/lib/utils";
 import { IconChevronsLeft, IconMenu2, IconX } from "@tabler/icons-react";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Button } from "./custom/button";
 import { Layout } from "./custom/layout";
+
+import { useLoaderData } from "@remix-run/react";
+import { type ClientResponse, hc } from "hono/client";
+import type { AppType } from "../../../sandbox/src/index";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
 	isCollapsed: boolean;
 	setIsCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+const client = hc<AppType>("");
+
+// biome-ignore lint/suspicious/noExplicitAny: utilのためanyを許容
+type PromiseType<T extends Promise<any>> = T extends Promise<infer P>
+	? P
+	: never;
+
+type WorkspaceType = PromiseType<ReturnType<typeof client.api.workspaces.$get>>;
+
+type WorkspaceResultsType = WorkspaceType extends ClientResponse<
+	infer R,
+	number,
+	string
+>
+	? R extends { results: infer U }
+		? U
+		: never
+	: never;
+
 export default function Sidebar({
 	className,
 	isCollapsed,
 	setIsCollapsed,
 }: SidebarProps) {
+	const client = hc<AppType>("");
+
 	const [navOpened, setNavOpened] = useState(false);
+	const [workspaces, setWorkspaces] = useState<
+		WorkspaceResultsType | undefined
+	>();
+	// biome-ignore lint/correctness/useExhaustiveDependencies: 無理でしたごめんなさい
+	useEffect(() => {
+		const getWorkspaces = async () => {
+			const abortController = new AbortController();
+			const res = await client.api.workspaces.$get({
+				signal: abortController.signal,
+			});
+			const workspaces = await res.json();
+			setWorkspaces(workspaces.results);
+			return () => {
+				abortController.abort();
+			};
+		};
+		getWorkspaces();
+	}, []);
 
 	/* Make body not scrollable when navBar is opened */
 	useEffect(() => {
@@ -105,6 +157,20 @@ export default function Sidebar({
 						{navOpened ? <IconX /> : <IconMenu2 />}
 					</Button>
 				</Layout.Header>
+				<Suspense fallback={<div>Loading...</div>}>
+					<Select>
+						<SelectTrigger>
+							<SelectValue placeholder="Select a workspace" />
+						</SelectTrigger>
+						<SelectContent>
+							{workspaces?.map((workspace) => (
+								<SelectItem key={workspace.id} value={workspace.id}>
+									{workspace.name}
+								</SelectItem>
+							))}
+						</SelectContent>
+					</Select>
+				</Suspense>
 
 				{/* Navigation links */}
 				<Nav

@@ -33,6 +33,9 @@ export default defineConfig({
       "@": "/app",
     },
   },
+  ssr: {
+    external: ["@remix-run/react"],
+  },
   build: {
     minify: true,
   },
