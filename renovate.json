@@ -1,6 +1,6 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
+      "github>hacomono-lib/renovate-config:base",
+      "github>hacomono-lib/renovate-config:npm"
   ]
 }
