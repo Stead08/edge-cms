@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "remix vite:build",
-    "deploy": "wrangler pages deploy",
+    "deploy": "remix vite:build && wrangler pages deploy",
     "dev": "remix vite:dev",
     "lint": "biome check --write ./app",
     "preview:local": "remix vite:build && vite preview",
