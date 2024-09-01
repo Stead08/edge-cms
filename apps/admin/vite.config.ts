@@ -37,6 +37,9 @@ export default defineConfig({
   },
   resolve: {
     mainFields: ["browser", "module", "main"],
+    alias: {
+      "@": "/app",
+    },
   },
   build: {
     minify: true,
