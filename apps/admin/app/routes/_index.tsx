@@ -1,5 +1,8 @@
-import type { MetaFunction } from "@remix-run/cloudflare";
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
+import { useLoaderData } from "@remix-run/react";
+import { hc } from "hono/client";
 import { Button } from "~/components/ui/button";
+import type { AppType } from "../../../sandbox/src/index";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -11,7 +14,15 @@ export const meta: MetaFunction = () => {
 	];
 };
 
+export const clientLoader = async () => {
+	const client = hc<AppType>("");
+	const res = await client.api.hello.$get({ query: { name: "world" } });
+	const text = await res.text();
+	return { data: text };
+};
+
 export default function Index() {
+	const data = useLoaderData<typeof clientLoader>();
 	return (
 		<div className="font-sans p-4">
 			<h1 className="text-3xl">Welcome to Remix on Cloudflare Workers</h1>
@@ -37,6 +48,7 @@ export default function Index() {
 					</a>
 				</li>
 			</ul>
+			<p>{data.data}</p>
 			<Button>Hello</Button>
 		</div>
 	);

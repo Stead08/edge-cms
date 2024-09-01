@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "build": "remix vite:build",
-    "deploy": "wrangler deploy",
+    "deploy": "wrangler pages deploy",
     "dev": "remix vite:dev",
     "lint": "biome check --write ./app",
-    "start": "wrangler dev",
+    "preview:local": "remix vite:build && vite preview",
+    "start": "wrangler pages dev",
     "typecheck": "tsc",
     "typegen": "wrangler types"
   },

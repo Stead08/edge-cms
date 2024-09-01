@@ -11,23 +11,28 @@ export default defineConfig({
   plugins: [
     cloudflareDevProxyVitePlugin(),
     remix({
+      ssr: false,
       future: {
         v3_fetcherPersist: true,
         v3_relativeSplatPath: true,
         v3_throwAbortReason: true,
       },
+      
     }),
     tsconfigPaths(),
-    devServer({
-      adapter,
-      entry: "server.ts",
-      exclude: [...defaultOptions.exclude, "**/node_modules/**", "assets/**", "/app/**"],
-      injectClientScript: false,
-    }),
+    // devServer({
+    //   adapter,
+    //   entry: "server.ts",
+    //   exclude: [...defaultOptions.exclude, "**/node_modules/**", "assets/**", "/app/**"],
+    //   injectClientScript: false,
+    // }),
   ],
-  ssr: {
-    resolve: {
-      conditions: ["workerd", "worker", "browser"],
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:8787",
+        changeOrigin: true,
+      },
     },
   },
   resolve: {

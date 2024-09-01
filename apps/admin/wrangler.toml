@@ -1,19 +1,12 @@
-name = "remix-cloudflare-workers-template"
+name = "remix-pages"
 
-main = "./server.ts"
-workers_dev = true
-# https://developers.cloudflare.com/workers/platform/compatibility-dates
+pages_build_output_dir = "./build/client"
 compatibility_date = "2023-04-20"
 services = [{ binding = "API", service = "sandbox" }]
 
-[dev]
-port = 8788
 
 [vars]
 MY_VAR = "test"
 
-[site]
-bucket = "./build/client"
-
-[build]
-command = "npm run build"
+[dev]
+port = 8789
