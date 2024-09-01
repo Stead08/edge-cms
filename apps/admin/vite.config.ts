@@ -4,8 +4,6 @@ import {
   cloudflareDevProxyVitePlugin,
 } from "@remix-run/dev";
 import tsconfigPaths from "vite-tsconfig-paths";
-import devServer, { defaultOptions} from "@hono/vite-dev-server";
-import adapter from "@hono/vite-dev-server/cloudflare"
 
 export default defineConfig({
   plugins: [
@@ -20,12 +18,6 @@ export default defineConfig({
       
     }),
     tsconfigPaths(),
-    // devServer({
-    //   adapter,
-    //   entry: "server.ts",
-    //   exclude: [...defaultOptions.exclude, "**/node_modules/**", "assets/**", "/app/**"],
-    //   injectClientScript: false,
-    // }),
   ],
   server: {
     proxy: {
