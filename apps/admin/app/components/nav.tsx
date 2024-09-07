@@ -20,6 +20,7 @@ import {
 import type { SideLink } from "@/data/sidelinks";
 import useCheckActiveNav from "@/hooks/use-check-active-nav";
 import { cn } from "@/lib/utils";
+import { useStore } from "@/store/useStore";
 import { Link } from "@remix-run/react";
 import { IconChevronDown } from "@tabler/icons-react";
 import { Button, buttonVariants } from "./custom/button";
@@ -58,6 +59,7 @@ export default function Nav({
 
 		return <NavLink {...rest} key={key} closeNav={closeNav} />;
 	};
+	const { collections } = useStore();
 	return (
 		<div
 			data-collapsed={isCollapsed}

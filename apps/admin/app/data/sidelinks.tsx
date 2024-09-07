@@ -22,6 +22,7 @@ import {
 	IconUserShield,
 	IconUsers,
 } from "@tabler/icons-react";
+import type { Collection } from "~/store/useStore";
 
 export interface NavLink {
 	title: string;
@@ -34,7 +35,7 @@ export interface SideLink extends NavLink {
 	sub?: NavLink[];
 }
 
-export const sidelinks: SideLink[] = [
+export const getSidelinks = (collections: Collection[]) => [
 	{
 		title: "Dashboard",
 		label: "",
@@ -43,20 +44,26 @@ export const sidelinks: SideLink[] = [
 	},
 	{
 		title: "Collections",
-		label: "3",
+		label: collections.length.toString(),
 		href: "/admin/collections",
 		icon: <IconChecklist size={18} />,
+		sub: collections.map((collection) => ({
+			title: collection.name,
+			label: collection.name,
+			href: `/admin/collections/${collection.id}`,
+			icon: <IconHexagonNumber1 size={18} />,
+		})),
 	},
 	{
 		title: "Chats",
 		label: "9",
-		href: "/chats",
+		href: "/admin/dashboard",
 		icon: <IconMessages size={18} />,
 	},
 	{
 		title: "Apps",
 		label: "",
-		href: "/apps",
+		href: "/admin/dashboard",
 		icon: <IconApps size={18} />,
 	},
 	{
@@ -98,44 +105,6 @@ export const sidelinks: SideLink[] = [
 		],
 	},
 	{
-		title: "Users",
-		label: "",
-		href: "/users",
-		icon: <IconUsers size={18} />,
-	},
-	{
-		title: "Requests",
-		label: "10",
-		href: "/requests",
-		icon: <IconRouteAltLeft size={18} />,
-		sub: [
-			{
-				title: "Trucks",
-				label: "9",
-				href: "/trucks",
-				icon: <IconTruck size={18} />,
-			},
-			{
-				title: "Cargos",
-				label: "",
-				href: "/cargos",
-				icon: <IconBoxSeam size={18} />,
-			},
-		],
-	},
-	{
-		title: "Analysis",
-		label: "",
-		href: "/analysis",
-		icon: <IconChartHistogram size={18} />,
-	},
-	{
-		title: "Extra Components",
-		label: "",
-		href: "/extra-components",
-		icon: <IconComponents size={18} />,
-	},
-	{
 		title: "Error Pages",
 		label: "",
 		href: "",
@@ -170,7 +139,7 @@ export const sidelinks: SideLink[] = [
 	{
 		title: "Settings",
 		label: "",
-		href: "/settings",
+		href: "/admin/dashboard",
 		icon: <IconSettings size={18} />,
 	},
 ];

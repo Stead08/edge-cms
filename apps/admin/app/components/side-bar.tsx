@@ -8,13 +8,14 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { sidelinks } from "@/data/sidelinks";
+import { getSidelinks } from "@/data/sidelinks";
 import { cn } from "@/lib/utils";
 import { IconChevronsLeft, IconMenu2, IconX } from "@tabler/icons-react";
 import { Suspense, useEffect, useState } from "react";
 import { Button } from "./custom/button";
 import { Layout } from "./custom/layout";
 
+import { useStore } from "@/store/useStore";
 import { type ClientResponse, hc } from "hono/client";
 import type { AppType } from "../../../sandbox/src/index";
 
@@ -47,27 +48,7 @@ export default function Sidebar({
 	isCollapsed,
 	setIsCollapsed,
 }: SidebarProps) {
-	const client = hc<AppType>("");
-
 	const [navOpened, setNavOpened] = useState(false);
-	const [workspaces, setWorkspaces] = useState<
-		WorkspaceResultsType | undefined
-	>();
-	// biome-ignore lint/correctness/useExhaustiveDependencies: 無理でしたごめんなさい
-	useEffect(() => {
-		const getWorkspaces = async () => {
-			const abortController = new AbortController();
-			const res = await client.api.workspaces.$get({
-				signal: abortController.signal,
-			});
-			const workspaces = await res.json();
-			setWorkspaces(workspaces.results);
-			return () => {
-				abortController.abort();
-			};
-		};
-		getWorkspaces();
-	}, []);
 
 	/* Make body not scrollable when navBar is opened */
 	useEffect(() => {
@@ -78,6 +59,25 @@ export default function Sidebar({
 		}
 	}, [navOpened]);
 
+	const {
+		workspaces,
+		fetchWorkspaces,
+		fetchCollections,
+		selectedWorkspaceId,
+		setSelectedWorkspaceId,
+		collections,
+	} = useStore();
+
+	useEffect(() => {
+		fetchWorkspaces();
+	}, []);
+
+	useEffect(() => {
+		if (selectedWorkspaceId) {
+			fetchCollections(selectedWorkspaceId);
+		}
+	}, [selectedWorkspaceId]);
+	const sidelinks = getSidelinks(collections);
 	return (
 		<aside
 			className={cn(
@@ -157,7 +157,10 @@ export default function Sidebar({
 					</Button>
 				</Layout.Header>
 				<Suspense fallback={<div>Loading...</div>}>
-					<Select>
+					<Select
+						onValueChange={(value) => setSelectedWorkspaceId(value)}
+						value={selectedWorkspaceId ?? ""}
+					>
 						<SelectTrigger>
 							<SelectValue placeholder="Select a workspace" />
 						</SelectTrigger>
