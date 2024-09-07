@@ -113,9 +113,9 @@ importers:
       hono:
         specifier: 'catalog:'
         version: 4.5.11
-      isbot:
-        specifier: ^4.1.0
-        version: 4.4.0
+      lucide-react:
+        specifier: 0.437.0
+        version: 0.437.0(react@18.3.1)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -140,7 +140,7 @@ importers:
         version: 0.14.0(hono@4.5.11)
       '@remix-run/dev':
         specifier: ^2.11.2
-        version: 2.11.2(@remix-run/react@2.11.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.5.4))(@remix-run/serve@2.11.2(typescript@5.5.4))(@types/node@22.5.0)(typescript@5.5.4)(vite@5.4.3(@types/node@22.5.0))(wrangler@3.72.2(@cloudflare/workers-types@4.20240821.1))
+        version: 2.11.2(@remix-run/react@2.11.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.5.4))(@remix-run/serve@2.11.2(typescript@5.5.4))(@types/node@22.5.1)(typescript@5.5.4)(vite@5.4.3(@types/node@22.5.1))(wrangler@3.72.2(@cloudflare/workers-types@4.20240821.1))
       '@types/react':
         specifier: ^18.3.5
         version: 18.3.5
@@ -151,7 +151,7 @@ importers:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.45)
       postcss:
-        specifier: ^8.4.38
+        specifier: ^8.4.42
         version: 8.4.45
       tailwindcss:
         specifier: ^3.4.10
@@ -160,11 +160,11 @@ importers:
         specifier: 5.5.4
         version: 5.5.4
       vite:
-        specifier: ^5.1.0
-        version: 5.4.3(@types/node@22.5.0)
+        specifier: 'catalog:'
+        version: 5.4.3(@types/node@22.5.1)
       vite-tsconfig-paths:
-        specifier: ^5.0.0
-        version: 5.0.1(typescript@5.5.4)(vite@5.4.3(@types/node@22.5.0))
+        specifier: ^5.0.1
+        version: 5.0.1(typescript@5.5.4)(vite@5.4.3(@types/node@22.5.1))
       wrangler:
         specifier: 'catalog:'
         version: 3.72.2(@cloudflare/workers-types@4.20240821.1)
@@ -173,7 +173,7 @@ importers:
     devDependencies:
       vitepress:
         specifier: ^1.3.3
-        version: 1.3.4(@algolia/client-search@4.24.0)(@types/node@22.5.0)(@types/react@18.3.5)(postcss@8.4.45)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(search-insights@2.17.0)(typescript@5.5.4)
+        version: 1.3.4(@algolia/client-search@4.24.0)(@types/node@22.5.1)(@types/react@18.3.5)(postcss@8.4.45)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(search-insights@2.17.0)(typescript@5.5.4)
 
   apps/sandbox:
     dependencies:
@@ -4537,7 +4537,7 @@ snapshots:
   '@babel/code-frame@7.24.7':
     dependencies:
       '@babel/highlight': 7.24.7
-      picocolors: 1.0.1
+      picocolors: 1.1.0
 
   '@babel/compat-data@7.25.4': {}
 
@@ -4662,7 +4662,7 @@ snapshots:
       '@babel/helper-validator-identifier': 7.24.7
       chalk: 2.4.2
       js-tokens: 4.0.0
-      picocolors: 1.0.1
+      picocolors: 1.1.0
 
   '@babel/parser@7.25.6':
     dependencies:
@@ -5105,13 +5105,13 @@ snapshots:
 
   '@floating-ui/utils@0.2.7': {}
 
-  '@hono/node-server@1.12.2(hono@4.5.10)':
+  '@hono/node-server@1.12.2(hono@4.5.11)':
     dependencies:
-      hono: 4.5.10
+      hono: 4.5.11
 
   '@hono/vite-dev-server@0.14.0(hono@4.5.11)':
     dependencies:
-      '@hono/node-server': 1.12.1
+      '@hono/node-server': 1.12.2(hono@4.5.11)
       hono: 4.5.11
       miniflare: 3.20240821.0
       minimatch: 9.0.5
@@ -5608,7 +5608,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.5.4
 
-  '@remix-run/dev@2.11.2(@remix-run/react@2.11.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.5.4))(@remix-run/serve@2.11.2(typescript@5.5.4))(@types/node@22.5.0)(typescript@5.5.4)(vite@5.4.3(@types/node@22.5.0))(wrangler@3.72.2(@cloudflare/workers-types@4.20240821.1))':
+  '@remix-run/dev@2.11.2(@remix-run/react@2.11.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.5.4))(@remix-run/serve@2.11.2(typescript@5.5.4))(@types/node@22.5.1)(typescript@5.5.4)(vite@5.4.3(@types/node@22.5.1))(wrangler@3.72.2(@cloudflare/workers-types@4.20240821.1))':
     dependencies:
       '@babel/core': 7.25.2
       '@babel/generator': 7.25.6
@@ -5667,7 +5667,7 @@ snapshots:
     optionalDependencies:
       '@remix-run/serve': 2.11.2(typescript@5.5.4)
       typescript: 5.5.4
-      vite: 5.4.3(@types/node@22.5.0)
+      vite: 5.4.3(@types/node@22.5.1)
       wrangler: 3.72.2(@cloudflare/workers-types@4.20240821.1)
     transitivePeerDependencies:
       - '@types/node'
@@ -5928,7 +5928,7 @@ snapshots:
       lru-cache: 10.4.3
       media-query-parser: 2.0.2
       modern-ahocorasick: 1.0.1
-      picocolors: 1.0.1
+      picocolors: 1.1.0
     transitivePeerDependencies:
       - babel-plugin-macros
 
@@ -5945,8 +5945,8 @@ snapshots:
       lodash: 4.17.21
       mlly: 1.7.1
       outdent: 0.8.0
-      vite: 5.4.3(@types/node@22.5.0)
-      vite-node: 1.5.0(@types/node@22.5.0)
+      vite: 5.4.3(@types/node@22.5.1)
+      vite-node: 1.6.0(@types/node@22.5.1)
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
@@ -5961,9 +5961,9 @@ snapshots:
 
   '@vanilla-extract/private@1.0.6': {}
 
-  '@vitejs/plugin-vue@5.1.2(vite@5.4.3(@types/node@22.5.0))(vue@3.4.38(typescript@5.5.4))':
+  '@vitejs/plugin-vue@5.1.2(vite@5.4.3(@types/node@22.5.1))(vue@3.4.38(typescript@5.5.4))':
     dependencies:
-      vite: 5.4.3(@types/node@22.5.0)
+      vite: 5.4.3(@types/node@22.5.1)
       vue: 3.4.38(typescript@5.5.4)
 
   '@vitest/expect@1.5.0':
@@ -8620,7 +8620,7 @@ snapshots:
     dependencies:
       browserslist: 4.23.3
       escalade: 3.2.0
-      picocolors: 1.0.1
+      picocolors: 1.1.0
 
   use-callback-ref@1.3.2(@types/react@18.3.5)(react@18.3.1):
     dependencies:
@@ -8682,7 +8682,7 @@ snapshots:
       cac: 6.7.14
       debug: 4.3.6
       pathe: 1.1.2
-      picocolors: 1.0.1
+      picocolors: 1.1.0
       vite: 5.4.3(@types/node@20.16.1)
     transitivePeerDependencies:
       - '@types/node'
@@ -8700,8 +8700,8 @@ snapshots:
       cac: 6.7.14
       debug: 4.3.6
       pathe: 1.1.2
-      picocolors: 1.0.1
-      vite: 5.4.3(@types/node@22.5.0)
+      picocolors: 1.1.0
+      vite: 5.4.3(@types/node@22.5.1)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -8713,13 +8713,13 @@ snapshots:
       - supports-color
       - terser
 
-  vite-tsconfig-paths@5.0.1(typescript@5.5.4)(vite@5.4.3(@types/node@22.5.0)):
+  vite-tsconfig-paths@5.0.1(typescript@5.5.4)(vite@5.4.3(@types/node@22.5.1)):
     dependencies:
       debug: 4.3.6
       globrex: 0.1.2
       tsconfck: 3.1.3(typescript@5.5.4)
     optionalDependencies:
-      vite: 5.4.3(@types/node@22.5.0)
+      vite: 5.4.3(@types/node@22.5.1)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -8733,7 +8733,7 @@ snapshots:
       '@types/node': 20.16.1
       fsevents: 2.3.3
 
-  vite@5.4.3(@types/node@22.5.0):
+  vite@5.4.3(@types/node@22.5.1):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.45
@@ -8742,14 +8742,14 @@ snapshots:
       '@types/node': 22.5.1
       fsevents: 2.3.3
 
-  vitepress@1.3.4(@algolia/client-search@4.24.0)(@types/node@22.5.0)(@types/react@18.3.5)(postcss@8.4.45)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(search-insights@2.17.0)(typescript@5.5.4):
+  vitepress@1.3.4(@algolia/client-search@4.24.0)(@types/node@22.5.1)(@types/react@18.3.5)(postcss@8.4.45)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(search-insights@2.17.0)(typescript@5.5.4):
     dependencies:
       '@docsearch/css': 3.6.1
       '@docsearch/js': 3.6.1(@algolia/client-search@4.24.0)(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(search-insights@2.17.0)
       '@shikijs/core': 1.14.1
       '@shikijs/transformers': 1.14.1
       '@types/markdown-it': 14.1.2
-      '@vitejs/plugin-vue': 5.1.2(vite@5.4.3(@types/node@22.5.0))(vue@3.4.38(typescript@5.5.4))
+      '@vitejs/plugin-vue': 5.1.2(vite@5.4.3(@types/node@22.5.1))(vue@3.4.38(typescript@5.5.4))
       '@vue/devtools-api': 7.3.9
       '@vue/shared': 3.4.38
       '@vueuse/core': 11.0.3(vue@3.4.38(typescript@5.5.4))
@@ -8758,7 +8758,7 @@ snapshots:
       mark.js: 8.11.1
       minisearch: 7.1.0
       shiki: 1.14.1
-      vite: 5.4.3(@types/node@22.5.0)
+      vite: 5.4.3(@types/node@22.5.1)
       vue: 3.4.38(typescript@5.5.4)
     optionalDependencies:
       postcss: 8.4.45
