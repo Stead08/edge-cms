@@ -57,7 +57,18 @@ export const itemsApp = createHonoWithDB()
 			return c.json({ error: "コレクションIDが指定されていません" }, 400);
 		}
 		const result = await sql.listItems(db, { collectionId: collectionId });
-		return c.json(result);
+		if (!result) {
+			return c.json({ error: "アイテムが見つかりません" }, 404);
+		}
+		// result.results.dataをJSON.parseして返す、他のプロパティはそのまま返す
+		const serializedData = result.results.map((item) => ({
+			...item,
+			data: JSON.parse(item.data.toString()),
+		}));
+		return c.json({
+			...result,
+			results: serializedData,
+		});
 	})
 	.get("/:item_id", async (c) => {
 		const db = c.get("db");

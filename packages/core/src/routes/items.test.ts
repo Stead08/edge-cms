@@ -83,6 +83,8 @@ describe("Items Test", () => {
 		expect(res.status).toBe(200);
 		const items = await res.json();
 		expect(items.results.length).toBe(2);
+		expect(items.results).toBeTypeOf("object");
+		expect(items.results[0].data).toBeTypeOf("object");
 	});
 
 	it("should update an item by ID", async () => {
