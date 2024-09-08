@@ -2,13 +2,11 @@ import Nav from "@/components/nav";
 import {
 	Select,
 	SelectContent,
-	SelectGroup,
 	SelectItem,
-	SelectLabel,
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { getSidelinks } from "@/data/sidelinks";
+import { type SideLink, getSidelinks } from "@/data/sidelinks";
 import { cn } from "@/lib/utils";
 import { IconChevronsLeft, IconMenu2, IconX } from "@tabler/icons-react";
 import { Suspense, useEffect, useState } from "react";
@@ -16,32 +14,11 @@ import { Button } from "./custom/button";
 import { Layout } from "./custom/layout";
 
 import { useStore } from "@/store/useStore";
-import { type ClientResponse, hc } from "hono/client";
-import type { AppType } from "../../../sandbox/src/index";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
 	isCollapsed: boolean;
 	setIsCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
-const client = hc<AppType>("");
-
-// biome-ignore lint/suspicious/noExplicitAny: utilのためanyを許容
-type PromiseType<T extends Promise<any>> = T extends Promise<infer P>
-	? P
-	: never;
-
-type WorkspaceType = PromiseType<ReturnType<typeof client.api.workspaces.$get>>;
-
-type WorkspaceResultsType = WorkspaceType extends ClientResponse<
-	infer R,
-	number,
-	string
->
-	? R extends { results: infer U }
-		? U
-		: never
-	: never;
 
 export default function Sidebar({
 	className,
@@ -180,7 +157,7 @@ export default function Sidebar({
 					className={`z-40 h-full flex-1 overflow-auto ${navOpened ? "max-h-screen" : "max-h-0 py-0 md:max-h-screen md:py-2"}`}
 					closeNav={() => setNavOpened(false)}
 					isCollapsed={isCollapsed}
-					links={sidelinks}
+					links={sidelinks as SideLink[]}
 				/>
 				{/* Scrollbar width toggle button */}
 				<Button

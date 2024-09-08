@@ -13,20 +13,12 @@ import {
 	PanelLeft,
 	PlusCircle,
 	Search,
-	Settings,
 	ShoppingCart,
 	Users2,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import {
 	DropdownMenu,
 	DropdownMenuCheckboxItem,
@@ -71,7 +63,7 @@ export default function Collections() {
 	if (!firstItem) {
 		return <div>No items found</div>;
 	}
-	const keys = Object.keys(firstItem.data); // dataのプロパティを取得
+	const keys = Object.keys(firstItem.data);
 	return (
 		<Layout>
 			{/* ===== Top Heading ===== */}

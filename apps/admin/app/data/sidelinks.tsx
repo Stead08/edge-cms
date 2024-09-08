@@ -1,3 +1,4 @@
+import type { CollectionResultsType } from "@/lib/types";
 import {
 	IconApps,
 	IconBarrierBlock,
@@ -22,7 +23,6 @@ import {
 	IconUserShield,
 	IconUsers,
 } from "@tabler/icons-react";
-import type { Collection } from "~/store/useStore";
 
 export interface NavLink {
 	title: string;
@@ -35,7 +35,9 @@ export interface SideLink extends NavLink {
 	sub?: NavLink[];
 }
 
-export const getSidelinks = (collections: Collection[]) => [
+export const getSidelinks = (
+	collections: CollectionResultsType,
+): SideLink[] => [
 	{
 		title: "Dashboard",
 		label: "",
@@ -52,7 +54,7 @@ export const getSidelinks = (collections: Collection[]) => [
 			label: collection.name,
 			href: `/admin/collections/${collection.id}`,
 			icon: <IconHexagonNumber1 size={18} />,
-		})),
+		})) as NavLink[],
 	},
 	{
 		title: "Chats",
