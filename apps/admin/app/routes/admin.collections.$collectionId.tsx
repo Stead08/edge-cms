@@ -56,12 +56,40 @@ export default function Collections() {
 	}, [collectionId]);
 
 	if (!items) {
-		return <div>No items found</div>;
+		return (
+			<div className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm">
+				<div className="flex flex-col items-center gap-1 text-center">
+					<h3 className="text-2xl font-bold tracking-tight">
+						You have no products
+					</h3>
+					<p className="text-sm text-muted-foreground">
+						You can start selling as soon as you add a product.
+					</p>
+					<Link to={`/admin/createItem/${collectionId}`} className="mt-4">
+						Add Item
+					</Link>
+				</div>
+			</div>
+		);
 	}
 	// 最初のアイテムの構造を取得
 	const firstItem = items[0];
 	if (!firstItem) {
-		return <div>No items found</div>;
+		return (
+			<div className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm">
+				<div className="flex flex-col items-center gap-1 text-center">
+					<h3 className="text-2xl font-bold tracking-tight">
+						You have no products
+					</h3>
+					<p className="text-sm text-muted-foreground">
+						You can start selling as soon as you add a product.
+					</p>
+					<Link to={`/admin/createItem/${collectionId}`} className="mt-4">
+						Add Item
+					</Link>
+				</div>
+			</div>
+		);
 	}
 	const keys = Object.keys(firstItem.data);
 	return (
@@ -189,11 +217,13 @@ export default function Collections() {
 												Export
 											</span>
 										</Button>
-										<Button size="sm" className="h-7 gap-1">
-											<PlusCircle className="h-3.5 w-3.5" />
-											<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-												New Item
-											</span>
+										<Button asChild className="mt-4">
+											<Link to={`/admin/createItem/${collectionId}`}>
+												<PlusCircle className="h-3.5 w-3.5" />
+												<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+													New Item
+												</span>
+											</Link>
 										</Button>
 									</div>
 								</div>

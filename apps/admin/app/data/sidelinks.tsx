@@ -16,6 +16,7 @@ import {
 	IconLayoutDashboard,
 	IconLock,
 	IconMessages,
+	IconPlus,
 	IconRouteAltLeft,
 	IconServerOff,
 	IconSettings,
@@ -49,12 +50,20 @@ export const getSidelinks = (
 		label: collections.length.toString(),
 		href: "/admin/collections",
 		icon: <IconChecklist size={18} />,
-		sub: collections.map((collection) => ({
-			title: collection.name,
-			label: collection.name,
-			href: `/admin/collections/${collection.id}`,
-			icon: <IconHexagonNumber1 size={18} />,
-		})) as NavLink[],
+		sub: [
+			...collections.map((collection) => ({
+				title: collection.name,
+				label: collection.name,
+				href: `/admin/collections/${collection.id}`,
+				icon: <IconHexagonNumber1 size={18} />,
+			})),
+			{
+				title: "Create Collection",
+				label: "",
+				href: "/admin/createCollection",
+				icon: <IconPlus size={18} />,
+			},
+		] as NavLink[],
 	},
 	{
 		title: "Chats",

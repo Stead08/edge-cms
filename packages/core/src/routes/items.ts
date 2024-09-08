@@ -12,8 +12,8 @@ const itemSchema = z.object({
 export const itemsApp = createHonoWithDB()
 	.post("/items", async (c) => {
 		const db = c.get("db");
+		const body = await c.req.json();
 		try {
-			const body = await c.req.json();
 			const validatedData = itemSchema.parse(body);
 
 			const collection = await sql.getCollection(db, {

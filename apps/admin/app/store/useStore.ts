@@ -5,6 +5,7 @@ import type {
 } from "@/lib/types";
 import { hc } from "hono/client";
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import type { AppType } from "../../../sandbox/src/index";
 
 const client = hc<AppType>("");
@@ -26,6 +27,10 @@ interface Store {
 		schema: Record<string, unknown>,
 	) => Promise<void>;
 	fetchItems: (collectionId: string) => Promise<void>;
+	createItem: (
+		collectionId: string,
+		item: Record<string, unknown>,
+	) => Promise<void>;
 }
 
 export const useStore = create<Store>((set, get) => ({
@@ -74,6 +79,26 @@ export const useStore = create<Store>((set, get) => ({
 			const items = await res.json();
 			// biome-ignore lint/suspicious/noExplicitAny: 一旦anyだが後でパズルする
 			set({ items: items.results as ItemResultsType<any> });
+		}
+	},
+	createItem: async (collectionId, item) => {
+		const { selectedWorkspaceId } = get();
+		if (!selectedWorkspaceId) {
+			return;
+		}
+		const res = await fetch(
+			`/api/workspaces/${selectedWorkspaceId}/${collectionId}/items`,
+			{
+				method: "POST",
+				body: JSON.stringify({
+					collection_id: collectionId,
+					data: item,
+					status: "draft",
+				}),
+			},
+		);
+		if (res.ok) {
+			get().fetchItems(collectionId);
 		}
 	},
 }));
