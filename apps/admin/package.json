@@ -43,8 +43,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:",
-    "@cloudflare/workers-types": "^4.20240821.1",
-    "@hono/vite-dev-server": "^0.14.0",
+    "@cloudflare/workers-types": "^4.20240512.0",
+    "@hono/vite-dev-server": "^0.15.0",
     "@remix-run/dev": "^2.11.2",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
