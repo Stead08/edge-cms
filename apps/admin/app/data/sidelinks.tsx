@@ -18,6 +18,7 @@ import {
 	IconMessages,
 	IconPlus,
 	IconRouteAltLeft,
+	IconScript,
 	IconServerOff,
 	IconSettings,
 	IconTruck,
@@ -53,9 +54,9 @@ export const getSidelinks = (
 		sub: [
 			...collections.map((collection) => ({
 				title: collection.name,
-				label: collection.name,
+				label: null,
 				href: `/admin/collections/${collection.id}`,
-				icon: <IconHexagonNumber1 size={18} />,
+				icon: <IconScript size={18} />,
 			})),
 			{
 				title: "Create Collection",

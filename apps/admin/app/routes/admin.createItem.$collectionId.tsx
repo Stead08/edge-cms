@@ -63,8 +63,34 @@ export default function AdminCreateItem() {
 			});
 			return;
 		}
+
+		// スキーマに基づいてformDataを変換
+		const formattedData = Object.entries(formData).reduce(
+			(acc, [key, value]) => {
+				// スキーマの型を確認
+				const fieldSchema = schema.properties[key];
+
+				if (fieldSchema) {
+					if (
+						fieldSchema.type === "number" &&
+						typeof value === "string" &&
+						!Number.isNaN(Number(value))
+					) {
+						acc[key] = Number(value); // number型の場合は数値に変換
+					} else {
+						acc[key] = value; // string型の場合はそのまま使用
+					}
+				} else {
+					acc[key] = value; // スキーマに存在しない場合はそのまま使用
+				}
+				return acc;
+			},
+			{} as Record<string, unknown>,
+		);
+
 		try {
-			await createItem(collectionId, formData);
+			console.log("送信するデータ:", formattedData); // デバッグ用
+			await createItem(collectionId, formattedData);
 			toast({
 				title: "成功",
 				description: "アイテムが作成されました。",

@@ -46,7 +46,7 @@ import { useEffect } from "react";
 export const description = "collections";
 
 export default function Collections() {
-	const { items, fetchItems } = useStore();
+	const { items, fetchItems, deleteItem } = useStore();
 	const { collectionId } = useParams();
 	if (!collectionId) {
 		return <div>Collection ID is not provided</div>;
@@ -270,7 +270,13 @@ export default function Collections() {
 																			Actions
 																		</DropdownMenuLabel>
 																		<DropdownMenuItem>Edit</DropdownMenuItem>
-																		<DropdownMenuItem>Delete</DropdownMenuItem>
+																		<DropdownMenuItem
+																			onClick={() =>
+																				deleteItem(item.id, collectionId)
+																			}
+																		>
+																			Delete
+																		</DropdownMenuItem>
 																	</DropdownMenuContent>
 																</DropdownMenu>
 															</TableCell>
