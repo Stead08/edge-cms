@@ -31,6 +31,11 @@ interface Store {
 		collectionId: string,
 		item: Record<string, unknown>,
 	) => Promise<Error | null>;
+	editItem: (
+		itemId: string,
+		collectionId: string,
+		item: Record<string, unknown>,
+	) => Promise<Error | null>;
 	deleteItem: (itemId: string, collectionId: string) => Promise<void>;
 }
 
@@ -111,7 +116,30 @@ export const useStore = create<Store>()(
 				}
 				return new Error("アイテムの作成に失敗しました。");
 			},
-
+			editItem: async (itemId, collectionId, item) => {
+				const { selectedWorkspaceId } = get();
+				if (!selectedWorkspaceId) {
+					return new Error("ワークスペースが選択されていません。");
+				}
+				const res = await client.api.workspaces[":workspace_id"][":id"][
+					":item_id"
+				].$put({
+					param: {
+						workspace_id: selectedWorkspaceId,
+						id: collectionId,
+						item_id: itemId,
+					},
+					// @ts-ignore hono hcの型が間違っている
+					json: {
+						data: item,
+					},
+				});
+				if (res.ok) {
+					get().fetchItems(collectionId);
+					return null;
+				}
+				return new Error("アイテムの編集に失敗しました。");
+			},
 			deleteItem: async (itemId, collectionId) => {
 				const { selectedWorkspaceId } = get();
 				if (!selectedWorkspaceId) {
