@@ -16,7 +16,7 @@
     "turbo": "catalog:",
     "typescript": "catalog:"
   },
-  "packageManager": "pnpm@9.8.0",
+  "packageManager": "pnpm@9.11.0",
   "engines": {
     "node": ">=18",
     "yarn": "Use pnpm instead",
