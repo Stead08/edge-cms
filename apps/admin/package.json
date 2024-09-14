@@ -51,7 +51,7 @@
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.42",
     "tailwindcss": "^3.4.10",
-    "typescript": "5.5.4",
+    "typescript": "5.6.2",
     "vite": "catalog:",
     "vite-tsconfig-paths": "^5.0.1",
     "wrangler": "catalog:"
