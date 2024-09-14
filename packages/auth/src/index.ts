@@ -1,5 +1,4 @@
 import { Hono } from "hono";
-import { verifyRequestOrigin } from "lucia";
 
 export const createAuthApp = () => {
 	const app = new Hono();
