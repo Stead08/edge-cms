@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "wrangler dev src/index.ts",
     "deploy": "wrangler deploy --minify src/index.ts",
-    "migrate:local": "wrangler d1 execute edgecms --file './schema.sql' --local"
+    "migrate:local": "wrangler d1 execute edgecms --file './schema.sql' --local",
+    "migrate:remote": "wrangler d1 execute edgecms --file './schema.sql' --remote",
+    "testsql": "wrangler d1 execute edgecms --file './test.sql' --local",
+    "reset:local": "rm -rf .wrangler/state/v3/d1 && pnpm migrate:local && pnpm testsql"
   },
   "dependencies": {
     "hono": "^4.5.5"
