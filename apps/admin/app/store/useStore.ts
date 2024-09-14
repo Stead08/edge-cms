@@ -36,6 +36,7 @@ interface Store {
 		itemId: string,
 		collectionId: string,
 		item: Record<string, unknown>,
+		status?: string,
 	) => Promise<Error | null>;
 	deleteItem: (itemId: string, collectionId: string) => Promise<void>;
 }
@@ -132,7 +133,7 @@ export const useStore = create<Store>()(
 				}
 				return new Error("アイテムの作成に失敗しました。");
 			},
-			editItem: async (itemId, collectionId, item) => {
+			editItem: async (itemId, collectionId, item, status?) => {
 				const { selectedWorkspaceId } = get();
 				if (!selectedWorkspaceId) {
 					return new Error("ワークスペースが選択されていません。");
@@ -148,6 +149,7 @@ export const useStore = create<Store>()(
 					// @ts-ignore hono hcの型が間違っている
 					json: {
 						data: item,
+						status: "published",
 					},
 				});
 				if (res.ok) {

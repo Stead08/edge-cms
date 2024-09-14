@@ -21,6 +21,7 @@ export default function AdminEditItemCollectionIdItemId() {
 	const [formData, setFormData] = useState<Record<string, unknown>>({});
 	const { selectedWorkspaceId, editItem } = useStore();
 	const { toast } = useToast();
+	const [status, setStatus] = useState<string>("");
 
 	useEffect(() => {
 		const fetchSchemaAndItem = async () => {
@@ -52,6 +53,7 @@ export default function AdminEditItemCollectionIdItemId() {
 				});
 				const itemData = await itemRes.json();
 				setFormData(itemData.data);
+				setStatus(itemData.status || "");
 			} catch (error) {
 				console.error("Failed to fetch schema or item:", error);
 				toast({
@@ -80,30 +82,32 @@ export default function AdminEditItemCollectionIdItemId() {
 		}
 
 		// スキーマに基づいてformDataを変換
-		const formattedData = Object.entries(formData).reduce(
-			(acc, [key, value]) => {
-				const fieldSchema = schema.properties[key];
-				if (fieldSchema) {
-					if (
-						fieldSchema.type === "number" &&
-						typeof value === "string" &&
-						!Number.isNaN(Number(value))
-					) {
-						acc[key] = Number(value);
+		const formattedData = {
+			...Object.entries(formData).reduce(
+				(acc, [key, value]) => {
+					const fieldSchema = schema.properties[key];
+					if (fieldSchema) {
+						if (
+							fieldSchema.type === "number" &&
+							typeof value === "string" &&
+							!Number.isNaN(Number(value))
+						) {
+							acc[key] = Number(value);
+						} else {
+							acc[key] = value;
+						}
 					} else {
 						acc[key] = value;
 					}
-				} else {
-					acc[key] = value;
-				}
-				return acc;
-			},
-			{} as Record<string, unknown>,
-		);
+					return acc;
+				},
+				{} as Record<string, unknown>,
+			),
+		};
 
 		try {
 			console.log("送信するデータ:", formattedData);
-			await editItem(itemId, collectionId, formattedData);
+			await editItem(itemId, collectionId, formattedData, status);
 			toast({
 				title: "成功",
 				description: "アイテムが更新されました。",
@@ -140,6 +144,15 @@ export default function AdminEditItemCollectionIdItemId() {
 								/>
 							</div>
 						))}
+						<div className="flex items-center space-x-2">
+							<Label htmlFor="status">ステータス:</Label>
+							<Input
+								id="status"
+								value={status}
+								onChange={(e) => setStatus(e.target.value)}
+								placeholder="ステータスを入力"
+							/>
+						</div>
 					</CardContent>
 					<CardFooter>
 						<Button type="submit">アイテムを更新</Button>
