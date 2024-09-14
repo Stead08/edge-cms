@@ -107,6 +107,26 @@ describe("Items Test", () => {
 		expect(item.status).toBe("published");
 	});
 
+	it("should update an item with status", async () => {
+		const res = await SELF.fetch(
+			"https://example.com/workspaces/test-workspace_aabbccdd/test-collection/c851a41a-8ec6-41ac-bedc-73b2b2614f4d",
+			{
+				method: "PUT",
+				body: JSON.stringify({
+					data: {
+						title: "Updated Test Item",
+						content: "This is an updated test item",
+					},
+					status: "draft",
+				}),
+			},
+		);
+		expect(res.status).toBe(200);
+		const item = await res.json();
+		expect(item.data.title).toBe("Updated Test Item");
+		expect(item.status).toBe("draft");
+	});
+
 	it("should not update an item with invalid data", async () => {
 		const res = await SELF.fetch(
 			"https://example.com/workspaces/test-workspace_aabbccdd/test-collection/c851a41a-8ec6-41ac-bedc-73b2b2614f4d",

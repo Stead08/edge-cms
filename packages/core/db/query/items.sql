@@ -14,7 +14,7 @@ ORDER BY id;
 
 -- name: UpdateItem :one
 UPDATE items
-SET data = COALESCE(@data, data)
+SET data = COALESCE(@data, data), status = COALESCE(@status, status)
 WHERE id = @id
 RETURNING *;
 
