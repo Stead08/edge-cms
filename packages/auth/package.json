@@ -1,0 +1,31 @@
+{
+  "name": "@repo/auth",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "format": "biome format ./src --write",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@lucia-auth/adapter-sqlite": "^3.0.0",
+		"@node-rs/argon2": "^1.8.3",
+		"better-sqlite3": "^9.2.2",
+		"hono": "catalog:",
+		"lucia": "^3.2.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "catalog:",
+    "@cloudflare/vitest-pool-workers": "catalog:",
+    "@cloudflare/workers-types": "^4.20240815.0",
+    "@repo/tsconfig": "workspace:*",
+    "miniflare": "catalog:",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.10",
+    "vitest": "1.5.0"
+  }
+}
