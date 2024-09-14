@@ -30,7 +30,7 @@
     "@radix-ui/react-tooltip": "^1.1.2",
     "@remix-run/cloudflare": "^2.11.2",
     "@remix-run/react": "^2.11.2",
-    "@tabler/icons-react": "3.14.0",
+    "@tabler/icons-react": "3.16.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "hono": "catalog:",
