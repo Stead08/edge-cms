@@ -1,6 +1,7 @@
 {
     "extends": ["../../biome.json"],
     "linter": {
+        "ignore": ["app/components/ui/**/*.tsx"],
         "rules": {
             "correctness": {
                 "useExhaustiveDependencies": "off"
