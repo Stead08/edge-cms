@@ -527,12 +527,13 @@ export function listItems(
 
 const updateItemQuery = `-- name: UpdateItem :one
 UPDATE items
-SET data = COALESCE(?1, data)
-WHERE id = ?2
+SET data = COALESCE(?1, data), status = COALESCE(?2, status)
+WHERE id = ?3
 RETURNING id, collection_id, data, status, created_at, updated_at`;
 
 export type UpdateItemParams = {
 	data: number | string;
+	status: number | string;
 	id: string;
 };
 
@@ -558,7 +559,7 @@ export function updateItem(
 	d1: D1Database,
 	args: UpdateItemParams,
 ): Query<UpdateItemRow | null> {
-	const ps = d1.prepare(updateItemQuery).bind(args.data, args.id);
+	const ps = d1.prepare(updateItemQuery).bind(args.data, args.status, args.id);
 	return {
 		then(
 			onFulfilled?: (value: UpdateItemRow | null) => void,

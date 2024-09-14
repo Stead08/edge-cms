@@ -113,6 +113,7 @@ export const itemsApp = createHonoWithDB()
 		const result = await sql.updateItem(db, {
 			id: id,
 			data: validatedData.data ? JSON.stringify(validatedData.data) : item.data,
+			status: validatedData.status ? validatedData.status : item.status,
 		});
 		if (!result) {
 			return c.json({ error: "アイテムの更新に失敗しました" }, 500);
@@ -120,6 +121,7 @@ export const itemsApp = createHonoWithDB()
 		return c.json({
 			...result,
 			data: JSON.parse(result.data.toString()),
+			status: result.status,
 		});
 	})
 	.delete("/:item_id", async (c) => {
