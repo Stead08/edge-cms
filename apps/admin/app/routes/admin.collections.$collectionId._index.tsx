@@ -57,7 +57,7 @@ export default function Collections() {
 
 	useEffect(() => {
 		fetchItems(collectionId);
-	}, [collectionId]);
+	}, [collectionId, fetchItems]);
 
 	useEffect(() => {
 		if (activeTab === "all") {
@@ -69,19 +69,31 @@ export default function Collections() {
 
 	if (!items || items.length === 0) {
 		return (
-			<div className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm">
-				<div className="flex flex-col items-center gap-1 text-center">
-					<h3 className="text-2xl font-bold tracking-tight">
-						You have no products
-					</h3>
-					<p className="text-sm text-muted-foreground">
-						You can start selling as soon as you add a product.
-					</p>
-					<Link to={`/admin/createItem/${collectionId}`} className="mt-4">
-						Add Item
-					</Link>
-				</div>
-			</div>
+			<Layout>
+				<Layout.Header>
+					<TopNav links={topNav(collectionId)} />
+					<div className="ml-auto flex items-center space-x-4">
+						<Search />
+						<ThemeSwitch />
+						<UserNav />
+					</div>
+				</Layout.Header>
+				<Layout.Body>
+					<div className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm">
+						<div className="flex flex-col items-center gap-1 text-center">
+							<h3 className="text-2xl font-bold tracking-tight">
+								You have no products
+							</h3>
+							<p className="text-sm text-muted-foreground">
+								You can start selling as soon as you add a product.
+							</p>
+							<Link to={`/admin/createItem/${collectionId}`} className="mt-4">
+								Add Item
+							</Link>
+						</div>
+					</div>
+				</Layout.Body>
+			</Layout>
 		);
 	}
 
@@ -92,7 +104,7 @@ export default function Collections() {
 		<Layout>
 			{/* ===== Top Heading ===== */}
 			<Layout.Header>
-				<TopNav links={topNav} />
+				<TopNav links={topNav(collectionId)} />
 				<div className="ml-auto flex items-center space-x-4">
 					<Search />
 					<ThemeSwitch />
@@ -102,6 +114,7 @@ export default function Collections() {
 
 			{/* ===== Main ===== */}
 			<Layout.Body>
+				<h1>{collectionId}</h1>
 				<div className="flex min-h-screen w-full flex-col">
 					<div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-4">
 						<header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
@@ -285,25 +298,15 @@ export default function Collections() {
 	);
 }
 
-const topNav = [
+const topNav = (collectionId: string) => [
 	{
 		title: "Overview",
-		href: "dashboard/overview",
+		href: `/admin/collections/${collectionId}`,
 		isActive: true,
 	},
 	{
-		title: "Customers",
-		href: "dashboard/customers",
-		isActive: false,
-	},
-	{
-		title: "Products",
-		href: "dashboard/products",
-		isActive: false,
-	},
-	{
 		title: "Settings",
-		href: "dashboard/settings",
+		href: `/admin/collections/${collectionId}/settings`,
 		isActive: false,
 	},
 ];

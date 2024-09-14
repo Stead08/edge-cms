@@ -26,6 +26,7 @@ interface Store {
 		slug: string,
 		schema: Record<string, unknown>,
 	) => Promise<void>;
+	deleteCollection: (collectionId: string) => Promise<void>;
 	fetchItems: (collectionId: string) => Promise<void>;
 	createItem: (
 		collectionId: string,
@@ -45,6 +46,7 @@ export const useStore = create<Store>()(
 			workspaces: [],
 			selectedWorkspaceId: null,
 			collections: [],
+			selectedCollection: null,
 			items: [],
 			setSelectedWorkspaceId: (id) => set({ selectedWorkspaceId: id }),
 			fetchWorkspaces: async () => {
@@ -73,6 +75,20 @@ export const useStore = create<Store>()(
 				});
 				if (res.ok) {
 					get().fetchCollections(workspaceId);
+				}
+			},
+			deleteCollection: async (collectionId) => {
+				const { selectedWorkspaceId } = get();
+				if (!selectedWorkspaceId) {
+					return;
+				}
+				const res = await client.api.workspaces[":workspace_id"][":id"].$delete(
+					{
+						param: { workspace_id: selectedWorkspaceId, id: collectionId },
+					},
+				);
+				if (res.ok) {
+					get().fetchCollections(selectedWorkspaceId);
 				}
 			},
 			fetchItems: async (collectionId) => {
