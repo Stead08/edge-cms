@@ -18,6 +18,7 @@
 	},
 	"linter": {
 		"enabled": true,
+		"ignore": ["/**/*.test.ts"],
 		"rules": {
 			"recommended": true
 		}
