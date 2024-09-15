@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "generate": "drizzle-kit generate",
     "format": "biome format ./src --write",
     "test": "vitest run"
   },
@@ -16,6 +17,7 @@
     "@lucia-auth/adapter-sqlite": "^3.0.0",
     "@node-rs/argon2": "^1.8.3",
     "better-sqlite3": "^9.2.2",
+    "drizzle-orm": "0.33.0",
     "hono": "catalog:",
     "lucia": "^3.2.0",
     "zod": "3.23.8"
@@ -24,6 +26,7 @@
     "@biomejs/biome": "catalog:",
     "@cloudflare/vitest-pool-workers": "catalog:",
     "@cloudflare/workers-types": "^4.20240815.0",
+    "drizzle-kit": "0.24.2",
     "miniflare": "catalog:",
     "typescript": "^5.4.5",
     "vite": "^5.2.10",

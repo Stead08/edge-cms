@@ -7,6 +7,9 @@ import { verifyRequestOrigin, Scrypt } from "lucia";
 import { getCookie } from "hono/cookie";
 
 import { initializeLucia } from "./lib/db";
+import { eq } from "drizzle-orm";
+import { drizzle } from "drizzle-orm/d1";
+import { users } from "../db/schema";
 
 import type { D1Database } from "@cloudflare/workers-types";
 
@@ -20,12 +23,6 @@ declare module "lucia" {
 		DatabaseUserAttributes: DatabaseUserAttributes;
 	}
 }
-
-type UserRow = {
-	id: string;
-	username: string;
-	hashed_password: string;
-};
 
 type Bindings = {
 	DB: D1Database;
@@ -104,16 +101,17 @@ app.post(
 	async (c) => {
 		const { username, password } = c.req.valid("form");
 		const lucia = initializeLucia(c.env.DB);
+		const db = drizzle(c.env.DB);
 
 		const hashedPassword = await new Scrypt().hash(password);
 		const userId = generateId(15);
 
 		try {
-			await c.env.DB.prepare(
-				"insert into users (id, username, hashed_password) values (?,?,?)",
-			)
-				.bind(userId, username, hashedPassword)
-				.run();
+			await db.insert(users).values({
+				id: userId,
+				username,
+				hashedPassword,
+			});
 
 			const session = await lucia.createSession(userId, {});
 			const sessionCookie = lucia.createSessionCookie(session.id);
@@ -144,21 +142,22 @@ app.post(
 	async (c) => {
 		const { username, password } = c.req.valid("form");
 		const lucia = initializeLucia(c.env.DB);
+		const db = drizzle(c.env.DB);
+		const userQuery = await db
+			.select()
+			.from(users)
+			.where(eq(users.username, username))
+			.limit(1);
+		const user = userQuery[0];
 
-		const user = await c.env.DB.prepare(
-			"select * from users where username = ?",
-		)
-			.bind(username)
-			.first<UserRow>();
-
-		if (!user) {
+		if (!user || !user.hashedPassword) {
 			return c.json(
 				{ error: "Invalid username or password", success: false },
 				401,
 			);
 		}
 		const validPassword = await new Scrypt().verify(
-			user.hashed_password,
+			user.hashedPassword,
 			password,
 		);
 		if (!validPassword) {
