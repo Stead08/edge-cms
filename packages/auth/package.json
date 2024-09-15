@@ -18,19 +18,16 @@
     "better-sqlite3": "^9.2.2",
     "hono": "catalog:",
     "lucia": "^3.2.0",
-    "oslo": "1.2.1",
     "zod": "3.23.8"
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:",
     "@cloudflare/vitest-pool-workers": "catalog:",
     "@cloudflare/workers-types": "^4.20240815.0",
-    "@prisma/adapter-d1": "^5.19.1",
-    "@prisma/client": "^5.19.1",
     "miniflare": "catalog:",
-    "prisma": "^5.19.1",
     "typescript": "^5.4.5",
     "vite": "^5.2.10",
-    "vitest": "1.5.0"
+    "vitest": "catalog:",
+    "wrangler": "3.51.0"
   }
 }

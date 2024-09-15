@@ -1,14 +1,17 @@
-create table users
-(
-    id    TEXT not null primary key,
-    username TEXT not null unique,
-    hashed_password TEXT
-);
-create table sessions
-(
-    id         TEXT    not null primary key,
-    expires_at INTEGER not null,
-    user_id    TEXT    not null,
-    foreign key (user_id) references users (id)
+-- CreateTable
+CREATE TABLE "users" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "username" TEXT NOT NULL,
+    "hashed_password" TEXT
 );
 
+-- CreateTable
+CREATE TABLE "sessions" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "expires_at" DATETIME NOT NULL,
+    "user_id" TEXT NOT NULL,
+    CONSTRAINT "sessions_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "users_username_key" ON "users"("username");

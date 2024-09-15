@@ -1,9 +1,8 @@
-/// <reference types="vitest/globals" />
 import { defineConfig } from "vite";
 
 export default defineConfig({
 	root: import.meta.dirname,
-	test: {
-		globals: true,
+	resolve: {
+		mainFields: ["browser", "module", "main"],
 	},
 });
