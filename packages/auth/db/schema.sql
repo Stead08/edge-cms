@@ -1,14 +1,12 @@
-CREATE TABLE IF NOT EXISTS user (
-    id TEXT NOT NULL PRIMARY KEY,
-    username TEXT NOT NULL UNIQUE,
-    password_hash TEXT NOT NULL
+create table users
+(
+    id    TEXT not null primary key,
+    username TEXT not null unique,
+    hashed_password TEXT
 );
-
-CREATE TABLE IF NOT EXISTS session (
-    id TEXT NOT NULL PRIMARY KEY,
-    expires_at INTEGER NOT NULL,
-    user_id TEXT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES user(id)
+create table sessions
+(
+    id         TEXT    not null primary key,
+    expires_at INTEGER not null,
+    user_id    TEXT    not null
 );
-
-INSERT INTO user (id, username, password_hash) VALUES ('1', 'admin', 'admin');
