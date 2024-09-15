@@ -111,8 +111,8 @@ importers:
         specifier: ^2.11.2
         version: 2.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2)
       '@tabler/icons-react':
-        specifier: 3.16.0
-        version: 3.16.0(react@18.3.1)
+        specifier: 3.17.0
+        version: 3.17.0(react@18.3.1)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -1708,13 +1708,13 @@ packages:
   '@sinclair/typebox@0.27.8':
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
 
-  '@tabler/icons-react@3.16.0':
-    resolution: {integrity: sha512-u2ABvvw71+VZMmkQ9PXsBQb+xoox8YSV8+96Xbg5jocE+gqIrAJD/3dJxWN9YhEP3TBhbcFQdkY4svvhhE+FBw==}
+  '@tabler/icons-react@3.17.0':
+    resolution: {integrity: sha512-Ndm9Htv7KpIU1PYYrzs5EMhyA3aZGcgaxUp9Q1XOxcRZ+I0X+Ub2WS5f4bkRyDdL1s0++k2T9XRgmg2pG113sw==}
     peerDependencies:
       react: '>= 16'
 
-  '@tabler/icons@3.16.0':
-    resolution: {integrity: sha512-GU7MSx4uQEr55BmyON6hD/QYTl6k1v0YlRhM91gBWDoKAbyCt6QIYw7rpJ/ecdh5zrHaTOJKPenZ4+luoutwFA==}
+  '@tabler/icons@3.17.0':
+    resolution: {integrity: sha512-sCSfAQ0w93KSnSL7tS08n73CdIKpuHP8foeLMWgDKiZaCs8ZE//N3ytazCk651ZtruTtByI3b+ZDj7nRf+hHvA==}
 
   '@types/acorn@4.0.6':
     resolution: {integrity: sha512-veQTnWP+1D/xbxVrPC3zHnCZRjSrKfhbMUlEA43iMZLu7EsnTtkJklIuwrCPbOi8YkvDQAiW05VQQFvvz9oieQ==}
@@ -5898,12 +5898,12 @@ snapshots:
 
   '@sinclair/typebox@0.27.8': {}
 
-  '@tabler/icons-react@3.16.0(react@18.3.1)':
+  '@tabler/icons-react@3.17.0(react@18.3.1)':
     dependencies:
-      '@tabler/icons': 3.16.0
+      '@tabler/icons': 3.17.0
       react: 18.3.1
 
-  '@tabler/icons@3.16.0': {}
+  '@tabler/icons@3.17.0': {}
 
   '@types/acorn@4.0.6':
     dependencies:
@@ -6010,7 +6010,7 @@ snapshots:
       '@babel/plugin-syntax-typescript': 7.25.4(@babel/core@7.25.2)
       '@vanilla-extract/babel-plugin-debug-ids': 1.0.6
       '@vanilla-extract/css': 1.15.5
-      esbuild: 0.17.6
+      esbuild: 0.17.19
       eval: 0.1.8
       find-up: 5.0.0
       javascript-stringify: 2.1.0
