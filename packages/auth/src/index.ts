@@ -77,18 +77,6 @@ app.use("*", async (c, next) => {
 	return next();
 });
 
-app.get("/", (c) => {
-	const user = c.get("user");
-	if (user) {
-		return c.json({ message: "Logged in", user });
-	}
-	return c.json({ message: "Not logged in" });
-});
-
-app.get("/signup", (c) => {
-	return c.json({ message: "Signup page" });
-});
-
 app.post(
 	"/signup",
 	zValidator(
@@ -125,10 +113,6 @@ app.post(
 		}
 	},
 );
-
-app.get("/login", (c) => {
-	return c.json({ message: "Login page" });
-});
 
 app.post(
 	"/login",
