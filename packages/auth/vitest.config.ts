@@ -6,7 +6,7 @@ import {
 
 export default defineWorkersProject(async () => {
 	// Read all migrations in the `migrations` directory
-	const migrationsPath = path.join(__dirname, "db");
+	const migrationsPath = path.join(__dirname, "drizzle");
 	const migrations = await readD1Migrations(migrationsPath);
 
 	return {
