@@ -12,6 +12,8 @@ import { drizzle } from "drizzle-orm/d1";
 import { users } from "../db/schema";
 
 import type { D1Database } from "@cloudflare/workers-types";
+import { createMiddleware } from "hono/factory";
+import { csrf } from "hono/csrf";
 
 interface DatabaseUserAttributes {
 	username: string;
@@ -48,6 +50,7 @@ export const createAuth = () => {
 			!hostHeader ||
 			!verifyRequestOrigin(originHeader, [hostHeader])
 		) {
+			console.log("Origin or Host header not found");
 			return c.body(null, 403);
 		}
 		return next();
@@ -186,6 +189,35 @@ export const createAuth = () => {
 	return app;
 };
 
+export const middleware = createMiddleware(async (c, next) => {
+	console.log("middleware");
+	csrf();
+	const lucia = initializeLucia(c.env.DB);
+	const sessionId = getCookie(c, lucia.sessionCookieName) ?? null;
+	if (!sessionId) {
+		c.set("user", null);
+		c.set("session", null);
+		return c.json({ message: "Unauthorized" }, 401);
+	}
+	const { session, user } = await lucia.validateSession(sessionId);
+	if (session?.fresh) {
+		// use `header()` instead of `setCookie()` to avoid TS errors
+		c.header("Set-Cookie", lucia.createSessionCookie(session.id).serialize(), {
+			append: true,
+		});
+	}
+	if (!session) {
+		c.header("Set-Cookie", lucia.createBlankSessionCookie().serialize(), {
+			append: true,
+		});
+		return c.json({ message: "Unauthorized" }, 401);
+	}
+	c.set("user", user);
+	c.set("session", session);
+	return next();
+});
+
 const app = createAuth();
 
 export default app;
+export { initializeLucia };

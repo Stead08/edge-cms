@@ -30,7 +30,7 @@ describe("auth", () => {
 			}).toString(),
 		});
 		expect(res.status).toBe(200);
-		const json = await res.json();
+		const json = (await res.json()) as { success: boolean };
 		expect(json.success).toBe(true);
 	});
 
@@ -48,7 +48,7 @@ describe("auth", () => {
 			}).toString(),
 		});
 		expect(res.status).toBe(200);
-		const json = await res.json();
+		const json = (await res.json()) as { success: boolean };
 		expect(json.success).toBe(true);
 	});
 
@@ -99,9 +99,9 @@ describe("auth", () => {
 		});
 		expect(res.status).toBe(200);
 		// jsonが返される
-		const json = await res.json();
+		const json = (await res.json()) as { success: boolean };
 		expect(json.success).toBe(true);
-		const cookie = res.headers.get("Set-Cookie");
+		const cookie = res.headers.get("Set-Cookie") ?? "";
 		expect(cookie).toBeDefined();
 
 		// ログアウト
@@ -116,7 +116,7 @@ describe("auth", () => {
 		});
 		expect(res2.status).toBe(200);
 		// jsonが返される
-		const json2 = await res2.json();
+		const json2 = (await res2.json()) as { success: boolean };
 		expect(json2.success).toBe(true);
 	});
 });

@@ -4,6 +4,7 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
+    "dev:admin": "turbo dev --filter=admin --filter=auth --filter=sandbox",
     "lint": "turbo lint",
     "format": "turbo format",
     "type-check": "turbo type-check",
