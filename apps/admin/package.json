@@ -12,7 +12,10 @@
     "start": "remix vite:build && wrangler pages dev",
     "type-check": "tsc",
     "typegen": "wrangler types",
-    "biome": "biome"
+    "biome": "biome",
+    "migrate:local": "wrangler d1 execute edge-cms-auth-example --file './schema.sql' --local",
+    "migrate:remote": "wrangler d1 execute edge-cms-auth-example --file './schema.sql' --remote",
+    "reset:local": "rm -rf .wrangler/state/v3/d1 && pnpm migrate:local"
   },
   "dependencies": {
     "@cloudflare/kv-asset-handler": "^0.3.4",

@@ -2,10 +2,7 @@ name = "remix-pages"
 
 pages_build_output_dir = "./build/client"
 compatibility_date = "2023-04-20"
-services = [
-    { binding = "API", service = "sandbox" },
-    { binding = "AUTH", service = "auth" },
-]
+services = [{ binding = "API", service = "sandbox" }]
 
 
 [vars]
