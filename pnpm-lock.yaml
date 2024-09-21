@@ -193,22 +193,6 @@ importers:
         specifier: 'catalog:'
         version: 3.78.7(@cloudflare/workers-types@4.20240919.0)
 
-  apps/auth:
-    dependencies:
-      hono:
-        specifier: 'catalog:'
-        version: 4.6.2
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20240529.0
-        version: 4.20240919.0
-      '@repo/auth':
-        specifier: workspace:*
-        version: link:../../packages/auth
-      wrangler:
-        specifier: 'catalog:'
-        version: 3.78.7(@cloudflare/workers-types@4.20240919.0)
-
   apps/docs:
     devDependencies:
       vitepress:
