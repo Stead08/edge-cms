@@ -4,4 +4,5 @@
 interface Env {
 	MY_VAR: "test";
 	API: Fetcher;
+	DB: D1Database;
 }

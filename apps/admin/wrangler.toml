@@ -13,3 +13,8 @@ MY_VAR = "test"
 
 [dev]
 port = 8789
+
+[[d1_databases]]
+binding = "DB"                                       # i.e. available in your Worker on env.DB
+database_name = "edge-cms-auth-example"
+database_id = "0227514f-f958-49a7-8d95-a70e466e8d43"
