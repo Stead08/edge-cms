@@ -1,1 +1,11 @@
-{}
+{
+	"biome.rename": true,
+	"biome_lsp.trace.server": "verbose",
+	"[javascript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"deno.enable": false
+}
