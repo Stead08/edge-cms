@@ -14,6 +14,7 @@ const app = new Hono<{
 }>();
 
 app.use("/admin/*", middleware);
+app.use("/api/*", middleware);
 
 app.all("*", async (c) => {
 	return c.env.eventContext.next();
