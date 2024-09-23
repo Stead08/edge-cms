@@ -20,6 +20,7 @@ Work in progress
 - Frameworks
   - Hono
   - Vite
+  - Remix (Admin)
 - Libraries
   - Testing Libraries
     - Vitest
@@ -31,6 +32,8 @@ Work in progress
     - Biome
   - Database
     - sqlc
+  - UI
+    - shadcn/ui
 
 ## 　モチベーション
 
@@ -50,6 +53,7 @@ Work in progress
 - フレームワーク
   - Hono
   - vite
+  - remix
 - ライブラリ
   - テストライブラリ
     - vitest
@@ -61,6 +65,8 @@ Work in progress
     - biome
   - DB
     - sqlc
+  - UI
+    - shadcn/ui
 
 memo: 高速なD1
 
