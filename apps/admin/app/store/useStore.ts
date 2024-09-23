@@ -149,7 +149,7 @@ export const useStore = create<Store>()(
 					// @ts-ignore hono hcの型が間違っている
 					json: {
 						data: item,
-						status: "published",
+						status: status ?? "draft",
 					},
 				});
 				if (res.ok) {

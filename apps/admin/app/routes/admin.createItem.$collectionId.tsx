@@ -12,6 +12,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/hooks/use-toast";
 import { useStore } from "@/store/useStore";
 import { useParams } from "@remix-run/react";
+import Form from "@rjsf/core";
+import validator from "@rjsf/validator-ajv8";
 import { useEffect, useState } from "react";
 import { client } from "~/lib/client";
 
@@ -55,6 +57,7 @@ export default function AdminCreateItem() {
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+		console.log("formData", formData);
 		if (!selectedWorkspaceId || !collectionId) {
 			toast({
 				title: "エラー",
@@ -107,30 +110,22 @@ export default function AdminCreateItem() {
 
 	return (
 		<>
-			<form onSubmit={handleSubmit} className="space-y-4 p-4">
+			<div className="space-y-4 p-4">
 				<Card>
 					<CardHeader>
 						<CardTitle>アイテム作成</CardTitle>
 					</CardHeader>
-					<CardContent className="space-y-4">
-						{Object.entries(schema.properties || {}).map(([key, value]) => (
-							<div key={key} className="flex items-center space-x-2">
-								<Label htmlFor={key}>{key}:</Label>
-								<Input
-									id={key}
-									value={formData[key] || ""}
-									onChange={(e) =>
-										setFormData({ ...formData, [key]: e.target.value })
-									}
-									placeholder={`Enter ${key}`}
-									required={schema.required?.includes(key)}
-								/>
-							</div>
-						))}
+					<CardContent>
+						<Form
+							schema={schema}
+							formData={formData}
+							onSubmit={(_data, e) => handleSubmit(e)}
+							validator={validator}
+							onChange={(e) => setFormData(e.formData)}
+						>
+							<Button type="submit">アイテムを作成</Button>
+						</Form>
 					</CardContent>
-					<CardFooter>
-						<Button type="submit">アイテムを作成</Button>
-					</CardFooter>
 				</Card>
 
 				<Card>
@@ -143,7 +138,7 @@ export default function AdminCreateItem() {
 						</pre>
 					</CardContent>
 				</Card>
-			</form>
+			</div>
 			<Toaster />
 		</>
 	);

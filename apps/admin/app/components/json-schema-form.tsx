@@ -16,6 +16,8 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
+import { FieldType } from "@repo/core";
+import { convertFieldTypeToJsonSchema } from "@repo/core";
 import { PlusCircle, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -29,15 +31,15 @@ const SchemaBuilderForm: React.FC<SchemaBuilderFormProps> = ({
 	const [fields, setFields] = useState<Record<string, unknown>[]>([]);
 	const [currentField, setCurrentField] = useState({
 		name: "",
-		type: "string",
+		type: FieldType.TEXT,
 		required: false,
 		validation: {},
 	});
 
 	useEffect(() => {
 		const schema = generateSchema();
-		onSchemaChange(JSON.parse(schema));
-	}, [onSchemaChange]);
+		onSchemaChange(schema);
+	}, [fields, onSchemaChange]);
 
 	const addField = (e: React.MouseEvent) => {
 		e.preventDefault();
@@ -45,7 +47,7 @@ const SchemaBuilderForm: React.FC<SchemaBuilderFormProps> = ({
 			setFields([...fields, currentField]);
 			setCurrentField({
 				name: "",
-				type: "string",
+				type: FieldType.TEXT,
 				required: false,
 				validation: {},
 			});
@@ -65,81 +67,85 @@ const SchemaBuilderForm: React.FC<SchemaBuilderFormProps> = ({
 	};
 
 	const generateSchema = () => {
-		const schema = {
+		const schema: Record<string, unknown> = {
 			type: "object",
 			properties: {},
 			required: [],
 		};
 		for (const field of fields) {
-			schema.properties[field.name] = { type: field.type, ...field.validation };
+			schema.properties[field.name] = convertFieldTypeToJsonSchema(
+				field.type as FieldType,
+				field.validation,
+			);
 			if (field.required) {
 				schema.required.push(field.name);
 			}
 		}
-
-		return JSON.stringify(schema, null, 2);
+		return schema;
 	};
 
 	const renderValidationOptions = () => {
 		switch (currentField.type) {
-			case "string":
+			case FieldType.TEXT:
+			case FieldType.EMAIL:
+			case FieldType.URL:
 				return (
 					<>
 						<div className="flex items-center space-x-2">
-							<Label htmlFor="minLength">Min Length:</Label>
+							<Label htmlFor="minLength">最小長:</Label>
 							<Input
 								id="minLength"
 								type="number"
 								onChange={(e) =>
 									updateValidation("minLength", Number.parseInt(e.target.value))
 								}
-								placeholder="Min length"
+								placeholder="最小長"
 							/>
 						</div>
 						<div className="flex items-center space-x-2">
-							<Label htmlFor="maxLength">Max Length:</Label>
+							<Label htmlFor="maxLength">最大長:</Label>
 							<Input
 								id="maxLength"
 								type="number"
 								onChange={(e) =>
 									updateValidation("maxLength", Number.parseInt(e.target.value))
 								}
-								placeholder="Max length"
+								placeholder="最大長"
 							/>
 						</div>
 						<div className="flex items-center space-x-2">
-							<Label htmlFor="pattern">Regex Pattern:</Label>
+							<Label htmlFor="pattern">正規表現パターン:</Label>
 							<Input
 								id="pattern"
 								onChange={(e) => updateValidation("pattern", e.target.value)}
-								placeholder="Regex pattern"
+								placeholder="正規表現パターン"
 							/>
 						</div>
 					</>
 				);
-			case "number":
+			case FieldType.NUMBER:
 				return (
 					<>
 						<div className="flex items-center space-x-2">
-							<Label htmlFor="minimum">Minimum:</Label>
+							<Label htmlFor="minimum">最小値:</Label>
 							<Input
 								id="minimum"
 								type="number"
 								onChange={(e) =>
 									updateValidation("minimum", Number.parseFloat(e.target.value))
 								}
-								placeholder="Minimum value"
+								placeholder="最小値"
 							/>
 						</div>
 						<div className="flex items-center space-x-2">
-							<Label htmlFor="maximum">Maximum:</Label>
+							<Label htmlFor="maximum">最大値:</Label>
 							<Input
 								id="maximum"
 								type="number"
 								onChange={(e) =>
 									updateValidation("maximum", Number.parseFloat(e.target.value))
 								}
-								placeholder="Maximum value"
+								placeholder="最大値"
 							/>
 						</div>
 					</>
@@ -153,46 +159,46 @@ const SchemaBuilderForm: React.FC<SchemaBuilderFormProps> = ({
 		<div className="space-y-4">
 			<Card>
 				<CardHeader>
-					<CardTitle>Add New Field</CardTitle>
+					<CardTitle>新しいフィールドを追加</CardTitle>
 				</CardHeader>
 				<CardContent className="space-y-4">
 					<div className="flex items-center space-x-2">
-						<Label htmlFor="fieldName">Field Name:</Label>
+						<Label htmlFor="fieldName">フィールド名:</Label>
 						<Input
 							id="fieldName"
 							value={currentField.name}
 							onChange={(e) =>
 								setCurrentField({ ...currentField, name: e.target.value })
 							}
-							placeholder="Enter field name"
+							placeholder="フィールド名を入力"
 						/>
 					</div>
 					<div className="flex items-center space-x-2">
-						<Label htmlFor="fieldType">Field Type:</Label>
+						<Label htmlFor="fieldType">フィールドタイプ:</Label>
 						<Select
 							value={currentField.type}
 							onValueChange={(value) =>
 								setCurrentField({
 									...currentField,
-									type: value,
+									type: value as FieldType,
 									validation: {},
 								})
 							}
 						>
 							<SelectTrigger id="fieldType">
-								<SelectValue placeholder="Select field type" />
+								<SelectValue placeholder="フィールドタイプを選択" />
 							</SelectTrigger>
 							<SelectContent>
-								<SelectItem value="string">String</SelectItem>
-								<SelectItem value="number">Number</SelectItem>
-								<SelectItem value="boolean">Boolean</SelectItem>
-								<SelectItem value="object">Object</SelectItem>
-								<SelectItem value="array">Array</SelectItem>
+								{Object.values(FieldType).map((type) => (
+									<SelectItem key={type} value={type}>
+										{type}
+									</SelectItem>
+								))}
 							</SelectContent>
 						</Select>
 					</div>
 					<div className="flex items-center space-x-2">
-						<Label htmlFor="fieldRequired">Required:</Label>
+						<Label htmlFor="fieldRequired">必須:</Label>
 						<Switch
 							id="fieldRequired"
 							checked={currentField.required}
@@ -205,14 +211,14 @@ const SchemaBuilderForm: React.FC<SchemaBuilderFormProps> = ({
 				</CardContent>
 				<CardFooter>
 					<Button onClick={addField} type="button">
-						<PlusCircle className="mr-2 h-4 w-4" /> Add Field
+						<PlusCircle className="mr-2 h-4 w-4" /> フィールドを追加
 					</Button>
 				</CardFooter>
 			</Card>
 
 			<Card>
 				<CardHeader>
-					<CardTitle>Current Schema</CardTitle>
+					<CardTitle>現在のスキーマ</CardTitle>
 				</CardHeader>
 				<CardContent>
 					{fields.map((field, index) => (
@@ -222,7 +228,7 @@ const SchemaBuilderForm: React.FC<SchemaBuilderFormProps> = ({
 						>
 							<span>
 								{field.name} ({field.type}
-								{field.required ? ", required" : ""}
+								{field.required ? ", 必須" : ""}
 								{Object.entries(field.validation)
 									.map(([key, value]) => `, ${key}: ${value}`)
 									.join("")}
@@ -242,10 +248,12 @@ const SchemaBuilderForm: React.FC<SchemaBuilderFormProps> = ({
 
 			<Card>
 				<CardHeader>
-					<CardTitle>Generated JSON Schema</CardTitle>
+					<CardTitle>生成されたJSONスキーマ</CardTitle>
 				</CardHeader>
 				<CardContent>
-					<pre className="bg-gray-100 p-2 rounded">{generateSchema()}</pre>
+					<pre className="bg-gray-100 p-2 rounded">
+						{JSON.stringify(generateSchema(), null, 2)}
+					</pre>
 				</CardContent>
 			</Card>
 		</div>

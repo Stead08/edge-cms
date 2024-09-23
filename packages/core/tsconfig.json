@@ -16,6 +16,7 @@
       "vitest/globals",
       "@cloudflare/vitest-pool-workers"
     ],
+    "baseUrl": "./src",
 
     /* Linting */
     "strict": true,

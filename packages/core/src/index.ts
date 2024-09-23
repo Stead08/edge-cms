@@ -5,6 +5,10 @@ import { collectionManagerApp } from "./routes/collectionManager";
 import { rolesApp } from "./routes/roles";
 import { usersApp } from "./routes/users";
 import { workspacesApp } from "./routes/workspaces";
+import { FieldType } from "./types/fieldTypes";
+import { convertFieldTypeToJsonSchema } from "./utils/utils";
+
+export { FieldType, convertFieldTypeToJsonSchema };
 
 const r2Schema = z.object({
 	id: z.string(),

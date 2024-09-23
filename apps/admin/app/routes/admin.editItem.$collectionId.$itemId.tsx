@@ -13,6 +13,13 @@ import { useToast } from "@/hooks/use-toast";
 import { useStore } from "@/store/useStore";
 import { useParams } from "@remix-run/react";
 import { useEffect, useState } from "react";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "~/components/ui/select";
 import { client } from "~/lib/client";
 
 export default function AdminEditItemCollectionIdItemId() {
@@ -107,6 +114,7 @@ export default function AdminEditItemCollectionIdItemId() {
 
 		try {
 			console.log("送信するデータ:", formattedData);
+			console.log("送信するステータス:", status);
 			await editItem(itemId, collectionId, formattedData, status);
 			toast({
 				title: "成功",
@@ -146,12 +154,19 @@ export default function AdminEditItemCollectionIdItemId() {
 						))}
 						<div className="flex items-center space-x-2">
 							<Label htmlFor="status">ステータス:</Label>
-							<Input
-								id="status"
+							<Select
 								value={status}
-								onChange={(e) => setStatus(e.target.value)}
-								placeholder="ステータスを入力"
-							/>
+								onValueChange={(value) => setStatus(value)}
+							>
+								<SelectTrigger className="w-[180px]">
+									<SelectValue defaultValue={status} />
+								</SelectTrigger>
+								<SelectContent>
+									<SelectItem value="draft">draft</SelectItem>
+									<SelectItem value="published">published</SelectItem>
+									<SelectItem value="archived">archived</SelectItem>
+								</SelectContent>
+							</Select>
 						</div>
 					</CardContent>
 					<CardFooter>
