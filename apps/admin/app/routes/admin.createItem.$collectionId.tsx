@@ -13,9 +13,18 @@ import { useToast } from "@/hooks/use-toast";
 import { useStore } from "@/store/useStore";
 import { useParams } from "@remix-run/react";
 import Form from "@rjsf/core";
+import type { RegistryWidgetsType, WidgetProps } from "@rjsf/utils";
 import validator from "@rjsf/validator-ajv8";
 import { useEffect, useState } from "react";
 import { client } from "~/lib/client";
+
+const CustomTextWidget = (props: WidgetProps) => {
+	return <Input onChange={(e) => props.onChange(e.target.value)} />;
+};
+
+const widgets: RegistryWidgetsType = {
+	TextWidget: CustomTextWidget,
+};
 
 export default function AdminCreateItem() {
 	const { collectionId } = useParams();
@@ -122,6 +131,7 @@ export default function AdminCreateItem() {
 							onSubmit={(_data, e) => handleSubmit(e)}
 							validator={validator}
 							onChange={(e) => setFormData(e.formData)}
+							widgets={widgets}
 						>
 							<Button type="submit">アイテムを作成</Button>
 						</Form>
