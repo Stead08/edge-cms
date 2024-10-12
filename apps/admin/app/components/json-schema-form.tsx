@@ -39,7 +39,7 @@ const SchemaBuilderForm: React.FC<SchemaBuilderFormProps> = ({
 	useEffect(() => {
 		const schema = generateSchema();
 		onSchemaChange(schema);
-	}, [fields, onSchemaChange]);
+	}, [onSchemaChange]);
 
 	const addField = (e: React.MouseEvent) => {
 		e.preventDefault();
