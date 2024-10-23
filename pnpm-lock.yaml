@@ -121,13 +121,13 @@ importers:
         version: link:../../packages/core
       '@rjsf/core':
         specifier: ^5.21.1
-        version: 5.22.0(@rjsf/utils@5.22.1(react@18.3.1))(react@18.3.1)
+        version: 5.22.1(@rjsf/utils@5.22.1(react@18.3.1))(react@18.3.1)
       '@rjsf/utils':
         specifier: ^5.21.1
         version: 5.22.1(react@18.3.1)
       '@rjsf/validator-ajv8':
         specifier: ^5.21.1
-        version: 5.22.0(@rjsf/utils@5.22.1(react@18.3.1))
+        version: 5.22.1(@rjsf/utils@5.22.1(react@18.3.1))
       '@tabler/icons-react':
         specifier: 3.19.0
         version: 3.19.0(react@18.3.1)
@@ -2122,11 +2122,11 @@ packages:
   '@remix-run/web-stream@1.1.0':
     resolution: {integrity: sha512-KRJtwrjRV5Bb+pM7zxcTJkhIqWWSy+MYsIxHK+0m5atcznsf15YwUBWHWulZerV2+vvHH1Lp1DD7pw6qKW8SgA==}
 
-  '@rjsf/core@5.22.0':
-    resolution: {integrity: sha512-uPaMFf6CVdh4RxQPHqp0OmrStZhRYYABpE0fPWMCmWI80A/5LoEyLAdkCfDWB3HjXCakM2FxP145FQHYW5zbaA==}
+  '@rjsf/core@5.22.1':
+    resolution: {integrity: sha512-AIdB5U/6lHJPirCf3Zhl4gPU/v8HD9yaSCFcpE/s8KHF/2+goJ1mw5FmyjPgI2KwPVur6+iPd9y1R7amMC1nwQ==}
     engines: {node: '>=14'}
     peerDependencies:
-      '@rjsf/utils': ^5.20.x
+      '@rjsf/utils': ^5.22.x
       react: ^16.14.0 || >=17
 
   '@rjsf/utils@5.22.1':
@@ -2135,11 +2135,11 @@ packages:
     peerDependencies:
       react: ^16.14.0 || >=17
 
-  '@rjsf/validator-ajv8@5.22.0':
-    resolution: {integrity: sha512-VDMyehWPCDXoaxrCAbXiXmOIgu08sOYgJDWdaY0ILMVChy4LknchEx2KlyVyzjlWU4YRMVxHw2yV+k0yvPtvOw==}
+  '@rjsf/validator-ajv8@5.22.1':
+    resolution: {integrity: sha512-4+OlgdcHMJY5/t9tLt36PuOfhxR0S3PHpeTRKeqE6wd2I0YEKu3kSqpHOZ1mkOg1C4Pdn0HwVqw+8vwKEGIP9g==}
     engines: {node: '>=14'}
     peerDependencies:
-      '@rjsf/utils': ^5.20.x
+      '@rjsf/utils': ^5.22.x
 
   '@rollup/rollup-android-arm-eabi@4.24.0':
     resolution: {integrity: sha512-Q6HJd7Y6xdB48x8ZNVDOqsbh2uByBhgK8PiQgPhwkIw/HC/YX5Ghq2mQY5sRMZWHb3VsFkWooUVOZHKr7DmDIA==}
@@ -6835,7 +6835,7 @@ snapshots:
     dependencies:
       web-streams-polyfill: 3.3.3
 
-  '@rjsf/core@5.22.0(@rjsf/utils@5.22.1(react@18.3.1))(react@18.3.1)':
+  '@rjsf/core@5.22.1(@rjsf/utils@5.22.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@rjsf/utils': 5.22.1(react@18.3.1)
       lodash: 4.17.21
@@ -6854,7 +6854,7 @@ snapshots:
       react: 18.3.1
       react-is: 18.3.1
 
-  '@rjsf/validator-ajv8@5.22.0(@rjsf/utils@5.22.1(react@18.3.1))':
+  '@rjsf/validator-ajv8@5.22.1(@rjsf/utils@5.22.1(react@18.3.1))':
     dependencies:
       '@rjsf/utils': 5.22.1(react@18.3.1)
       ajv: 8.17.1
