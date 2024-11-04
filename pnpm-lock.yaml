@@ -1423,8 +1423,8 @@ packages:
   '@floating-ui/utils@0.2.8':
     resolution: {integrity: sha512-kym7SodPp8/wloecOpcmSnWJsK7M0E5Wg8UcFA+uO4B9s5d0ywXOEro/8HM9x0rW+TljRzul/14UYz3TleT3ig==}
 
-  '@hono/node-server@1.13.4':
-    resolution: {integrity: sha512-3tW9lC0+2mRmoGUEnq0d8Pi3SToWjg8flM9Z+h5Aamy23jjpiFr7n3/HLqXve6EudOsgN2tG2hZusqzNYVRmRw==}
+  '@hono/node-server@1.13.5':
+    resolution: {integrity: sha512-lSo+CFlLqAFB4fX7ePqI9nauEn64wOfJHAfc9duYFTvAG3o416pC0nTGeNjuLHchLedH+XyWda5v79CVx1PIjg==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       hono: ^4
@@ -6039,13 +6039,13 @@ snapshots:
 
   '@floating-ui/utils@0.2.8': {}
 
-  '@hono/node-server@1.13.4(hono@4.6.2)':
+  '@hono/node-server@1.13.5(hono@4.6.2)':
     dependencies:
       hono: 4.6.2
 
   '@hono/vite-dev-server@0.16.0(hono@4.6.2)(miniflare@3.20241022.0)(wrangler@3.84.1(@cloudflare/workers-types@4.20241022.0))':
     dependencies:
-      '@hono/node-server': 1.13.4(hono@4.6.2)
+      '@hono/node-server': 1.13.5(hono@4.6.2)
       hono: 4.6.2
       minimatch: 9.0.5
     optionalDependencies:
