@@ -242,8 +242,8 @@ importers:
         specifier: ^11.0.0
         version: 11.5.0
       drizzle-orm:
-        specifier: 0.35.3
-        version: 0.35.3(@cloudflare/workers-types@4.20241112.0)(@libsql/client-wasm@0.14.0)(@types/react@18.3.12)(better-sqlite3@11.5.0)(react@18.3.1)
+        specifier: 0.36.2
+        version: 0.36.2(@cloudflare/workers-types@4.20241112.0)(@libsql/client-wasm@0.14.0)(@types/react@18.3.12)(better-sqlite3@11.5.0)(react@18.3.1)
       hono:
         specifier: 'catalog:'
         version: 4.6.10
@@ -2919,12 +2919,12 @@ packages:
     resolution: {integrity: sha512-cMq8omEKywjIy5KcqUo6LvEFxkl8/zYHsgYjFVXjmPWWtuW4blcz+YW9+oIhoaALgs2ebRjzXwsJgN9i6P49Dw==}
     hasBin: true
 
-  drizzle-orm@0.35.3:
-    resolution: {integrity: sha512-Uv6N+b36x4BaZlxc96e+ag7RnMapBLGhc4SSi2F7RDwqYJipWjaU/P68RUp1FbW9r+mxoDp8nMz2Eece8PJxfA==}
+  drizzle-orm@0.36.2:
+    resolution: {integrity: sha512-uVwIdQMo+zwI09hCSNVR29tYn4Vw6F7gga/CsZgDJmTSGDdUdLo+Ur45Qc3gDK7oFTxD/eRANNnPgvPmRY+jSA==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
       '@cloudflare/workers-types': '>=3'
-      '@electric-sql/pglite': '>=0.1.1'
+      '@electric-sql/pglite': '>=0.2.0'
       '@libsql/client': '>=0.10.0'
       '@libsql/client-wasm': '>=0.10.0'
       '@neondatabase/serverless': '>=0.1'
@@ -2941,7 +2941,7 @@ packages:
       '@xata.io/client': '*'
       better-sqlite3: '>=7'
       bun-types: '*'
-      expo-sqlite: '>=13.2.0'
+      expo-sqlite: '>=14.0.0'
       knex: '*'
       kysely: '*'
       mysql2: '>=2'
@@ -2959,6 +2959,8 @@ packages:
       '@electric-sql/pglite':
         optional: true
       '@libsql/client':
+        optional: true
+      '@libsql/client-wasm':
         optional: true
       '@neondatabase/serverless':
         optional: true
@@ -6104,10 +6106,12 @@ snapshots:
     dependencies:
       '@libsql/core': 0.14.0
       js-base64: 3.7.7
+    optional: true
 
   '@libsql/core@0.14.0':
     dependencies:
       js-base64: 3.7.7
+    optional: true
 
   '@lucia-auth/adapter-sqlite@3.0.2(better-sqlite3@11.5.0)(lucia@3.2.2)':
     dependencies:
@@ -7649,11 +7653,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.35.3(@cloudflare/workers-types@4.20241112.0)(@libsql/client-wasm@0.14.0)(@types/react@18.3.12)(better-sqlite3@11.5.0)(react@18.3.1):
-    dependencies:
-      '@libsql/client-wasm': 0.14.0
+  drizzle-orm@0.36.2(@cloudflare/workers-types@4.20241112.0)(@libsql/client-wasm@0.14.0)(@types/react@18.3.12)(better-sqlite3@11.5.0)(react@18.3.1):
     optionalDependencies:
       '@cloudflare/workers-types': 4.20241112.0
+      '@libsql/client-wasm': 0.14.0
       '@types/react': 18.3.12
       better-sqlite3: 11.5.0
       react: 18.3.1
@@ -8282,7 +8285,8 @@ snapshots:
 
   jiti@1.21.6: {}
 
-  js-base64@3.7.7: {}
+  js-base64@3.7.7:
+    optional: true
 
   js-tokens@4.0.0: {}
 
