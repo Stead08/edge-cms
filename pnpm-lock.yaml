@@ -298,8 +298,8 @@ importers:
         specifier: 'catalog:'
         version: 1.9.2
       '@cfworker/json-schema':
-        specifier: 3.0.0
-        version: 3.0.0
+        specifier: 3.0.1
+        version: 3.0.1
       '@cloudflare/vitest-pool-workers':
         specifier: 'catalog:'
         version: 0.5.26(@cloudflare/workers-types@4.20241112.0)(@vitest/runner@2.1.1)(@vitest/snapshot@2.1.1)(vitest@2.1.1(@types/node@22.9.0))
@@ -599,8 +599,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@cfworker/json-schema@3.0.0':
-    resolution: {integrity: sha512-OY3ZlEWVvDrazJhi2oKQ9i0BXXyo83MQMwrvbbKDP7m95jUjFWChow5y5rO75d5E6ssEUQRDmJL6AwfeJf8giw==}
+  '@cfworker/json-schema@3.0.1':
+    resolution: {integrity: sha512-fjgm7yhAaUVp7Lp4WGTiuBXzXgUoKWxVEFEte0YWdPIo6tWMxL3Jv7zrGSaxd/4fihLaRJEUsK1aMkGdAEcqUg==}
 
   '@cloudflare/kv-asset-handler@0.1.3':
     resolution: {integrity: sha512-FNcunDuTmEfQTLRLtA6zz+buIXUHj1soPvSWzzQFBC+n2lsy+CGf/NIrR3SEPCmsVNQj70/Jx2lViCpq+09YpQ==}
@@ -5551,7 +5551,7 @@ snapshots:
   '@biomejs/cli-win32-x64@1.9.2':
     optional: true
 
-  '@cfworker/json-schema@3.0.0': {}
+  '@cfworker/json-schema@3.0.1': {}
 
   '@cloudflare/kv-asset-handler@0.1.3':
     dependencies:
