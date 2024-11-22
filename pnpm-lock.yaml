@@ -27,9 +27,6 @@ catalogs:
     miniflare:
       specifier: 3.20241106.0
       version: 3.20241106.0
-    typescript:
-      specifier: 5.6.3
-      version: 5.6.3
     vite:
       specifier: 5.4.11
       version: 5.4.11
@@ -58,7 +55,7 @@ importers:
         version: 2.3.1
       typescript:
         specifier: 'catalog:'
-        version: 5.6.3
+        version: 5.7.2
 
   apps/admin:
     dependencies:
@@ -271,7 +268,7 @@ importers:
         version: 3.20241106.0
       typescript:
         specifier: ^5.4.5
-        version: 5.6.3
+        version: 5.7.2
       vite:
         specifier: 'catalog:'
         version: 5.4.11(@types/node@22.9.1)
@@ -314,7 +311,7 @@ importers:
         version: 3.20241106.0
       typescript:
         specifier: 'catalog:'
-        version: 5.6.3
+        version: 5.7.2
       vite:
         specifier: 'catalog:'
         version: 5.4.11(@types/node@22.9.0)
@@ -4811,11 +4808,6 @@ packages:
   type-is@1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
     engines: {node: '>= 0.6'}
-
-  typescript@5.6.3:
-    resolution: {integrity: sha512-hjcS1mhfuyi4WW8IWtjP7brDrG2cuDZukyrYrSauoXGNgx0S7zceP07adYkJycEr56BOUTNPzbInooiN3fn1qw==}
-    engines: {node: '>=14.17'}
-    hasBin: true
 
   typescript@5.7.2:
     resolution: {integrity: sha512-i5t66RHxDvVN40HfDd1PsEThGNnlMCMT3jMUuoh9/0TaqWevNontacunWyN02LA9/fIbEWlcHZcgTKb9QoaLfg==}
@@ -9831,8 +9823,6 @@ snapshots:
     dependencies:
       media-typer: 0.3.0
       mime-types: 2.1.35
-
-  typescript@5.6.3: {}
 
   typescript@5.7.2: {}
 
