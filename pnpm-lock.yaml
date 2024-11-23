@@ -27,6 +27,9 @@ catalogs:
     miniflare:
       specifier: 3.20241106.0
       version: 3.20241106.0
+    typescript:
+      specifier: 5.6.3
+      version: 5.7.2
     vite:
       specifier: 5.4.11
       version: 5.4.11
@@ -118,13 +121,13 @@ importers:
         version: link:../../packages/core
       '@rjsf/core':
         specifier: ^5.21.1
-        version: 5.22.4(@rjsf/utils@5.22.4(react@18.3.1))(react@18.3.1)
+        version: 5.23.1(@rjsf/utils@5.23.1(react@18.3.1))(react@18.3.1)
       '@rjsf/utils':
         specifier: ^5.21.1
-        version: 5.22.4(react@18.3.1)
+        version: 5.23.1(react@18.3.1)
       '@rjsf/validator-ajv8':
         specifier: ^5.21.1
-        version: 5.22.4(@rjsf/utils@5.22.4(react@18.3.1))
+        version: 5.23.1(@rjsf/utils@5.23.1(react@18.3.1))
       '@tabler/icons-react':
         specifier: 3.22.0
         version: 3.22.0(react@18.3.1)
@@ -2114,24 +2117,24 @@ packages:
   '@remix-run/web-stream@1.1.0':
     resolution: {integrity: sha512-KRJtwrjRV5Bb+pM7zxcTJkhIqWWSy+MYsIxHK+0m5atcznsf15YwUBWHWulZerV2+vvHH1Lp1DD7pw6qKW8SgA==}
 
-  '@rjsf/core@5.22.4':
-    resolution: {integrity: sha512-0QjAVPXDi/19jR/E44ULDzOkvC4Px5zcZhpGtBFNWNWWmb9UgyjPuvJYga2obzHU46P+5maLvUQEZVAeFwDuqQ==}
+  '@rjsf/core@5.23.1':
+    resolution: {integrity: sha512-yO0vlseZiomYNqpy/Jkd2gaP9BGqa+f3q1VIc17SGkQidHBqBNURAvOvqWFgvvALRZRNYoqnDuolWxT0AaoAog==}
     engines: {node: '>=14'}
     peerDependencies:
-      '@rjsf/utils': ^5.22.x
+      '@rjsf/utils': ^5.23.x
       react: ^16.14.0 || >=17
 
-  '@rjsf/utils@5.22.4':
-    resolution: {integrity: sha512-yQTdz5ryiYy258xCVthVPQ3DeaMzrRNrFcO8xvGHorp0/bLUxdTZ0iidXop49m3y8SaxxTZd398ZKWg2cqxiIA==}
+  '@rjsf/utils@5.23.1':
+    resolution: {integrity: sha512-cXnWgUdfeWWCsTIKamMdaP8q8lfFTvJfNQ8UyQlAumU/+hQQMOzVcyd/cVOlqWyV/JyTKrQMZOuQc9yXkka9FA==}
     engines: {node: '>=14'}
     peerDependencies:
       react: ^16.14.0 || >=17
 
-  '@rjsf/validator-ajv8@5.22.4':
-    resolution: {integrity: sha512-HIMmJpSY9iyN325W/3/l/2Pbt5BAPd9pf0nO+KZuW5dxE0WUThwjIsa104gFJUgig5M3RuKbelX565Qmvfa87A==}
+  '@rjsf/validator-ajv8@5.23.1':
+    resolution: {integrity: sha512-h2iD4ymt4yD6V/V0jJBUZeBR5NvQyy2J0p7B+roNRpBXnmbCH/O3y4TBqnSPzQiO0mI9qDNQ9XgkQp7z9zo9uw==}
     engines: {node: '>=14'}
     peerDependencies:
-      '@rjsf/utils': ^5.22.x
+      '@rjsf/utils': ^5.23.x
 
   '@rollup/rollup-android-arm-eabi@4.27.2':
     resolution: {integrity: sha512-Tj+j7Pyzd15wAdSJswvs5CJzJNV+qqSUcr/aCD+jpQSBtXvGnV0pnrjoc8zFTe9fcKCatkpFpOO7yAzpO998HA==}
@@ -3686,8 +3689,8 @@ packages:
     resolution: {integrity: sha512-WWC0ZuMzCyDHYCasEGs4IPvLyTGftYwh6wIEOULOF0HXcqZlhwRzrK0w2VUlxWA98xnvb/jszw4ZSkJ6ADpM6Q==}
     engines: {node: '>=0.10.0'}
 
-  markdown-to-jsx@7.6.2:
-    resolution: {integrity: sha512-gEcyiJXzBxmId2Y/kydLbD6KRNccDiUy/Src1cFGn3s2X0LZZ/hUiEc2VisFyA5kUE3SXclTCczjQiAuqKZiFQ==}
+  markdown-to-jsx@7.7.0:
+    resolution: {integrity: sha512-130nIMbJY+woOQJ11xTqEtYko60t6EpNkZuqjKMferL3udtob3nRfzXOdsiA26NPemiR7w/hR8M3/B9yiYPGZg==}
     engines: {node: '>= 10'}
     peerDependencies:
       react: '>= 0.14.0'
@@ -6851,17 +6854,17 @@ snapshots:
     dependencies:
       web-streams-polyfill: 3.3.3
 
-  '@rjsf/core@5.22.4(@rjsf/utils@5.22.4(react@18.3.1))(react@18.3.1)':
+  '@rjsf/core@5.23.1(@rjsf/utils@5.23.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@rjsf/utils': 5.22.4(react@18.3.1)
+      '@rjsf/utils': 5.23.1(react@18.3.1)
       lodash: 4.17.21
       lodash-es: 4.17.21
-      markdown-to-jsx: 7.6.2(react@18.3.1)
+      markdown-to-jsx: 7.7.0(react@18.3.1)
       nanoid: 3.3.7
       prop-types: 15.8.1
       react: 18.3.1
 
-  '@rjsf/utils@5.22.4(react@18.3.1)':
+  '@rjsf/utils@5.23.1(react@18.3.1)':
     dependencies:
       json-schema-merge-allof: 0.8.1
       jsonpointer: 5.0.1
@@ -6870,9 +6873,9 @@ snapshots:
       react: 18.3.1
       react-is: 18.3.1
 
-  '@rjsf/validator-ajv8@5.22.4(@rjsf/utils@5.22.4(react@18.3.1))':
+  '@rjsf/validator-ajv8@5.23.1(@rjsf/utils@5.23.1(react@18.3.1))':
     dependencies:
-      '@rjsf/utils': 5.22.4(react@18.3.1)
+      '@rjsf/utils': 5.23.1(react@18.3.1)
       ajv: 8.17.1
       ajv-formats: 2.1.1(ajv@8.17.1)
       lodash: 4.17.21
@@ -8457,7 +8460,7 @@ snapshots:
 
   markdown-extensions@1.1.1: {}
 
-  markdown-to-jsx@7.6.2(react@18.3.1):
+  markdown-to-jsx@7.7.0(react@18.3.1):
     dependencies:
       react: 18.3.1
 
