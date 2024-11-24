@@ -25,6 +25,9 @@ export function convertFieldTypeToJsonSchema(
 		case FieldType.URL:
 			baseSchema = { type: "string", format: "uri" };
 			break;
+		case FieldType.MDX:
+			baseSchema = { type: "string", format: "mdx" };
+			break;
 		default:
 			baseSchema = { type: "string" };
 	}

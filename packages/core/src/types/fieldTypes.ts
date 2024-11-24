@@ -5,6 +5,7 @@ export enum FieldType {
 	DATE = "date",
 	EMAIL = "email",
 	URL = "url",
+	MDX = "mdx",
 }
 
 export interface FieldTypeConfig {
@@ -45,5 +46,9 @@ export const fieldTypeConfigs: Record<FieldType, FieldTypeConfig> = {
 				return false;
 			}
 		},
+	},
+	[FieldType.MDX]: {
+		type: FieldType.MDX,
+		validate: (value: unknown) => typeof value === "string",
 	},
 };
