@@ -14,10 +14,10 @@
   "devDependencies": {
     "@biomejs/biome": "catalog:",
     "lefthook": "catalog:",
-    "turbo": "2.3.0",
+    "turbo": "2.3.1",
     "typescript": "catalog:"
   },
-  "packageManager": "pnpm@9.13.2",
+  "packageManager": "pnpm@9.14.2",
   "engines": {
     "node": ">=18",
     "yarn": "Use pnpm instead",
