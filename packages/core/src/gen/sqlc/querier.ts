@@ -341,6 +341,41 @@ export function getCollectionSchema(
 	};
 }
 
+const getCollectionSchemaBySlugQuery = `-- name: GetCollectionSchemaBySlug :one
+SELECT schema FROM collections
+WHERE slug = ?1 AND workspace_id = ?2 LIMIT 1`;
+
+export type GetCollectionSchemaBySlugParams = {
+	slug: number | string;
+	workspaceId: string;
+};
+
+export type GetCollectionSchemaBySlugRow = {
+	schema: number | string;
+};
+
+export function getCollectionSchemaBySlug(
+	d1: D1Database,
+	args: GetCollectionSchemaBySlugParams,
+): Query<GetCollectionSchemaBySlugRow | null> {
+	const ps = d1
+		.prepare(getCollectionSchemaBySlugQuery)
+		.bind(args.slug, args.workspaceId);
+	return {
+		then(
+			onFulfilled?: (value: GetCollectionSchemaBySlugRow | null) => void,
+			onRejected?: (reason?: any) => void,
+		) {
+			ps.first<GetCollectionSchemaBySlugRow | null>()
+				.then(onFulfilled)
+				.catch(onRejected);
+		},
+		batch() {
+			return ps;
+		},
+	};
+}
+
 const createItemQuery = `-- name: CreateItem :one
 INSERT INTO items (id, collection_id, data, status)
 VALUES (?1, ?2, ?3, ?4)

@@ -1,3 +1,4 @@
+import { MDXEditorComponent } from "@/components/mdx-editor";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -133,6 +134,32 @@ export default function AdminCreateItem() {
 							onChange={(e) => setFormData(e.formData)}
 							widgets={widgets}
 						>
+							{Object.entries(schema.properties || {}).map(([key, value]) => (
+								<div key={key} className="flex flex-col space-y-2">
+									<Label htmlFor={key}>{key}:</Label>
+									{value.format === "mdx" ? (
+										<MDXEditorComponent
+											value={(formData[key] as string) || ""}
+											onChange={(newValue) => {
+												setFormData((prev) => ({ ...prev, [key]: newValue }));
+											}}
+										/>
+									) : (
+										<Input
+											id={key}
+											value={formData[key] || ""}
+											onChange={(e) =>
+												setFormData((prev) => ({
+													...prev,
+													[key]: e.target.value,
+												}))
+											}
+											placeholder={`Enter ${key}`}
+											required={schema.required?.includes(key)}
+										/>
+									)}
+								</div>
+							))}
 							<Button type="submit">アイテムを作成</Button>
 						</Form>
 					</CardContent>

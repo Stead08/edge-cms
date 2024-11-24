@@ -27,3 +27,8 @@ WHERE id = @id;
 -- name: GetCollectionSchema :one
 SELECT schema FROM collections
 WHERE id = @id AND workspace_id = @workspace_id;
+
+-- name: GetCollectionSchemaBySlug :one
+SELECT schema FROM collections
+WHERE slug = @slug AND workspace_id = @workspace_id LIMIT 1;
+

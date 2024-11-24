@@ -39,7 +39,7 @@ const SchemaBuilderForm: React.FC<SchemaBuilderFormProps> = ({
 	useEffect(() => {
 		const schema = generateSchema();
 		onSchemaChange(schema);
-	}, [onSchemaChange]);
+	}, [onSchemaChange, fields]);
 
 	const addField = (e: React.MouseEvent) => {
 		e.preventDefault();
@@ -86,6 +86,8 @@ const SchemaBuilderForm: React.FC<SchemaBuilderFormProps> = ({
 
 	const renderValidationOptions = () => {
 		switch (currentField.type) {
+			case FieldType.MDX:
+				return null;
 			case FieldType.TEXT:
 			case FieldType.EMAIL:
 			case FieldType.URL:
@@ -191,7 +193,7 @@ const SchemaBuilderForm: React.FC<SchemaBuilderFormProps> = ({
 							<SelectContent>
 								{Object.values(FieldType).map((type) => (
 									<SelectItem key={type} value={type}>
-										{type}
+										{type.toUpperCase()}
 									</SelectItem>
 								))}
 							</SelectContent>
