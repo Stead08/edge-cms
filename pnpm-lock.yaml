@@ -243,16 +243,16 @@ importers:
         version: 0.4.1(hono@4.6.12)(zod@3.23.8)
       '@lucia-auth/adapter-sqlite':
         specifier: ^3.0.0
-        version: 3.0.2(better-sqlite3@11.5.0)(lucia@3.2.2)
+        version: 3.0.2(better-sqlite3@11.6.0)(lucia@3.2.2)
       '@node-rs/argon2':
         specifier: ^2.0.0
         version: 2.0.0
       better-sqlite3:
         specifier: ^11.0.0
-        version: 11.5.0
+        version: 11.6.0
       drizzle-orm:
         specifier: 0.36.4
-        version: 0.36.4(@cloudflare/workers-types@4.20241112.0)(@types/react@18.3.12)(better-sqlite3@11.5.0)(react@18.3.1)
+        version: 0.36.4(@cloudflare/workers-types@4.20241112.0)(@types/react@18.3.12)(better-sqlite3@11.6.0)(react@18.3.1)
       hono:
         specifier: 'catalog:'
         version: 4.6.12
@@ -3069,8 +3069,8 @@ packages:
   base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
 
-  better-sqlite3@11.5.0:
-    resolution: {integrity: sha512-e/6eggfOutzoK0JWiU36jsisdWoHOfN9iWiW/SieKvb7SAa6aGNmBM/UKyp+/wWSXpLlWNN8tCPwoDNPhzUvuQ==}
+  better-sqlite3@11.6.0:
+    resolution: {integrity: sha512-2J6k/eVxcFYY2SsTxsXrj6XylzHWPxveCn4fKPKZFv/Vqn/Cd7lOuX4d7rGQXT5zL+97MkNL3nSbCrIoe3LkgA==}
 
   binary-extensions@2.3.0:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
@@ -7579,11 +7579,11 @@ snapshots:
       '@lezer/highlight': 1.2.1
       '@lezer/lr': 1.4.2
 
-  '@lucia-auth/adapter-sqlite@3.0.2(better-sqlite3@11.5.0)(lucia@3.2.2)':
+  '@lucia-auth/adapter-sqlite@3.0.2(better-sqlite3@11.6.0)(lucia@3.2.2)':
     dependencies:
       lucia: 3.2.2
     optionalDependencies:
-      better-sqlite3: 11.5.0
+      better-sqlite3: 11.6.0
 
   '@mdx-js/mdx@2.3.0':
     dependencies:
@@ -8993,7 +8993,7 @@ snapshots:
 
   base64-js@1.5.1: {}
 
-  better-sqlite3@11.5.0:
+  better-sqlite3@11.6.0:
     dependencies:
       bindings: 1.5.0
       prebuild-install: 7.1.2
@@ -9346,11 +9346,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.36.4(@cloudflare/workers-types@4.20241112.0)(@types/react@18.3.12)(better-sqlite3@11.5.0)(react@18.3.1):
+  drizzle-orm@0.36.4(@cloudflare/workers-types@4.20241112.0)(@types/react@18.3.12)(better-sqlite3@11.6.0)(react@18.3.1):
     optionalDependencies:
       '@cloudflare/workers-types': 4.20241112.0
       '@types/react': 18.3.12
-      better-sqlite3: 11.5.0
+      better-sqlite3: 11.6.0
       react: 18.3.1
 
   duplexify@3.7.1:
