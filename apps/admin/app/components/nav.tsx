@@ -21,8 +21,8 @@ import type { SideLink } from "@/data/sidelinks";
 import useCheckActiveNav from "@/hooks/use-check-active-nav";
 import { cn } from "@/lib/utils";
 import { useStore } from "@/store/useStore";
-import { Link } from "@remix-run/react";
 import { IconChevronDown } from "@tabler/icons-react";
+import { Link } from "react-router";
 import { Button, buttonVariants } from "./custom/button";
 
 interface NavProps extends React.HTMLAttributes<HTMLDivElement> {

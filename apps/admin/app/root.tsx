@@ -1,10 +1,4 @@
-import {
-	Links,
-	Meta,
-	Outlet,
-	Scripts,
-	ScrollRestoration,
-} from "@remix-run/react";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import "./globals.css";
 import Sidebar from "@/components/side-bar";
 import SkipToMain from "@/components/skip-to-main";

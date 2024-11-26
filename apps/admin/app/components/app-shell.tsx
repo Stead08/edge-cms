@@ -1,7 +1,7 @@
 import Sidebar from "@/components/side-bar";
 import SkipToMain from "@/components/skip-to-main";
 import useIsCollapsed from "@/hooks/use-is-collapsed";
-import { Outlet } from "@remix-run/react";
+import { Outlet } from "react-router";
 
 export default function AppShell() {
 	const [isCollapsed, setIsCollapsed] = useIsCollapsed();

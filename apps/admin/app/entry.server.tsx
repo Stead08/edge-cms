@@ -1,8 +1,8 @@
-import type { AppLoadContext, EntryContext } from "@remix-run/cloudflare";
-import { RemixServer } from "@remix-run/react";
 import { isbot } from "isbot";
 // @ts-ignore
 import { renderToReadableStream } from "react-dom/server.browser";
+import type { AppLoadContext, EntryContext } from "react-router";
+import { ServerRouter } from "react-router";
 
 const ABORT_DELAY = 5_000;
 
@@ -16,7 +16,7 @@ export default async function handleRequest(
 	const userAgent = request.headers.get("user-agent");
 
 	const stream = await renderToReadableStream(
-		<RemixServer
+		<ServerRouter
 			context={routerContext}
 			url={request.url}
 			abortDelay={ABORT_DELAY}

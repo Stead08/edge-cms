@@ -5,16 +5,16 @@
  */
 
 import { ThemeProvider } from "@/components/theme-provider";
-import { RemixBrowser } from "@remix-run/react";
 import { StrictMode, startTransition } from "react";
 import { hydrateRoot } from "react-dom/client";
+import { HydratedRouter } from "react-router/dom";
 
 startTransition(() => {
 	hydrateRoot(
 		document,
 		<StrictMode>
 			<ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
-				<RemixBrowser />
+				<HydratedRouter />
 			</ThemeProvider>
 		</StrictMode>,
 	);

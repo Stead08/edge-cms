@@ -1,4 +1,4 @@
-import { useParams } from "@remix-run/react";
+import { useParams } from "react-router";
 import { Button } from "~/components/custom/button";
 import { useStore } from "~/store/useStore";
 

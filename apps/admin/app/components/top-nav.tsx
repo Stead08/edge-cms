@@ -5,8 +5,8 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import { Link } from "@remix-run/react";
 import { IconMenu } from "@tabler/icons-react";
+import { Link } from "react-router";
 import { Button } from "./custom/button";
 
 interface TopNavProps extends React.HTMLAttributes<HTMLElement> {

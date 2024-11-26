@@ -40,8 +40,8 @@ import {
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useStore } from "@/store/useStore";
-import { Link, useParams } from "@remix-run/react";
 import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router";
 
 export const description = "collections";
 
