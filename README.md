@@ -20,7 +20,7 @@ Work in progress
 - Frameworks
   - Hono
   - Vite
-  - Remix (Admin)
+  - React Router (Admin)
 - Libraries
   - Testing Libraries
     - Vitest
@@ -53,7 +53,7 @@ Work in progress
 - フレームワーク
   - Hono
   - vite
-  - remix
+  - React Router v7
 - ライブラリ
   - テストライブラリ
     - vitest
