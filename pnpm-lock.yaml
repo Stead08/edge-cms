@@ -39,6 +39,9 @@ catalogs:
     wrangler:
       specifier: 3.87.0
       version: 3.87.0
+    zod:
+      specifier: ^3.23.8
+      version: 3.23.8
 
 importers:
 
@@ -240,7 +243,7 @@ importers:
     dependencies:
       '@hono/zod-validator':
         specifier: 0.4.1
-        version: 0.4.1(hono@4.6.12)(zod@3.24.0)
+        version: 0.4.1(hono@4.6.12)(zod@3.23.8)
       '@lucia-auth/adapter-sqlite':
         specifier: ^3.0.0
         version: 3.0.2(better-sqlite3@11.7.0)(lucia@3.2.2)
@@ -261,7 +264,7 @@ importers:
         version: 3.2.2
       zod:
         specifier: 3.23.8
-        version: 3.24.0
+        version: 3.23.8
     devDependencies:
       '@biomejs/biome':
         specifier: 'catalog:'
@@ -295,20 +298,20 @@ importers:
     dependencies:
       '@hono/zod-validator':
         specifier: 'catalog:'
-        version: 0.4.1(hono@4.6.12)(zod@3.24.0)
+        version: 0.4.1(hono@4.6.12)(zod@3.23.8)
       hono:
         specifier: 'catalog:'
         version: 4.6.12
       zod:
         specifier: 'catalog:'
-        version: 3.24.0
+        version: 3.23.8
     devDependencies:
       '@biomejs/biome':
         specifier: 'catalog:'
         version: 1.9.4
       '@cfworker/json-schema':
-        specifier: 4.0.2
-        version: 4.0.2
+        specifier: 4.0.3
+        version: 4.0.3
       '@cloudflare/vitest-pool-workers':
         specifier: 'catalog:'
         version: 0.5.31(@cloudflare/workers-types@4.20241205.0)(@vitest/runner@2.1.5)(@vitest/snapshot@2.1.5)(vitest@2.1.5(@types/node@22.9.0))
@@ -604,8 +607,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@cfworker/json-schema@4.0.2':
-    resolution: {integrity: sha512-b11VIhI5ET+sLjY4fyiJvfLtsb/n7wc5+ETMa01jh/qul1Jv07/KFsPtq4qIFdCVV6wWmsV6QMwUMkAA454tfw==}
+  '@cfworker/json-schema@4.0.3':
+    resolution: {integrity: sha512-ZykIcDTVv5UNmKWSTLAs3VukO6NDJkkSKxrgUTDPBkAlORVT3H9n5DbRjRl8xIotklscHdbLIa0b9+y3mQq73g==}
 
   '@cloudflare/kv-asset-handler@0.3.4':
     resolution: {integrity: sha512-YLPHc8yASwjNkmcDMQMY35yiWjoKAKnhUbPRszBRS0YgH+IXtsMp61j+yTcnCE3oO2DgP0U3iejLC8FTtKDC8Q==}
@@ -5015,6 +5018,9 @@ packages:
   youch@3.3.4:
     resolution: {integrity: sha512-UeVBXie8cA35DS6+nBkls68xaBBXCye0CNznrhszZjTbRVnJKQuNsyLKBTTL4ln1o1rh2PKtv35twV7irj5SEg==}
 
+  zod@3.23.8:
+    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
+
   zod@3.24.0:
     resolution: {integrity: sha512-Hz+wiY8yD0VLA2k/+nsg2Abez674dDGTai33SwNvMPuf9uIrBC9eFgIMQxBBbHFxVXi8W+5nX9DcAh9YNSQm/w==}
 
@@ -5381,7 +5387,7 @@ snapshots:
   '@biomejs/cli-win32-x64@1.9.4':
     optional: true
 
-  '@cfworker/json-schema@4.0.2': {}
+  '@cfworker/json-schema@4.0.3': {}
 
   '@cloudflare/kv-asset-handler@0.3.4':
     dependencies:
@@ -5399,7 +5405,7 @@ snapshots:
       semver: 7.6.3
       vitest: 2.1.5(@types/node@22.10.1)
       wrangler: 3.90.0(@cloudflare/workers-types@4.20241205.0)
-      zod: 3.24.0
+      zod: 3.23.8
     transitivePeerDependencies:
       - '@cloudflare/workers-types'
       - bufferutil
@@ -5418,7 +5424,7 @@ snapshots:
       semver: 7.6.3
       vitest: 2.1.5(@types/node@22.9.0)
       wrangler: 3.90.0(@cloudflare/workers-types@4.20241205.0)
-      zod: 3.24.0
+      zod: 3.23.8
     transitivePeerDependencies:
       - '@cloudflare/workers-types'
       - bufferutil
@@ -5443,12 +5449,12 @@ snapshots:
   '@cloudflare/workers-shared@0.7.1':
     dependencies:
       mime: 3.0.0
-      zod: 3.24.0
+      zod: 3.23.8
 
   '@cloudflare/workers-shared@0.8.0':
     dependencies:
       mime: 3.0.0
-      zod: 3.24.0
+      zod: 3.23.8
 
   '@cloudflare/workers-types@4.20241205.0': {}
 
@@ -6206,10 +6212,10 @@ snapshots:
       miniflare: 3.20241106.1
       wrangler: 3.87.0(@cloudflare/workers-types@4.20241205.0)
 
-  '@hono/zod-validator@0.4.1(hono@4.6.12)(zod@3.24.0)':
+  '@hono/zod-validator@0.4.1(hono@4.6.12)(zod@3.23.8)':
     dependencies:
       hono: 4.6.12
-      zod: 3.24.0
+      zod: 3.23.8
 
   '@iconify-json/simple-icons@1.2.14':
     dependencies:
@@ -8989,7 +8995,7 @@ snapshots:
       workerd: 1.20241106.1
       ws: 8.18.0
       youch: 3.3.4
-      zod: 3.24.0
+      zod: 3.23.8
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -9008,7 +9014,7 @@ snapshots:
       workerd: 1.20241106.1
       ws: 8.18.0
       youch: 3.3.4
-      zod: 3.24.0
+      zod: 3.23.8
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -10237,6 +10243,8 @@ snapshots:
       cookie: 0.7.2
       mustache: 4.2.0
       stacktracey: 2.1.8
+
+  zod@3.23.8: {}
 
   zod@3.24.0: {}
 
