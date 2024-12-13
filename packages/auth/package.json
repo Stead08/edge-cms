@@ -17,7 +17,7 @@
     "@lucia-auth/adapter-sqlite": "^3.0.0",
     "@node-rs/argon2": "^2.0.0",
     "better-sqlite3": "^11.0.0",
-    "drizzle-orm": "0.37.0",
+    "drizzle-orm": "0.38.2",
     "hono": "catalog:",
     "lucia": "^3.2.0",
     "zod": "3.24.1"
