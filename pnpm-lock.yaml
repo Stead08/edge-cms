@@ -18,6 +18,9 @@ catalogs:
     '@types/node':
       specifier: 22.9.0
       version: 22.9.0
+    hono:
+      specifier: 4.6.12
+      version: 4.6.12
     lefthook:
       specifier: 1.8.2
       version: 1.8.2
@@ -142,7 +145,7 @@ importers:
         version: 2.1.1
       hono:
         specifier: 'catalog:'
-        version: 4.6.14
+        version: 4.6.12
       isbot:
         specifier: ^5.0.0
         version: 5.1.17
@@ -182,7 +185,7 @@ importers:
         version: 4.20241205.0
       '@hono/vite-dev-server':
         specifier: ^0.17.0
-        version: 0.17.0(hono@4.6.14)(miniflare@3.20241106.1)(wrangler@3.87.0(@cloudflare/workers-types@4.20241205.0))
+        version: 0.17.0(hono@4.6.12)(miniflare@3.20241106.1)(wrangler@3.87.0(@cloudflare/workers-types@4.20241205.0))
       '@react-router/dev':
         specifier: ^7.0.0
         version: 7.0.2(@types/node@22.10.1)(react-router@7.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2)(vite@6.0.0(@types/node@22.10.1)(jiti@1.21.6)(yaml@2.6.1))(wrangler@3.87.0(@cloudflare/workers-types@4.20241205.0))
@@ -239,8 +242,8 @@ importers:
   packages/auth:
     dependencies:
       '@hono/zod-validator':
-        specifier: 0.4.1
-        version: 0.4.1(hono@4.6.14)(zod@3.24.1)
+        specifier: 0.4.2
+        version: 0.4.2(hono@4.6.12)(zod@3.24.1)
       '@lucia-auth/adapter-sqlite':
         specifier: ^3.0.0
         version: 3.0.2(better-sqlite3@11.7.0)(lucia@3.2.2)
@@ -255,7 +258,7 @@ importers:
         version: 0.38.2(@cloudflare/workers-types@4.20241205.0)(@types/react@18.3.16)(better-sqlite3@11.7.0)(react@18.3.1)
       hono:
         specifier: 'catalog:'
-        version: 4.6.14
+        version: 4.6.12
       lucia:
         specifier: ^3.2.0
         version: 3.2.2
@@ -295,10 +298,10 @@ importers:
     dependencies:
       '@hono/zod-validator':
         specifier: 'catalog:'
-        version: 0.4.1(hono@4.6.14)(zod@3.24.1)
+        version: 0.4.1(hono@4.6.12)(zod@3.24.1)
       hono:
         specifier: 'catalog:'
-        version: 4.6.14
+        version: 4.6.12
       zod:
         specifier: 'catalog:'
         version: 3.24.1
@@ -1560,6 +1563,12 @@ packages:
 
   '@hono/zod-validator@0.4.1':
     resolution: {integrity: sha512-I8LyfeJfvVmC5hPjZ2Iij7RjexlgSBT7QJudZ4JvNPLxn0JQ3sqclz2zydlwISAnw21D2n4LQ0nfZdoiv9fQQA==}
+    peerDependencies:
+      hono: '>=3.9.0'
+      zod: ^3.19.1
+
+  '@hono/zod-validator@0.4.2':
+    resolution: {integrity: sha512-1rrlBg+EpDPhzOV4hT9pxr5+xDVmKuz6YJl+la7VCwK6ass5ldyKm5fD+umJdV2zhHD6jROoCCv8NbTwyfhT0g==}
     peerDependencies:
       hono: '>=3.9.0'
       zod: ^3.19.1
@@ -3592,6 +3601,10 @@ packages:
 
   hast-util-whitespace@3.0.0:
     resolution: {integrity: sha512-88JUN06ipLwsnv+dVn+OIYOvAuvBMy/Qoi6O7mQHxdPXpjy+Cd6xRkWwux7DKO+4sYILtLBRIKgsdpS2gQc7qw==}
+
+  hono@4.6.12:
+    resolution: {integrity: sha512-eHtf4kSDNw6VVrdbd5IQi16r22m3s7mWPLd7xOMhg1a/Yyb1A0qpUFq8xYMX4FMuDe1nTKeMX5rTx7Nmw+a+Ag==}
+    engines: {node: '>=16.9.0'}
 
   hono@4.6.14:
     resolution: {integrity: sha512-j4VkyUp2xazGJ8eCCLN1Vm/bxdvm/j5ZuU9AIjLu9vapn2M44p9L3Ktr9Vnb2RN2QtcR/wVjZVMlT5k7GJQgPw==}
@@ -6327,22 +6340,27 @@ snapshots:
 
   '@floating-ui/utils@0.2.8': {}
 
-  '@hono/node-server@1.13.7(hono@4.6.14)':
+  '@hono/node-server@1.13.7(hono@4.6.12)':
     dependencies:
-      hono: 4.6.14
+      hono: 4.6.12
 
-  '@hono/vite-dev-server@0.17.0(hono@4.6.14)(miniflare@3.20241106.1)(wrangler@3.87.0(@cloudflare/workers-types@4.20241205.0))':
+  '@hono/vite-dev-server@0.17.0(hono@4.6.12)(miniflare@3.20241106.1)(wrangler@3.87.0(@cloudflare/workers-types@4.20241205.0))':
     dependencies:
-      '@hono/node-server': 1.13.7(hono@4.6.14)
-      hono: 4.6.14
+      '@hono/node-server': 1.13.7(hono@4.6.12)
+      hono: 4.6.12
       minimatch: 9.0.5
     optionalDependencies:
       miniflare: 3.20241106.1
       wrangler: 3.87.0(@cloudflare/workers-types@4.20241205.0)
 
-  '@hono/zod-validator@0.4.1(hono@4.6.14)(zod@3.24.1)':
+  '@hono/zod-validator@0.4.1(hono@4.6.12)(zod@3.24.1)':
     dependencies:
-      hono: 4.6.14
+      hono: 4.6.12
+      zod: 3.24.1
+
+  '@hono/zod-validator@0.4.2(hono@4.6.12)(zod@3.24.1)':
+    dependencies:
+      hono: 4.6.12
       zod: 3.24.1
 
   '@iconify-json/simple-icons@1.2.14':
@@ -8599,6 +8617,8 @@ snapshots:
   hast-util-whitespace@3.0.0:
     dependencies:
       '@types/hast': 3.0.4
+
+  hono@4.6.12: {}
 
   hono@4.6.14: {}
 
