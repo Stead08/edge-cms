@@ -124,13 +124,13 @@ importers:
         version: link:../../packages/core
       '@rjsf/core':
         specifier: ^5.21.1
-        version: 5.23.2(@rjsf/utils@5.23.2(react@18.3.1))(react@18.3.1)
+        version: 5.24.1(@rjsf/utils@5.24.1(react@18.3.1))(react@18.3.1)
       '@rjsf/utils':
         specifier: ^5.21.1
-        version: 5.23.2(react@18.3.1)
+        version: 5.24.1(react@18.3.1)
       '@rjsf/validator-ajv8':
         specifier: ^5.21.1
-        version: 5.23.2(@rjsf/utils@5.23.2(react@18.3.1))
+        version: 5.24.1(@rjsf/utils@5.24.1(react@18.3.1))
       '@tabler/icons-react':
         specifier: 3.28.1
         version: 3.28.1(react@18.3.1)
@@ -2568,24 +2568,24 @@ packages:
       typescript:
         optional: true
 
-  '@rjsf/core@5.23.2':
-    resolution: {integrity: sha512-jSz3X8SOZ1xL3wMPhBt01j/cA4FszhdGTLBhHfncM9nme4SpbQ6GRAiePOBakEVhT89GAM11ML1DA888YTZfmg==}
+  '@rjsf/core@5.24.1':
+    resolution: {integrity: sha512-x3oZ9MfoBA4SPKhvNkqagqnjUbSKuT3gGW3NgH+cowAma33fYs9/hfhPUOvXySdPqh0layuLlnI1W5MHeBmVzg==}
     engines: {node: '>=14'}
     peerDependencies:
-      '@rjsf/utils': ^5.23.x
+      '@rjsf/utils': ^5.24.x
       react: ^16.14.0 || >=17
 
-  '@rjsf/utils@5.23.2':
-    resolution: {integrity: sha512-CDpZTroRE1O2lkZBNYsWCRj7moF3fqnwIo/Vf3flhoS7rGwb8kWlIHakOOBZxlqorKZB1UPzhQZn+FcwhzNldw==}
+  '@rjsf/utils@5.24.1':
+    resolution: {integrity: sha512-A25fFj/TNz5bKikCIs20DiedKAalLuAQ7vUX9VQkD2hps5C9YVr0dJgSlsPa5kzl6lQMaRsNouTx8E1ZdLV2fg==}
     engines: {node: '>=14'}
     peerDependencies:
       react: ^16.14.0 || >=17
 
-  '@rjsf/validator-ajv8@5.23.2':
-    resolution: {integrity: sha512-EHOTZ/YxTcFHpCj2p42PD3daxJyozZ5gkIVCfbtIXgTtubt/pOMFvM2OxNcQ6OBQ+ulo96OmnDxYGsNPpZZVaw==}
+  '@rjsf/validator-ajv8@5.24.1':
+    resolution: {integrity: sha512-p6URehglU9yFUAoQXE1ryqZjLYSjc6qdbiUfCVvEFAzUuMECsIFomz2hH3CPlt10K72sAFdzwVvrKn1iWTnxDw==}
     engines: {node: '>=14'}
     peerDependencies:
-      '@rjsf/utils': ^5.23.x
+      '@rjsf/utils': ^5.24.x
 
   '@rollup/rollup-android-arm-eabi@4.29.2':
     resolution: {integrity: sha512-s/8RiF4bdmGnc/J0N7lHAr5ZFJj+NdJqJ/Hj29K+c4lEdoVlukzvWXB9XpWZCdakVT0YAw8iyIqUP2iFRz5/jA==}
@@ -3600,8 +3600,8 @@ packages:
     resolution: {integrity: sha512-7MptL8U0cqcFdzIzwOTHoilX9x5BrNqye7Z/LuC7kCMRio1EMSyqRK3BEAUD7sXRq4iT4AzTVuZdhgQ2TCvYLg==}
     engines: {node: '>=8.6.0'}
 
-  fast-uri@3.0.4:
-    resolution: {integrity: sha512-G3iTQw1DizJQ5eEqj1CbFCWhq+pzum7qepkxU7rS1FGZDqjYKcrguo9XDRbV7EgPnn8CgaPigTq+NEjyioeYZQ==}
+  fast-uri@3.0.5:
+    resolution: {integrity: sha512-5JnBCWpFlMo0a3ciDy/JckMzzv1U9coZrIhedq+HXxxUfDTAiS0LA8OKVao4G9BxmCVck/jtA5r3KAtRWEyD8Q==}
 
   fastq@1.18.0:
     resolution: {integrity: sha512-QKHXPW0hD8g4UET03SdOdunzSouc9N4AuHdsX8XNcTsuz+yYFILVNIX4l9yHABMhiEI9Db0JTTIpu0wB+Y1QQw==}
@@ -3986,8 +3986,8 @@ packages:
   markdown-table@3.0.4:
     resolution: {integrity: sha512-wiYz4+JrLyb/DqW2hkFJxP7Vd7JuTDm77fvbM8VfEQdmSMqcImWeeRbHwZjBjIFki/VaMK2BhFi7oUUZeM5bqw==}
 
-  markdown-to-jsx@7.7.2:
-    resolution: {integrity: sha512-N3AKfYRvxNscvcIH6HDnDKILp4S8UWbebp+s92Y8SwIq0CuSbLW4Jgmrbjku3CWKjTQO0OyIMS6AhzqrwjEa3g==}
+  markdown-to-jsx@7.7.3:
+    resolution: {integrity: sha512-o35IhJDFP6Fv60zPy+hbvZSQMmgvSGdK5j8NRZ7FeZMY+Bgqw+dSg7SC1ZEzC26++CiOUCqkbq96/c3j/FfTEQ==}
     engines: {node: '>= 10'}
     peerDependencies:
       react: '>= 0.14.0'
@@ -7588,17 +7588,17 @@ snapshots:
     optionalDependencies:
       typescript: 5.7.3
 
-  '@rjsf/core@5.23.2(@rjsf/utils@5.23.2(react@18.3.1))(react@18.3.1)':
+  '@rjsf/core@5.24.1(@rjsf/utils@5.24.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@rjsf/utils': 5.23.2(react@18.3.1)
+      '@rjsf/utils': 5.24.1(react@18.3.1)
       lodash: 4.17.21
       lodash-es: 4.17.21
-      markdown-to-jsx: 7.7.2(react@18.3.1)
+      markdown-to-jsx: 7.7.3(react@18.3.1)
       nanoid: 3.3.8
       prop-types: 15.8.1
       react: 18.3.1
 
-  '@rjsf/utils@5.23.2(react@18.3.1)':
+  '@rjsf/utils@5.24.1(react@18.3.1)':
     dependencies:
       json-schema-merge-allof: 0.8.1
       jsonpointer: 5.0.1
@@ -7607,9 +7607,9 @@ snapshots:
       react: 18.3.1
       react-is: 18.3.1
 
-  '@rjsf/validator-ajv8@5.23.2(@rjsf/utils@5.23.2(react@18.3.1))':
+  '@rjsf/validator-ajv8@5.24.1(@rjsf/utils@5.24.1(react@18.3.1))':
     dependencies:
-      '@rjsf/utils': 5.23.2(react@18.3.1)
+      '@rjsf/utils': 5.24.1(react@18.3.1)
       ajv: 8.17.1
       ajv-formats: 2.1.1(ajv@8.17.1)
       lodash: 4.17.21
@@ -8032,7 +8032,7 @@ snapshots:
   ajv@8.17.1:
     dependencies:
       fast-deep-equal: 3.1.3
-      fast-uri: 3.0.4
+      fast-uri: 3.0.5
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
 
@@ -8636,7 +8636,7 @@ snapshots:
       merge2: 1.4.1
       micromatch: 4.0.8
 
-  fast-uri@3.0.4: {}
+  fast-uri@3.0.5: {}
 
   fastq@1.18.0:
     dependencies:
@@ -8966,7 +8966,7 @@ snapshots:
 
   markdown-table@3.0.4: {}
 
-  markdown-to-jsx@7.7.2(react@18.3.1):
+  markdown-to-jsx@7.7.3(react@18.3.1):
     dependencies:
       react: 18.3.1
 
