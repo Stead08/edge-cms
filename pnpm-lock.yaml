@@ -246,16 +246,16 @@ importers:
         version: 0.4.2(hono@4.6.12)(zod@3.24.1)
       '@lucia-auth/adapter-sqlite':
         specifier: ^3.0.0
-        version: 3.0.2(better-sqlite3@11.7.2)(lucia@3.2.2)
+        version: 3.0.2(better-sqlite3@11.8.0)(lucia@3.2.2)
       '@node-rs/argon2':
         specifier: ^2.0.0
         version: 2.0.2
       better-sqlite3:
         specifier: ^11.0.0
-        version: 11.7.2
+        version: 11.8.0
       drizzle-orm:
         specifier: 0.38.3
-        version: 0.38.3(@cloudflare/workers-types@4.20250109.0)(@types/react@18.3.18)(better-sqlite3@11.7.2)(react@18.3.1)
+        version: 0.38.3(@cloudflare/workers-types@4.20250109.0)(@types/react@18.3.18)(better-sqlite3@11.8.0)(react@18.3.1)
       hono:
         specifier: 'catalog:'
         version: 4.6.12
@@ -3005,8 +3005,8 @@ packages:
   base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
 
-  better-sqlite3@11.7.2:
-    resolution: {integrity: sha512-10a57cHVDmfNQS4jrZ9AH2t+2ekzYh5Rhbcnb4ytpmYweoLdogDmyTt5D+hLiY9b44Mx9foowb/4iXBTO2yP3Q==}
+  better-sqlite3@11.8.0:
+    resolution: {integrity: sha512-aKv9s2dir7bsEX5RIjL9HHWB9uQ+f6Vch5B4qmeAOop4Y9OYHX+PNKLr+mpv6+d8L/ZYh4l7H8zPuVMbWkVMLw==}
 
   binary-extensions@2.3.0:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
@@ -4110,8 +4110,8 @@ packages:
   next-tick@1.1.0:
     resolution: {integrity: sha512-CXdUiJembsNjuToQvxayPZF9Vqht7hewsvy2sOWafLvi2awflj9mOC6bHIg50orX8IJvWKY9wYQ/zB2kogPslQ==}
 
-  node-abi@3.71.0:
-    resolution: {integrity: sha512-SZ40vRiy/+wRTf21hxkkEjPJZpARzUMVcJoQse2EF8qkUWbbO2z7vd5oA/H6bVH6SZQ5STGcu0KRDS7biNRfxw==}
+  node-abi@3.72.0:
+    resolution: {integrity: sha512-a28z9xAQXvDh40lVCknWCP5zYTZt6Av8HZqZ63U5OWxTcP20e3oOIy8yHkYfctQM2adR8ru1GxWCkS0gS+WYKA==}
     engines: {node: '>=10'}
 
   node-forge@1.3.1:
@@ -6713,11 +6713,11 @@ snapshots:
       '@lezer/highlight': 1.2.1
       '@lezer/lr': 1.4.2
 
-  '@lucia-auth/adapter-sqlite@3.0.2(better-sqlite3@11.7.2)(lucia@3.2.2)':
+  '@lucia-auth/adapter-sqlite@3.0.2(better-sqlite3@11.8.0)(lucia@3.2.2)':
     dependencies:
       lucia: 3.2.2
     optionalDependencies:
-      better-sqlite3: 11.7.2
+      better-sqlite3: 11.8.0
 
   '@marijn/find-cluster-break@1.0.2': {}
 
@@ -7956,7 +7956,7 @@ snapshots:
 
   base64-js@1.5.1: {}
 
-  better-sqlite3@11.7.2:
+  better-sqlite3@11.8.0:
     dependencies:
       bindings: 1.5.0
       prebuild-install: 7.1.2
@@ -8213,11 +8213,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.38.3(@cloudflare/workers-types@4.20250109.0)(@types/react@18.3.18)(better-sqlite3@11.7.2)(react@18.3.1):
+  drizzle-orm@0.38.3(@cloudflare/workers-types@4.20250109.0)(@types/react@18.3.18)(better-sqlite3@11.8.0)(react@18.3.1):
     optionalDependencies:
       '@cloudflare/workers-types': 4.20250109.0
       '@types/react': 18.3.18
-      better-sqlite3: 11.7.2
+      better-sqlite3: 11.8.0
       react: 18.3.1
 
   duplexify@3.7.1:
@@ -9299,7 +9299,7 @@ snapshots:
 
   next-tick@1.1.0: {}
 
-  node-abi@3.71.0:
+  node-abi@3.72.0:
     dependencies:
       semver: 7.6.3
 
@@ -9463,7 +9463,7 @@ snapshots:
       minimist: 1.2.8
       mkdirp-classic: 0.5.3
       napi-build-utils: 1.0.2
-      node-abi: 3.71.0
+      node-abi: 3.72.0
       pump: 3.0.2
       rc: 1.2.8
       simple-get: 4.0.1
