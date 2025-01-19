@@ -18,6 +18,9 @@ catalogs:
     '@types/node':
       specifier: 22.9.0
       version: 22.9.0
+    hono:
+      specifier: 4.6.12
+      version: 4.6.17
     lefthook:
       specifier: 1.8.2
       version: 1.8.2
@@ -182,7 +185,7 @@ importers:
         version: 4.20250109.0
       '@hono/vite-dev-server':
         specifier: ^0.18.0
-        version: 0.18.0(hono@4.6.17)(miniflare@3.20241106.1)(wrangler@3.87.0(@cloudflare/workers-types@4.20250109.0))
+        version: 0.18.1(hono@4.6.17)(miniflare@3.20241106.1)(wrangler@3.87.0(@cloudflare/workers-types@4.20250109.0))
       '@react-router/dev':
         specifier: ^7.1.0
         version: 7.1.1(@types/node@22.10.5)(jiti@1.21.7)(react-router@7.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.3)(vite@6.0.5(@types/node@22.10.5)(jiti@1.21.7)(yaml@2.7.0))(wrangler@3.87.0(@cloudflare/workers-types@4.20250109.0))(yaml@2.7.0)
@@ -1690,8 +1693,8 @@ packages:
     peerDependencies:
       hono: ^4
 
-  '@hono/vite-dev-server@0.18.0':
-    resolution: {integrity: sha512-CVHgDYk3haRnWUI/I2tNydgIIXI2lSczseko5Qvu/n1K6I9GyXzRW4rJFUlLClz3LDLOCgRCW+kDW4YT3BVSLA==}
+  '@hono/vite-dev-server@0.18.1':
+    resolution: {integrity: sha512-Hud6Vsm+5jZDYGuchOVrc/Cr+CqydLH9yBc7VY8ChI1PH0WKSxG12t/qtQs4otuPDuUhowtemCLrk3TpMONYjQ==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       hono: '*'
@@ -6512,7 +6515,7 @@ snapshots:
     dependencies:
       hono: 4.6.17
 
-  '@hono/vite-dev-server@0.18.0(hono@4.6.17)(miniflare@3.20241106.1)(wrangler@3.87.0(@cloudflare/workers-types@4.20250109.0))':
+  '@hono/vite-dev-server@0.18.1(hono@4.6.17)(miniflare@3.20241106.1)(wrangler@3.87.0(@cloudflare/workers-types@4.20250109.0))':
     dependencies:
       '@hono/node-server': 1.13.7(hono@4.6.17)
       hono: 4.6.17
