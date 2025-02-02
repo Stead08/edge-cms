@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:",
-    "@cfworker/json-schema": "4.1.0",
+    "@cfworker/json-schema": "4.1.1",
     "@cloudflare/vitest-pool-workers": "catalog:",
     "@cloudflare/workers-types": "4.20250124.3",
     "@types/node": "catalog:",
