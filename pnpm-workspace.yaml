@@ -8,7 +8,7 @@ catalog:
   "@types/node": 22.13.0
   hono: 4.6.20
   wrangler: 3.87.0
-  lefthook: 1.8.2
+  lefthook: 1.10.10
   miniflare: 3.20241106.1
   typescript: 5.7.2
   vite: 6.0.11
