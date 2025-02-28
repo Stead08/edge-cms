@@ -153,8 +153,8 @@ importers:
         specifier: ^3.2.0
         version: 3.2.2
       lucide-react:
-        specifier: 0.469.0
-        version: 0.469.0(react@18.3.1)
+        specifier: 0.477.0
+        version: 0.477.0(react@18.3.1)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -3937,8 +3937,8 @@ packages:
   lucia@3.2.2:
     resolution: {integrity: sha512-P1FlFBGCMPMXu+EGdVD9W4Mjm0DqsusmKgO7Xc33mI5X1bklmsQb0hfzPhXomQr9waWIBDsiOjvr1e6BTaUqpA==}
 
-  lucide-react@0.469.0:
-    resolution: {integrity: sha512-28vvUnnKQ/dBwiCQtwJw7QauYnE7yd2Cyp4tTTJpvglX4EMpbflcdBgrgToX2j71B3YvugK/NH3BGUk+E/p/Fw==}
+  lucide-react@0.477.0:
+    resolution: {integrity: sha512-yCf7aYxerFZAbd8jHJxjwe1j7jEMPptjnaOqdYeirFnEy85cNR3/L+o0I875CYFYya+eEVzZSbNuRk8BZPDpVw==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -8875,7 +8875,7 @@ snapshots:
       '@oslojs/crypto': 1.0.1
       '@oslojs/encoding': 1.1.0
 
-  lucide-react@0.469.0(react@18.3.1):
+  lucide-react@0.477.0(react@18.3.1):
     dependencies:
       react: 18.3.1
 
