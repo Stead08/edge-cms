@@ -3,7 +3,7 @@ packages:
   - packages/*
 catalog:
   "@biomejs/biome": 1.9.4
-  "@cloudflare/vitest-pool-workers": 0.5.31
+  "@cloudflare/vitest-pool-workers": 0.7.4
   "@hono/zod-validator": 0.4.1
   "@types/node": 22.13.8
   hono: 4.6.20
