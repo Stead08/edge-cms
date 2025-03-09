@@ -27,9 +27,6 @@ catalogs:
     miniflare:
       specifier: 3.20250224.0
       version: 3.20250224.0
-    typescript:
-      specifier: 5.8.2
-      version: 5.8.2
     vite:
       specifier: 6.0.11
       version: 6.0.11
@@ -283,7 +280,7 @@ importers:
         version: 3.20250224.0
       typescript:
         specifier: ^5.4.5
-        version: 5.7.3
+        version: 5.8.2
       vite:
         specifier: 'catalog:'
         version: 6.0.11(@types/node@22.13.8)(jiti@1.21.7)(yaml@2.7.0)
@@ -5075,11 +5072,6 @@ packages:
 
   type@2.7.3:
     resolution: {integrity: sha512-8j+1QmAbPvLZow5Qpi6NCaN8FB60p/6x8/vfNqOk/hC+HuvFZhL4+WfekuhQLiqFZXOgQdrs3B+XxEmCc6b3FQ==}
-
-  typescript@5.7.3:
-    resolution: {integrity: sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==}
-    engines: {node: '>=14.17'}
-    hasBin: true
 
   typescript@5.8.2:
     resolution: {integrity: sha512-aJn6wq13/afZp/jT9QZmwEjDqqvSGp1VT5GVg+f/t6/oVyrgXM6BY1h9BRh/O5p3PlUPAe+WuiEZOmb/49RqoQ==}
@@ -10499,8 +10491,6 @@ snapshots:
       turbo-windows-arm64: 2.4.4
 
   type@2.7.3: {}
-
-  typescript@5.7.3: {}
 
   typescript@5.8.2: {}
 
