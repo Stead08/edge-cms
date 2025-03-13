@@ -18,7 +18,7 @@
     "reset:local": "rm -rf .wrangler/state/v3/d1 && pnpm migrate:local"
   },
   "dependencies": {
-    "@cloudflare/kv-asset-handler": "^0.3.4",
+    "@cloudflare/kv-asset-handler": "^0.4.0",
     "@conform-to/react": "^1.2.2",
     "@conform-to/zod": "^1.2.2",
     "@mdxeditor/editor": "^3.19.2",
