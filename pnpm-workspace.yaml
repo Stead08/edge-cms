@@ -5,7 +5,7 @@ catalog:
   "@biomejs/biome": 1.9.4
   "@cloudflare/vitest-pool-workers": 0.5.31
   "@hono/zod-validator": 0.4.3
-  "@types/node": 22.13.10
+  "@types/node": 22.14.1
   hono: 4.7.4
   wrangler: 3.114.1
   lefthook: 1.11.3
