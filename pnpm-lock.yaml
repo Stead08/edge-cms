@@ -63,8 +63,8 @@ importers:
   apps/admin:
     dependencies:
       '@cloudflare/kv-asset-handler':
-        specifier: ^0.3.4
-        version: 0.3.4
+        specifier: ^0.4.0
+        version: 0.4.0
       '@conform-to/react':
         specifier: ^1.2.2
         version: 1.2.2(react@18.3.1)
