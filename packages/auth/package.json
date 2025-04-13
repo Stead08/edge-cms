@@ -26,7 +26,7 @@
     "@biomejs/biome": "catalog:",
     "@cloudflare/vitest-pool-workers": "catalog:",
     "@cloudflare/workers-types": "^4.20240815.0",
-    "drizzle-kit": "0.30.5",
+    "drizzle-kit": "0.30.6",
     "miniflare": "catalog:",
     "typescript": "^5.4.5",
     "vite": "catalog:",

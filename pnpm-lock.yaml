@@ -276,8 +276,8 @@ importers:
         specifier: ^4.20240815.0
         version: 4.20250312.0
       drizzle-kit:
-        specifier: 0.30.5
-        version: 0.30.5
+        specifier: 0.30.6
+        version: 0.30.6
       miniflare:
         specifier: 'catalog:'
         version: 3.20250310.0
@@ -3430,8 +3430,8 @@ packages:
     peerDependencies:
       react: '>=16.12.0'
 
-  drizzle-kit@0.30.5:
-    resolution: {integrity: sha512-l6dMSE100u7sDaTbLczibrQZjA35jLsHNqIV+jmhNVO3O8jzM6kywMOmV9uOz9ZVSCMPQhAZEFjL/qDPVrqpUA==}
+  drizzle-kit@0.30.6:
+    resolution: {integrity: sha512-U4wWit0fyZuGuP7iNmRleQyK2V8wCuv57vf5l3MnG4z4fzNTjY/U13M8owyQ5RavqvqxBifWORaR3wIUzlN64g==}
     hasBin: true
 
   drizzle-orm@0.40.0:
@@ -4672,11 +4672,6 @@ packages:
 
   semver@7.6.3:
     resolution: {integrity: sha512-oVekP1cKtI+CTDvHWYFUcMtsK/00wmAEfyqKfNdARm8u1wNVhSgaX7A8d4UuIlUI5e84iEwOhs7ZPYRmzU9U6A==}
-    engines: {node: '>=10'}
-    hasBin: true
-
-  semver@7.7.0:
-    resolution: {integrity: sha512-DrfFnPzblFmNrIZzg5RzHegbiRWg7KMR7btwi2yjHwx06zsUbO5g613sVwEV7FTwmzJu+Io0lJe2GJ3LxqpvBQ==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -8445,7 +8440,7 @@ snapshots:
       react-is: 17.0.2
       tslib: 2.8.1
 
-  drizzle-kit@0.30.5:
+  drizzle-kit@0.30.6:
     dependencies:
       '@drizzle-team/brocli': 0.10.2
       '@esbuild-kit/esm-loader': 2.6.5
@@ -8774,7 +8769,7 @@ snapshots:
       '@petamoriken/float16': 3.9.1
       debug: 4.4.0
       env-paths: 3.0.0
-      semver: 7.7.0
+      semver: 7.7.1
       shell-quote: 1.8.2
       which: 4.0.0
     transitivePeerDependencies:
@@ -9920,8 +9915,6 @@ snapshots:
   semver@6.3.1: {}
 
   semver@7.6.3: {}
-
-  semver@7.7.0: {}
 
   semver@7.7.1: {}
 
