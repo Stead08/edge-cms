@@ -6,7 +6,7 @@ catalog:
   "@cloudflare/vitest-pool-workers": 0.8.16
   "@hono/zod-validator": 0.4.3
   "@types/node": 22.14.1
-  hono: 4.7.6
+  hono: 4.7.7
   wrangler: 4.11.1
   lefthook: 1.11.10
   miniflare: 4.20250410.1
