@@ -1,12 +1,8 @@
 import { defineConfig } from "vite";
 import { reactRouter } from "@react-router/dev/vite";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-	plugins: [
-		reactRouter(),
-		tsconfigPaths(),
-	],
+	plugins: [reactRouter()],
 	server: {
 		proxy: {
 			"/api": {
@@ -27,6 +23,8 @@ export default defineConfig({
 		mainFields: ["browser", "module", "main"],
 		alias: {
 			"@": "/app",
+			"~": "/app",
+			app: "/app",
 		},
 	},
 	build: {
