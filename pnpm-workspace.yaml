@@ -12,5 +12,5 @@ catalog:
   miniflare: 4.20250416.0
   typescript: 5.8.3
   vite: 6.3.2
-  vitest: 3.1.1
+  vitest: 3.1.2
   zod: ^3.23.8
