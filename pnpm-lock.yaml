@@ -73,7 +73,7 @@ importers:
         version: 1.4.0(zod@3.24.3)
       '@mdxeditor/editor':
         specifier: ^3.19.2
-        version: 3.31.0(@codemirror/language@6.11.0)(@lezer/highlight@1.2.1)(@types/react-dom@19.1.2(@types/react@19.1.2))(@types/react@19.1.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.26)
+        version: 3.31.1(@codemirror/language@6.11.0)(@lezer/highlight@1.2.1)(@types/react-dom@19.1.2(@types/react@19.1.2))(@types/react@19.1.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.26)
       '@radix-ui/react-avatar':
         specifier: ^1.1.0
         version: 1.1.7(@types/react-dom@19.1.2(@types/react@19.1.2))(@types/react@19.1.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -1709,8 +1709,8 @@ packages:
   '@marijn/find-cluster-break@1.0.2':
     resolution: {integrity: sha512-l0h88YhZFyKdXIFNfSWpyjStDjGHwZ/U7iobcK1cQQD8sejsONdQtTVU+1wVN1PBw40PiiHB1vA5S7VTfQiP9g==}
 
-  '@mdxeditor/editor@3.31.0':
-    resolution: {integrity: sha512-vacFwTQ3DF4Z6HMpgR0FyzG13Y/TN+Bzlf+/WhlOgqH+yTftE2InlCg4qL5smAZkn19fwTteePgLPp1kmEBHkw==}
+  '@mdxeditor/editor@3.31.1':
+    resolution: {integrity: sha512-u3bgtZOj5Byf6zUXlwO8r9oed/d2VovJP2ZnZSOZBvnGw4UjFqr8nt/fG6KjTRamLQ/PmOoTpNUVlZggk323gA==}
     engines: {node: '>=16'}
     peerDependencies:
       react: '>= 18 || >= 19'
@@ -3709,8 +3709,8 @@ packages:
   lexical@0.27.2:
     resolution: {integrity: sha512-R255V+4VBqZmSMWeuMrCNHJZd3L+qBkYYFrxkiO3FLg/36HatZLUdZLRYx+fOMWeSddo0DP9EVl0GTZzNb7v0w==}
 
-  lib0@0.2.104:
-    resolution: {integrity: sha512-1tqKRANSPTcjs/yjPoKh52oRM2u5AYdd8jie8sDiN8/5kpWWiQSHUGgtB4VEXLw1chVL3QPSPp8q9RWqzSn2FA==}
+  lib0@0.2.105:
+    resolution: {integrity: sha512-5vtbuBi2P43ZYOfVMV+TZYkWEa0J9kijXirzEgrPA+nJDQCtMx805/rqW4G1nXbM9IRIhwW+OyNNgcQdbhKfSw==}
     engines: {node: '>=16'}
     hasBin: true
 
@@ -6385,7 +6385,7 @@ snapshots:
 
   '@marijn/find-cluster-break@1.0.2': {}
 
-  '@mdxeditor/editor@3.31.0(@codemirror/language@6.11.0)(@lezer/highlight@1.2.1)(@types/react-dom@19.1.2(@types/react@19.1.2))(@types/react@19.1.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.26)':
+  '@mdxeditor/editor@3.31.1(@codemirror/language@6.11.0)(@lezer/highlight@1.2.1)(@types/react-dom@19.1.2(@types/react@19.1.2))(@types/react@19.1.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.26)':
     dependencies:
       '@codemirror/lang-markdown': 6.3.2
       '@codemirror/language-data': 6.5.1
@@ -8364,7 +8364,7 @@ snapshots:
 
   lexical@0.27.2: {}
 
-  lib0@0.2.104:
+  lib0@0.2.105:
     dependencies:
       isomorphic.js: 0.2.5
 
@@ -9869,7 +9869,7 @@ snapshots:
 
   yjs@13.6.26:
     dependencies:
-      lib0: 0.2.104
+      lib0: 0.2.105
 
   youch@3.3.4:
     dependencies:
