@@ -224,7 +224,7 @@ importers:
     dependencies:
       hono:
         specifier: ^4.5.5
-        version: 4.7.8
+        version: 4.7.9
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20240529.0
@@ -3290,6 +3290,10 @@ packages:
 
   hono@4.7.8:
     resolution: {integrity: sha512-PCibtFdxa7/Ldud9yddl1G81GjYaeMYYTq4ywSaNsYbB1Lug4mwtOMJf2WXykL0pntYwmpRJeOI3NmoDgD+Jxw==}
+    engines: {node: '>=16.9.0'}
+
+  hono@4.7.9:
+    resolution: {integrity: sha512-/EsCoR5h7N4yu01TDu9GMCCJa6ZLk5ZJIWFFGNawAXmd1Tp53+Wir4xm0D2X19bbykWUlzQG0+BvPAji6p9E8Q==}
     engines: {node: '>=16.9.0'}
 
   hookable@5.5.3:
@@ -7833,6 +7837,8 @@ snapshots:
       '@types/hast': 3.0.4
 
   hono@4.7.8: {}
+
+  hono@4.7.9: {}
 
   hookable@5.5.3: {}
 
