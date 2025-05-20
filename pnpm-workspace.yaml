@@ -9,7 +9,7 @@ catalog:
   hono: 4.7.10
   wrangler: 4.15.2
   lefthook: 1.11.13
-  miniflare: 4.20250508.2
+  miniflare: 4.20250508.3
   typescript: 5.8.3
   vite: 6.3.5
   vitest: 3.1.4
