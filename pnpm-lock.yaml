@@ -70,7 +70,7 @@ importers:
         version: 1.6.0(react@19.1.0)
       '@conform-to/zod':
         specifier: ^1.2.2
-        version: 1.6.0(zod@3.25.32)
+        version: 1.6.0(zod@3.25.42)
       '@mdxeditor/editor':
         specifier: ^3.19.2
         version: 3.33.0(@codemirror/language@6.11.0)(@lezer/highlight@1.2.1)(@types/react-dom@19.1.5(@types/react@19.1.6))(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.27)
@@ -169,7 +169,7 @@ importers:
         version: 3.3.0
       zod:
         specifier: ^3.23.8
-        version: 3.25.32
+        version: 3.25.42
       zustand:
         specifier: 5.0.5
         version: 5.0.5(@types/react@19.1.6)(react@19.1.0)(use-sync-external-store@1.5.0(react@19.1.0))
@@ -4937,6 +4937,9 @@ packages:
   zod@3.25.32:
     resolution: {integrity: sha512-OSm2xTIRfW8CV5/QKgngwmQW/8aPfGdaQFlrGoErlgg/Epm7cjb6K6VEyExfe65a3VybUOnu381edLb0dfJl0g==}
 
+  zod@3.25.42:
+    resolution: {integrity: sha512-PcALTLskaucbeHc41tU/xfjfhcz8z0GdhhDcSgrCTmSazUuqnYqiXO63M0QUBVwpBlsLsNVn5qHSC5Dw3KZvaQ==}
+
   zustand@5.0.5:
     resolution: {integrity: sha512-mILtRfKW9xM47hqxGIxCv12gXusoY/xTSHBYApXozR0HmQv299whhBeeAcRy+KrPPybzosvJBCOmVjq6x12fCg==}
     engines: {node: '>=12.20.0'}
@@ -5656,10 +5659,10 @@ snapshots:
       '@conform-to/dom': 1.6.0
       react: 19.1.0
 
-  '@conform-to/zod@1.6.0(zod@3.25.32)':
+  '@conform-to/zod@1.6.0(zod@3.25.42)':
     dependencies:
       '@conform-to/dom': 1.6.0
-      zod: 3.25.32
+      zod: 3.25.42
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -9913,6 +9916,8 @@ snapshots:
   zod@3.25.28: {}
 
   zod@3.25.32: {}
+
+  zod@3.25.42: {}
 
   zustand@5.0.5(@types/react@19.1.6)(react@19.1.0)(use-sync-external-store@1.5.0(react@19.1.0)):
     optionalDependencies:
