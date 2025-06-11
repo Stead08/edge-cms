@@ -240,7 +240,7 @@ importers:
     dependencies:
       '@hono/zod-validator':
         specifier: 0.5.0
-        version: 0.5.0(hono@4.7.11)(zod@3.25.57)
+        version: 0.5.0(hono@4.7.11)(zod@3.25.58)
       '@lucia-auth/adapter-sqlite':
         specifier: ^3.0.0
         version: 3.0.2(better-sqlite3@11.10.0)(lucia@3.2.2)
@@ -260,8 +260,8 @@ importers:
         specifier: ^3.2.0
         version: 3.2.2
       zod:
-        specifier: 3.25.57
-        version: 3.25.57
+        specifier: 3.25.58
+        version: 3.25.58
     devDependencies:
       '@biomejs/biome':
         specifier: 'catalog:'
@@ -4898,8 +4898,8 @@ packages:
   zod@3.25.56:
     resolution: {integrity: sha512-rd6eEF3BTNvQnR2e2wwolfTmUTnp70aUTqr0oaGbHifzC3BKJsoV+Gat8vxUMR1hwOKBs6El+qWehrHbCpW6SQ==}
 
-  zod@3.25.57:
-    resolution: {integrity: sha512-6tgzLuwVST5oLUxXTmBqoinKMd3JeesgbgseXeFasKKj8Q1FCZrHnbqJOyiEvr4cVAlbug+CgIsmJ8cl/pU5FA==}
+  zod@3.25.58:
+    resolution: {integrity: sha512-DVLmMQzSZwNYzQoMaM3MQWnxr2eq+AtM9Hx3w1/Yl0pH8sLTSjN4jGP7w6f7uand6Hw44tsnSu1hz1AOA6qI2Q==}
 
   zustand@5.0.5:
     resolution: {integrity: sha512-mILtRfKW9xM47hqxGIxCv12gXusoY/xTSHBYApXozR0HmQv299whhBeeAcRy+KrPPybzosvJBCOmVjq6x12fCg==}
@@ -5285,7 +5285,7 @@ snapshots:
       semver: 7.7.2
       vitest: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.31)(jiti@2.4.2)(lightningcss@1.30.1)
       wrangler: 4.18.0(@cloudflare/workers-types@4.20250607.0)
-      zod: 3.25.57
+      zod: 3.25.58
     transitivePeerDependencies:
       - '@cloudflare/workers-types'
       - bufferutil
@@ -5302,7 +5302,7 @@ snapshots:
       semver: 7.7.2
       vitest: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.31)(jiti@2.4.2)(lightningcss@1.30.1)
       wrangler: 4.18.0(@cloudflare/workers-types@4.20250610.0)
-      zod: 3.25.57
+      zod: 3.25.58
     transitivePeerDependencies:
       - '@cloudflare/workers-types'
       - bufferutil
@@ -6002,10 +6002,10 @@ snapshots:
       hono: 4.7.11
       zod: 3.25.56
 
-  '@hono/zod-validator@0.5.0(hono@4.7.11)(zod@3.25.57)':
+  '@hono/zod-validator@0.5.0(hono@4.7.11)(zod@3.25.58)':
     dependencies:
       hono: 4.7.11
-      zod: 3.25.57
+      zod: 3.25.58
 
   '@iconify-json/simple-icons@1.2.38':
     dependencies:
@@ -9885,7 +9885,7 @@ snapshots:
 
   zod@3.25.56: {}
 
-  zod@3.25.57: {}
+  zod@3.25.58: {}
 
   zustand@5.0.5(@types/react@19.1.6)(react@19.1.0)(use-sync-external-store@1.5.0(react@19.1.0)):
     optionalDependencies:
