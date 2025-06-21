@@ -554,6 +554,7 @@ packages:
   '@biomejs/biome@2.0.3':
     resolution: {integrity: sha512-OOzzVGDdAtSTofyqfYx4j5ZAlCHWx5kCf/tbmAu6otWyMoxWyzLeIn4o9+2yc81GWgxDAKygcG4mVwsqd7e2Tw==}
     engines: {node: '>=14.21.3'}
+    deprecated: This version of Biome has a broken manifest and we don't recommend to use it. Please update to v2.0.4 or later.
     hasBin: true
 
   '@cfworker/json-schema@4.1.1':
