@@ -153,8 +153,8 @@ importers:
         specifier: ^3.2.0
         version: 3.2.2
       lucide-react:
-        specifier: 0.519.0
-        version: 0.519.0(react@19.1.0)
+        specifier: 0.520.0
+        version: 0.520.0(react@19.1.0)
       react:
         specifier: ^19.1.0
         version: 19.1.0
@@ -3871,8 +3871,8 @@ packages:
     resolution: {integrity: sha512-P1FlFBGCMPMXu+EGdVD9W4Mjm0DqsusmKgO7Xc33mI5X1bklmsQb0hfzPhXomQr9waWIBDsiOjvr1e6BTaUqpA==}
     deprecated: This package has been deprecated. Please see https://lucia-auth.com/lucia-v3/migrate.
 
-  lucide-react@0.519.0:
-    resolution: {integrity: sha512-cLJyjRKBJFzaZ/+1oIeQaH7XUdxKOYU3uANcGSrKdIZWElmNbRAm8RXKiTJS7AWLCBOS8b7A497Al/kCHozd+A==}
+  lucide-react@0.520.0:
+    resolution: {integrity: sha512-Mvo4mGi1X0iygX3x1Zy5UwjeiBvJOTZe7/c9Z0vLo67E9yOtIIuYusfE2HDwvR3FM5osU0tqTc2tn1aKtfUV8w==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -8591,7 +8591,7 @@ snapshots:
       '@oslojs/crypto': 1.0.1
       '@oslojs/encoding': 1.1.0
 
-  lucide-react@0.519.0(react@19.1.0):
+  lucide-react@0.520.0(react@19.1.0):
     dependencies:
       react: 19.1.0
 
