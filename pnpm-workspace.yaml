@@ -4,7 +4,7 @@ packages:
 catalog:
   "@biomejs/biome": 1.9.4
   "@cloudflare/vitest-pool-workers": 0.8.43
-  "@hono/zod-validator": 0.5.0
+  "@hono/zod-validator": 0.7.0
   "@types/node": 22.15.32
   hono: 4.8.2
   wrangler: 4.20.3
