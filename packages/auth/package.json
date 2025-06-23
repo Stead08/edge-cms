@@ -16,7 +16,7 @@
     "@hono/zod-validator": "0.7.0",
     "@lucia-auth/adapter-sqlite": "^3.0.0",
     "@node-rs/argon2": "^2.0.0",
-    "better-sqlite3": "^11.0.0",
+    "better-sqlite3": "^12.0.0",
     "drizzle-orm": "0.44.2",
     "hono": "catalog:",
     "lucia": "^3.2.0",
