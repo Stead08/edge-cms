@@ -7,7 +7,7 @@ catalog:
   "@hono/zod-validator": 0.7.0
   "@types/node": 22.15.33
   hono: 4.8.3
-  wrangler: 4.21.2
+  wrangler: 4.22.0
   lefthook: 1.11.14
   miniflare: 4.20250617.4
   typescript: 5.8.3
