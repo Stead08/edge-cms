@@ -25,8 +25,8 @@ catalogs:
       specifier: 1.11.14
       version: 1.11.14
     miniflare:
-      specifier: 4.20250617.4
-      version: 4.20250617.4
+      specifier: 4.20250617.5
+      version: 4.20250617.5
     typescript:
       specifier: 5.8.3
       version: 5.8.3
@@ -182,7 +182,7 @@ importers:
         version: 4.20250620.0
       '@hono/vite-dev-server':
         specifier: ^0.19.0
-        version: 0.19.1(hono@4.8.3)(miniflare@4.20250617.4)(wrangler@4.22.0(@cloudflare/workers-types@4.20250620.0))
+        version: 0.19.1(hono@4.8.3)(miniflare@4.20250617.5)(wrangler@4.22.0(@cloudflare/workers-types@4.20250620.0))
       '@react-router/dev':
         specifier: ^7.1.0
         version: 7.6.2(@types/node@22.15.34)(jiti@2.4.2)(lightningcss@1.30.1)(react-router@7.6.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.34)(jiti@2.4.2)(lightningcss@1.30.1))(wrangler@4.22.0(@cloudflare/workers-types@4.20250620.0))
@@ -240,7 +240,7 @@ importers:
     dependencies:
       '@hono/zod-validator':
         specifier: 0.7.0
-        version: 0.7.0(hono@4.8.3)(zod@3.25.71)
+        version: 0.7.0(hono@4.8.3)(zod@3.25.67)
       '@lucia-auth/adapter-sqlite':
         specifier: ^3.0.0
         version: 3.0.2(better-sqlite3@12.0.0)(lucia@3.2.2)
@@ -261,7 +261,7 @@ importers:
         version: 3.2.2
       zod:
         specifier: 3.25.67
-        version: 3.25.71
+        version: 3.25.67
     devDependencies:
       '@biomejs/biome':
         specifier: 'catalog:'
@@ -277,7 +277,7 @@ importers:
         version: 0.31.1
       miniflare:
         specifier: 'catalog:'
-        version: 4.20250617.4
+        version: 4.20250617.5
       typescript:
         specifier: ^5.4.5
         version: 5.8.3
@@ -320,7 +320,7 @@ importers:
         version: 22.15.34
       miniflare:
         specifier: 'catalog:'
-        version: 4.20250617.4
+        version: 4.20250617.5
       typescript:
         specifier: 'catalog:'
         version: 5.8.3
@@ -4069,6 +4069,11 @@ packages:
     engines: {node: '>=18.0.0'}
     hasBin: true
 
+  miniflare@4.20250617.5:
+    resolution: {integrity: sha512-Qqn30jR6dCjXaKVizT6vH4KOb+GyLccoxLNOJEfu63yBPn8eoXa7PrdiSGTmjs2RY8/tr7eTO8Wu/Yr14k0xVA==}
+    engines: {node: '>=18.0.0'}
+    hasBin: true
+
   minimatch@9.0.5:
     resolution: {integrity: sha512-G6T0ZX48xgozx7587koeX9Ys2NYy6Gmv//P89sEte9V9whIapMNF4idKxnW2QtCcLiTWlb/wfCabAtAFWhhBow==}
     engines: {node: '>=16 || 14 >=14.17'}
@@ -5020,6 +5025,9 @@ packages:
   zod@3.22.3:
     resolution: {integrity: sha512-EjIevzuJRiRPbVH4mGc8nApb/lVLKVpmUhAaR5R5doKGfAnGJ6Gr3CViAVjP+4FWSxCsybeWQdcgCtbX+7oZug==}
 
+  zod@3.25.67:
+    resolution: {integrity: sha512-idA2YXwpCdqUSKRCACDE6ItZD9TZzy3OZMtpfLoh6oPR47lipysRrJfjzMqFxQ3uJuUPyUeWe1r9vLH33xO/Qw==}
+
   zod@3.25.71:
     resolution: {integrity: sha512-BsBc/NPk7h8WsUWYWYL+BajcJPY8YhjelaWu2NMLuzgraKAz4Lb4/6K11g9jpuDetjMiqhZ6YaexFLOC0Ogi3Q==}
 
@@ -5407,7 +5415,7 @@ snapshots:
       semver: 7.7.2
       vitest: 3.2.4(@types/debug@4.1.12)(@types/node@22.15.34)(jiti@2.4.2)(lightningcss@1.30.1)
       wrangler: 4.20.5(@cloudflare/workers-types@4.20250620.0)
-      zod: 3.25.71
+      zod: 3.25.67
     transitivePeerDependencies:
       - '@cloudflare/workers-types'
       - bufferutil
@@ -5424,7 +5432,7 @@ snapshots:
       semver: 7.7.2
       vitest: 3.2.4(@types/debug@4.1.12)(@types/node@22.15.34)(jiti@2.4.2)(lightningcss@1.30.1)
       wrangler: 4.20.5(@cloudflare/workers-types@4.20250628.0)
-      zod: 3.25.71
+      zod: 3.25.67
     transitivePeerDependencies:
       - '@cloudflare/workers-types'
       - bufferutil
@@ -6118,14 +6126,19 @@ snapshots:
     dependencies:
       hono: 4.8.3
 
-  '@hono/vite-dev-server@0.19.1(hono@4.8.3)(miniflare@4.20250617.4)(wrangler@4.22.0(@cloudflare/workers-types@4.20250620.0))':
+  '@hono/vite-dev-server@0.19.1(hono@4.8.3)(miniflare@4.20250617.5)(wrangler@4.22.0(@cloudflare/workers-types@4.20250620.0))':
     dependencies:
       '@hono/node-server': 1.14.4(hono@4.8.3)
       hono: 4.8.3
       minimatch: 9.0.5
     optionalDependencies:
-      miniflare: 4.20250617.4
+      miniflare: 4.20250617.5
       wrangler: 4.22.0(@cloudflare/workers-types@4.20250620.0)
+
+  '@hono/zod-validator@0.7.0(hono@4.8.3)(zod@3.25.67)':
+    dependencies:
+      hono: 4.8.3
+      zod: 3.25.67
 
   '@hono/zod-validator@0.7.0(hono@4.8.3)(zod@3.25.71)':
     dependencies:
@@ -6258,7 +6271,7 @@ snapshots:
   '@jridgewell/trace-mapping@0.3.9':
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
-      '@jridgewell/sourcemap-codec': 1.5.0
+      '@jridgewell/sourcemap-codec': 1.5.4
 
   '@lexical/clipboard@0.32.1':
     dependencies:
@@ -9059,6 +9072,24 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
+  miniflare@4.20250617.5:
+    dependencies:
+      '@cspotcode/source-map-support': 0.8.1
+      acorn: 8.14.0
+      acorn-walk: 8.3.2
+      exit-hook: 2.2.1
+      glob-to-regexp: 0.4.1
+      sharp: 0.33.5
+      stoppable: 1.1.0
+      undici: 5.29.0
+      workerd: 1.20250617.0
+      ws: 8.18.0
+      youch: 3.3.4
+      zod: 3.22.3
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+
   minimatch@9.0.5:
     dependencies:
       brace-expansion: 2.0.2
@@ -10104,6 +10135,8 @@ snapshots:
       stacktracey: 2.1.8
 
   zod@3.22.3: {}
+
+  zod@3.25.67: {}
 
   zod@3.25.71: {}
 
