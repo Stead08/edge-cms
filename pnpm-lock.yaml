@@ -41,7 +41,7 @@ catalogs:
       version: 4.22.0
     zod:
       specifier: ^3.23.8
-      version: 3.25.56
+      version: 3.25.71
 
 importers:
 
@@ -70,7 +70,7 @@ importers:
         version: 1.7.2(react@19.1.0)
       '@conform-to/zod':
         specifier: ^1.2.2
-        version: 1.7.2(zod@3.25.67)
+        version: 1.7.2(zod@3.25.71)
       '@mdxeditor/editor':
         specifier: ^3.19.2
         version: 3.37.0(@codemirror/language@6.11.1)(@lezer/highlight@1.2.1)(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.27)
@@ -169,7 +169,7 @@ importers:
         version: 3.3.1
       zod:
         specifier: ^3.23.8
-        version: 3.25.67
+        version: 3.25.71
       zustand:
         specifier: 5.0.6
         version: 5.0.6(@types/react@19.1.8)(react@19.1.0)(use-sync-external-store@1.5.0(react@19.1.0))
@@ -240,7 +240,7 @@ importers:
     dependencies:
       '@hono/zod-validator':
         specifier: 0.7.0
-        version: 0.7.0(hono@4.8.3)(zod@3.25.67)
+        version: 0.7.0(hono@4.8.3)(zod@3.25.71)
       '@lucia-auth/adapter-sqlite':
         specifier: ^3.0.0
         version: 3.0.2(better-sqlite3@11.10.0)(lucia@3.2.2)
@@ -261,7 +261,7 @@ importers:
         version: 3.2.2
       zod:
         specifier: 3.25.67
-        version: 3.25.67
+        version: 3.25.71
     devDependencies:
       '@biomejs/biome':
         specifier: 'catalog:'
@@ -295,13 +295,13 @@ importers:
     dependencies:
       '@hono/zod-validator':
         specifier: 'catalog:'
-        version: 0.7.0(hono@4.8.3)(zod@3.25.56)
+        version: 0.7.0(hono@4.8.3)(zod@3.25.71)
       hono:
         specifier: 'catalog:'
         version: 4.8.3
       zod:
         specifier: 'catalog:'
-        version: 3.25.56
+        version: 3.25.71
     devDependencies:
       '@biomejs/biome':
         specifier: 'catalog:'
@@ -1564,8 +1564,8 @@ packages:
     resolution: {integrity: sha512-wgm9Ehl2jpeqP3zw/7mo3kRHFp5MEDhqAdwy1fTGkHAwnkGOVsgpvQhL8B5n1qlb01jV3n/bI0ZfZp5lWA1k4w==}
     engines: {node: '>=18.0.0'}
 
-  '@jridgewell/gen-mapping@0.3.10':
-    resolution: {integrity: sha512-HM2F4B9N4cA0RH2KQiIZOHAZqtP4xGS4IZ+SFe1SIbO4dyjf9MTY2Bo3vHYnm0hglWfXqBrzUBSa+cJfl3Xvrg==}
+  '@jridgewell/gen-mapping@0.3.12':
+    resolution: {integrity: sha512-OuLGC46TjB5BbN1dH8JULVVZY4WTdkF7tV9Ys6wLL1rubZnCMstOhNHueU5bLCrnRuDhKPDM4g6sw4Bel5Gzqg==}
 
   '@jridgewell/gen-mapping@0.3.8':
     resolution: {integrity: sha512-imAbBGkb+ebQyxKgzv5Hu2nmROxoDOXHh80evxdoXNOrvAnVx7zimzc1Oo5h9RlfV4vPXaE2iM5pOFbvOCClWA==}
@@ -1582,14 +1582,14 @@ packages:
   '@jridgewell/sourcemap-codec@1.5.0':
     resolution: {integrity: sha512-gv3ZRaISU3fjPAgNsriBRqGWQL6quFx04YMPW/zD8XMLsU32mhCCbfbO6KZFLjvYpCZ8zyDEgqsgf+PwPaM7GQ==}
 
-  '@jridgewell/sourcemap-codec@1.5.2':
-    resolution: {integrity: sha512-gKYheCylLIedI+CSZoDtGkFV9YEBxRRVcfCH7OfAqh4TyUyRjEE6WVE/aXDXX0p8BIe/QgLcaAoI0220KRRFgg==}
+  '@jridgewell/sourcemap-codec@1.5.4':
+    resolution: {integrity: sha512-VT2+G1VQs/9oz078bLrYbecdZKs912zQlkelYpuf+SXF+QvZDYJlbx/LSx+meSAwdDFnF8FVXW92AVjjkVmgFw==}
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@jridgewell/trace-mapping@0.3.27':
-    resolution: {integrity: sha512-VO95AxtSFMelbg3ouljAYnfvTEwSWVt/2YLf+U5Ejd8iT5mXE2Sa/1LGyvySMne2CGsepGLI7KpF3EzE3Aq9Mg==}
+  '@jridgewell/trace-mapping@0.3.29':
+    resolution: {integrity: sha512-uw6guiW/gcAGPDhLmd77/6lW8QLeiV5RUTsAX46Db6oLhGaVj4lhnPwb184s1bkc8kdVg/+h988dro8GRDpmYQ==}
 
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
@@ -5019,11 +5019,8 @@ packages:
   zod@3.22.3:
     resolution: {integrity: sha512-EjIevzuJRiRPbVH4mGc8nApb/lVLKVpmUhAaR5R5doKGfAnGJ6Gr3CViAVjP+4FWSxCsybeWQdcgCtbX+7oZug==}
 
-  zod@3.25.56:
-    resolution: {integrity: sha512-rd6eEF3BTNvQnR2e2wwolfTmUTnp70aUTqr0oaGbHifzC3BKJsoV+Gat8vxUMR1hwOKBs6El+qWehrHbCpW6SQ==}
-
-  zod@3.25.67:
-    resolution: {integrity: sha512-idA2YXwpCdqUSKRCACDE6ItZD9TZzy3OZMtpfLoh6oPR47lipysRrJfjzMqFxQ3uJuUPyUeWe1r9vLH33xO/Qw==}
+  zod@3.25.71:
+    resolution: {integrity: sha512-BsBc/NPk7h8WsUWYWYL+BajcJPY8YhjelaWu2NMLuzgraKAz4Lb4/6K11g9jpuDetjMiqhZ6YaexFLOC0Ogi3Q==}
 
   zustand@5.0.6:
     resolution: {integrity: sha512-ihAqNeUVhe0MAD+X8M5UzqyZ9k3FFZLBTtqo6JLPwV53cbRB/mJwBI0PxcIgqhBBHlEs8G45OTDTMq3gNcLq3A==}
@@ -5409,7 +5406,7 @@ snapshots:
       semver: 7.7.2
       vitest: 3.2.4(@types/debug@4.1.12)(@types/node@22.15.34)(jiti@2.4.2)(lightningcss@1.30.1)
       wrangler: 4.20.5(@cloudflare/workers-types@4.20250620.0)
-      zod: 3.25.67
+      zod: 3.25.71
     transitivePeerDependencies:
       - '@cloudflare/workers-types'
       - bufferutil
@@ -5426,7 +5423,7 @@ snapshots:
       semver: 7.7.2
       vitest: 3.2.4(@types/debug@4.1.12)(@types/node@22.15.34)(jiti@2.4.2)(lightningcss@1.30.1)
       wrangler: 4.20.5(@cloudflare/workers-types@4.20250628.0)
-      zod: 3.25.67
+      zod: 3.25.71
     transitivePeerDependencies:
       - '@cloudflare/workers-types'
       - bufferutil
@@ -5743,10 +5740,10 @@ snapshots:
       '@conform-to/dom': 1.7.2
       react: 19.1.0
 
-  '@conform-to/zod@1.7.2(zod@3.25.67)':
+  '@conform-to/zod@1.7.2(zod@3.25.71)':
     dependencies:
       '@conform-to/dom': 1.7.2
-      zod: 3.25.67
+      zod: 3.25.71
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -6129,15 +6126,10 @@ snapshots:
       miniflare: 4.20250617.4
       wrangler: 4.22.0(@cloudflare/workers-types@4.20250620.0)
 
-  '@hono/zod-validator@0.7.0(hono@4.8.3)(zod@3.25.56)':
+  '@hono/zod-validator@0.7.0(hono@4.8.3)(zod@3.25.71)':
     dependencies:
       hono: 4.8.3
-      zod: 3.25.56
-
-  '@hono/zod-validator@0.7.0(hono@4.8.3)(zod@3.25.67)':
-    dependencies:
-      hono: 4.8.3
-      zod: 3.25.67
+      zod: 3.25.71
 
   '@iconify-json/simple-icons@1.2.39':
     dependencies:
@@ -6233,10 +6225,10 @@ snapshots:
     dependencies:
       minipass: 7.1.2
 
-  '@jridgewell/gen-mapping@0.3.10':
+  '@jridgewell/gen-mapping@0.3.12':
     dependencies:
-      '@jridgewell/sourcemap-codec': 1.5.2
-      '@jridgewell/trace-mapping': 0.3.27
+      '@jridgewell/sourcemap-codec': 1.5.4
+      '@jridgewell/trace-mapping': 0.3.29
 
   '@jridgewell/gen-mapping@0.3.8':
     dependencies:
@@ -6250,17 +6242,17 @@ snapshots:
 
   '@jridgewell/sourcemap-codec@1.5.0': {}
 
-  '@jridgewell/sourcemap-codec@1.5.2': {}
+  '@jridgewell/sourcemap-codec@1.5.4': {}
 
   '@jridgewell/trace-mapping@0.3.25':
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@jridgewell/trace-mapping@0.3.27':
+  '@jridgewell/trace-mapping@0.3.29':
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
-      '@jridgewell/sourcemap-codec': 1.5.2
+      '@jridgewell/sourcemap-codec': 1.5.4
 
   '@jridgewell/trace-mapping@0.3.9':
     dependencies:
@@ -9577,7 +9569,7 @@ snapshots:
 
   sucrase@3.35.0:
     dependencies:
-      '@jridgewell/gen-mapping': 0.3.10
+      '@jridgewell/gen-mapping': 0.3.12
       commander: 4.1.1
       glob: 10.4.5
       lines-and-columns: 1.2.4
@@ -10112,9 +10104,7 @@ snapshots:
 
   zod@3.22.3: {}
 
-  zod@3.25.56: {}
-
-  zod@3.25.67: {}
+  zod@3.25.71: {}
 
   zustand@5.0.6(@types/react@19.1.8)(react@19.1.0)(use-sync-external-store@1.5.0(react@19.1.0)):
     optionalDependencies:
