@@ -20,7 +20,7 @@
     "drizzle-orm": "0.44.2",
     "hono": "catalog:",
     "lucia": "^3.2.0",
-    "zod": "3.25.67"
+    "zod": "3.25.74"
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:",
