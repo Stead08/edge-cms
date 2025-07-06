@@ -243,16 +243,16 @@ importers:
         version: 0.7.0(hono@4.8.4)(zod@3.25.74)
       '@lucia-auth/adapter-sqlite':
         specifier: ^3.0.0
-        version: 3.0.2(better-sqlite3@12.0.0)(lucia@3.2.2)
+        version: 3.0.2(better-sqlite3@12.2.0)(lucia@3.2.2)
       '@node-rs/argon2':
         specifier: ^2.0.0
         version: 2.0.2
       better-sqlite3:
         specifier: ^12.0.0
-        version: 12.0.0
+        version: 12.2.0
       drizzle-orm:
         specifier: 0.44.2
-        version: 0.44.2(@cloudflare/workers-types@4.20250705.0)(better-sqlite3@12.0.0)
+        version: 0.44.2(@cloudflare/workers-types@4.20250705.0)(better-sqlite3@12.2.0)
       hono:
         specifier: 'catalog:'
         version: 4.8.4
@@ -2929,8 +2929,8 @@ packages:
   base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
 
-  better-sqlite3@12.0.0:
-    resolution: {integrity: sha512-ElLgwbEth4MHBrDXEqzkE7Hm2+ACw5+KKBhkLArcjJrVFJyOXvzcE/if2dx7/m5pXTc8vqJjsCQUt1AFQY+TTQ==}
+  better-sqlite3@12.2.0:
+    resolution: {integrity: sha512-eGbYq2CT+tos1fBwLQ/tkBt9J5M3JEHjku4hbvQUePCckkvVf14xWj+1m7dGoK81M/fOjFT7yM9UMeKT/+vFLQ==}
     engines: {node: 20.x || 22.x || 23.x || 24.x}
 
   bindings@1.5.0:
@@ -6353,11 +6353,11 @@ snapshots:
       '@lezer/highlight': 1.2.1
       '@lezer/lr': 1.4.2
 
-  '@lucia-auth/adapter-sqlite@3.0.2(better-sqlite3@12.0.0)(lucia@3.2.2)':
+  '@lucia-auth/adapter-sqlite@3.0.2(better-sqlite3@12.2.0)(lucia@3.2.2)':
     dependencies:
       lucia: 3.2.2
     optionalDependencies:
-      better-sqlite3: 12.0.0
+      better-sqlite3: 12.2.0
 
   '@marijn/find-cluster-break@1.0.2': {}
 
@@ -7637,7 +7637,7 @@ snapshots:
 
   base64-js@1.5.1: {}
 
-  better-sqlite3@12.0.0:
+  better-sqlite3@12.2.0:
     dependencies:
       bindings: 1.5.0
       prebuild-install: 7.1.3
@@ -7869,10 +7869,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.44.2(@cloudflare/workers-types@4.20250705.0)(better-sqlite3@12.0.0):
+  drizzle-orm@0.44.2(@cloudflare/workers-types@4.20250705.0)(better-sqlite3@12.2.0):
     optionalDependencies:
       '@cloudflare/workers-types': 4.20250705.0
-      better-sqlite3: 12.0.0
+      better-sqlite3: 12.2.0
 
   eastasianwidth@0.2.0: {}
 
