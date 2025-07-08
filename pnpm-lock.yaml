@@ -41,7 +41,7 @@ catalogs:
       version: 4.23.0
     zod:
       specifier: ^3.23.8
-      version: 3.25.75
+      version: 3.25.76
 
 importers:
 
@@ -70,7 +70,7 @@ importers:
         version: 1.8.1(react@19.1.0)
       '@conform-to/zod':
         specifier: ^1.2.2
-        version: 1.8.1(zod@3.25.75)
+        version: 1.8.1(zod@3.25.76)
       '@mdxeditor/editor':
         specifier: ^3.19.2
         version: 3.39.1(@codemirror/language@6.11.2)(@lezer/highlight@1.2.1)(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.27)
@@ -169,7 +169,7 @@ importers:
         version: 3.3.1
       zod:
         specifier: ^3.23.8
-        version: 3.25.75
+        version: 3.25.76
       zustand:
         specifier: 5.0.6
         version: 5.0.6(@types/react@19.1.8)(react@19.1.0)(use-sync-external-store@1.5.0(react@19.1.0))
@@ -240,7 +240,7 @@ importers:
     dependencies:
       '@hono/zod-validator':
         specifier: 0.7.0
-        version: 0.7.0(hono@4.8.4)(zod@3.25.74)
+        version: 0.7.0(hono@4.8.4)(zod@3.25.76)
       '@lucia-auth/adapter-sqlite':
         specifier: ^3.0.0
         version: 3.0.2(better-sqlite3@12.2.0)(lucia@3.2.2)
@@ -261,7 +261,7 @@ importers:
         version: 3.2.2
       zod:
         specifier: 3.25.74
-        version: 3.25.74
+        version: 3.25.76
     devDependencies:
       '@biomejs/biome':
         specifier: 'catalog:'
@@ -295,13 +295,13 @@ importers:
     dependencies:
       '@hono/zod-validator':
         specifier: 'catalog:'
-        version: 0.7.0(hono@4.8.4)(zod@3.25.75)
+        version: 0.7.0(hono@4.8.4)(zod@3.25.76)
       hono:
         specifier: 'catalog:'
         version: 4.8.4
       zod:
         specifier: 'catalog:'
-        version: 3.25.75
+        version: 3.25.76
     devDependencies:
       '@biomejs/biome':
         specifier: 'catalog:'
@@ -4732,11 +4732,8 @@ packages:
   zod@3.22.3:
     resolution: {integrity: sha512-EjIevzuJRiRPbVH4mGc8nApb/lVLKVpmUhAaR5R5doKGfAnGJ6Gr3CViAVjP+4FWSxCsybeWQdcgCtbX+7oZug==}
 
-  zod@3.25.74:
-    resolution: {integrity: sha512-J8poo92VuhKjNknViHRAIuuN6li/EwFbAC8OedzI8uxpEPGiXHGQu9wemIAioIpqgfB4SySaJhdk0mH5Y4ICBg==}
-
-  zod@3.25.75:
-    resolution: {integrity: sha512-OhpzAmVzabPOL6C3A3gpAifqr9MqihV/Msx3gor2b2kviCgcb+HM9SEOpMWwwNp9MRunWnhtAKUoo0AHhjyPPg==}
+  zod@3.25.76:
+    resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
 
   zustand@5.0.6:
     resolution: {integrity: sha512-ihAqNeUVhe0MAD+X8M5UzqyZ9k3FFZLBTtqo6JLPwV53cbRB/mJwBI0PxcIgqhBBHlEs8G45OTDTMq3gNcLq3A==}
@@ -5124,7 +5121,7 @@ snapshots:
       semver: 7.7.2
       vitest: 3.2.4(@types/debug@4.1.12)(@types/node@22.16.0)(jiti@2.4.2)(lightningcss@1.30.1)
       wrangler: 4.23.0(@cloudflare/workers-types@4.20250705.0)
-      zod: 3.25.74
+      zod: 3.25.76
     transitivePeerDependencies:
       - '@cloudflare/workers-types'
       - bufferutil
@@ -5141,7 +5138,7 @@ snapshots:
       semver: 7.7.2
       vitest: 3.2.4(@types/debug@4.1.12)(@types/node@22.16.0)(jiti@2.4.2)(lightningcss@1.30.1)
       wrangler: 4.23.0(@cloudflare/workers-types@4.20250708.0)
-      zod: 3.25.74
+      zod: 3.25.76
     transitivePeerDependencies:
       - '@cloudflare/workers-types'
       - bufferutil
@@ -5458,10 +5455,10 @@ snapshots:
       '@conform-to/dom': 1.8.1
       react: 19.1.0
 
-  '@conform-to/zod@1.8.1(zod@3.25.75)':
+  '@conform-to/zod@1.8.1(zod@3.25.76)':
     dependencies:
       '@conform-to/dom': 1.8.1
-      zod: 3.25.75
+      zod: 3.25.76
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -5844,15 +5841,10 @@ snapshots:
       miniflare: 4.20250617.5
       wrangler: 4.23.0(@cloudflare/workers-types@4.20250708.0)
 
-  '@hono/zod-validator@0.7.0(hono@4.8.4)(zod@3.25.74)':
+  '@hono/zod-validator@0.7.0(hono@4.8.4)(zod@3.25.76)':
     dependencies:
       hono: 4.8.4
-      zod: 3.25.74
-
-  '@hono/zod-validator@0.7.0(hono@4.8.4)(zod@3.25.75)':
-    dependencies:
-      hono: 4.8.4
-      zod: 3.25.75
+      zod: 3.25.76
 
   '@iconify-json/simple-icons@1.2.41':
     dependencies:
@@ -9521,9 +9513,7 @@ snapshots:
 
   zod@3.22.3: {}
 
-  zod@3.25.74: {}
-
-  zod@3.25.75: {}
+  zod@3.25.76: {}
 
   zustand@5.0.6(@types/react@19.1.8)(react@19.1.0)(use-sync-external-store@1.5.0(react@19.1.0)):
     optionalDependencies:
