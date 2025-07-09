@@ -2,7 +2,7 @@ packages:
   - apps/*
   - packages/*
 catalog:
-  "@biomejs/biome": 2.0.6
+  "@biomejs/biome": 2.1.1
   "@cloudflare/vitest-pool-workers": 0.8.49
   "@hono/zod-validator": 0.7.0
   "@types/node": 22.16.0
