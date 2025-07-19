@@ -19,7 +19,7 @@
     "@biomejs/biome": "catalog:",
     "@cfworker/json-schema": "4.1.1",
     "@cloudflare/vitest-pool-workers": "catalog:",
-    "@cloudflare/workers-types": "4.20250711.0",
+    "@cloudflare/workers-types": "4.20250719.0",
     "@types/node": "catalog:",
     "miniflare": "catalog:",
     "typescript": "catalog:",
