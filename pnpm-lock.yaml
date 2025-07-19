@@ -67,7 +67,7 @@ importers:
         version: 0.4.0
       '@conform-to/react':
         specifier: ^1.2.2
-        version: 1.8.1(react@19.1.0)
+        version: 1.8.2(react@19.1.0)
       '@conform-to/zod':
         specifier: ^1.2.2
         version: 1.8.1(zod@3.25.76)
@@ -772,8 +772,11 @@ packages:
   '@conform-to/dom@1.8.1':
     resolution: {integrity: sha512-Sg4Jz31ZyiqbFHAKOmG+sVHtukku2Xmxv9ObYzj/TrKMXF1R9qN3ShucAIZWtRaw9l9vZGiqpDnSyfevmiBxuQ==}
 
-  '@conform-to/react@1.8.1':
-    resolution: {integrity: sha512-+bm+j0MOeOxrhrjWeoLmpmt+m1djZmPM/qE+AH5+8RewuC6GyXEXPyWAyES9bw9mZJ/WqInVS6Ljrf4gQ0I0zA==}
+  '@conform-to/dom@1.8.2':
+    resolution: {integrity: sha512-5eDqI9366+23Fl/E5zxebuy2FCebJKpSrdE/c6PZQ5Ul59BYQ17pBmkLkvxAKjPXW+Qq77BJyjGjuklwmqN08A==}
+
+  '@conform-to/react@1.8.2':
+    resolution: {integrity: sha512-AJuHH4YY64o+VP3qsXd7bqlqCJYefTcEVj6mOiQr/m9iQV785gPtGE31jdmipvQ3ZHQE0Lp4e4th7kN/xo46qg==}
     peerDependencies:
       react: '>=18'
 
@@ -3616,8 +3619,8 @@ packages:
   lexical@0.32.1:
     resolution: {integrity: sha512-Rvr9p00zUwzjXIqElIjMDyl/24QHw68yaqmXUWIT3lSdSAr8OpjSJK3iWBLZwVZwwpVhwShZRckomc+3vSb/zw==}
 
-  lib0@0.2.109:
-    resolution: {integrity: sha512-jP0gbnyW0kwlx1Atc4dcHkBbrVAkdHjuyHxtClUPYla7qCmwIif1qZ6vQeJdR5FrOVdn26HvQT0ko01rgW7/Xw==}
+  lib0@0.2.114:
+    resolution: {integrity: sha512-gcxmNFzA4hv8UYi8j43uPlQ7CGcyMJ2KQb5kZASw6SnAKAf10hK12i2fjrS3Cl/ugZa5Ui6WwIu1/6MIXiHttQ==}
     engines: {node: '>=16'}
     hasBin: true
 
@@ -5457,9 +5460,11 @@ snapshots:
 
   '@conform-to/dom@1.8.1': {}
 
-  '@conform-to/react@1.8.1(react@19.1.0)':
+  '@conform-to/dom@1.8.2': {}
+
+  '@conform-to/react@1.8.2(react@19.1.0)':
     dependencies:
-      '@conform-to/dom': 1.8.1
+      '@conform-to/dom': 1.8.2
       react: 19.1.0
 
   '@conform-to/zod@1.8.1(zod@3.25.76)':
@@ -8124,7 +8129,7 @@ snapshots:
 
   lexical@0.32.1: {}
 
-  lib0@0.2.109:
+  lib0@0.2.114:
     dependencies:
       isomorphic.js: 0.2.5
 
@@ -9510,7 +9515,7 @@ snapshots:
 
   yjs@13.6.27:
     dependencies:
-      lib0: 0.2.109
+      lib0: 0.2.114
 
   youch-core@0.3.3:
     dependencies:
