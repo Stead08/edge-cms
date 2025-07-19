@@ -1,4 +1,5 @@
 import { SELF } from "cloudflare:test";
+
 describe("roles", () => {
 	it("should create a role", async () => {
 		const res = await SELF.fetch("https://example.com/roles", {
