@@ -18,9 +18,6 @@ catalogs:
     '@types/node':
       specifier: 22.16.3
       version: 22.16.3
-    hono:
-      specifier: 4.8.4
-      version: 4.8.4
     lefthook:
       specifier: 1.12.2
       version: 1.12.2
@@ -145,7 +142,7 @@ importers:
         version: 2.1.1
       hono:
         specifier: 'catalog:'
-        version: 4.8.4
+        version: 4.8.5
       isbot:
         specifier: ^5.0.0
         version: 5.1.28
@@ -182,7 +179,7 @@ importers:
         version: 4.20250712.0
       '@hono/vite-dev-server':
         specifier: ^0.20.0
-        version: 0.20.0(hono@4.8.4)(miniflare@4.20250709.0)(wrangler@4.24.3(@cloudflare/workers-types@4.20250712.0))
+        version: 0.20.0(hono@4.8.5)(miniflare@4.20250709.0)(wrangler@4.24.3(@cloudflare/workers-types@4.20250712.0))
       '@react-router/dev':
         specifier: ^7.1.0
         version: 7.6.3(@types/node@22.16.3)(jiti@2.4.2)(lightningcss@1.30.1)(react-router@7.6.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(typescript@5.8.3)(vite@7.0.4(@types/node@22.16.3)(jiti@2.4.2)(lightningcss@1.30.1))(wrangler@4.24.3(@cloudflare/workers-types@4.20250712.0))
@@ -224,7 +221,7 @@ importers:
     dependencies:
       hono:
         specifier: ^4.5.5
-        version: 4.8.4
+        version: 4.8.5
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20240529.0
@@ -240,7 +237,7 @@ importers:
     dependencies:
       '@hono/zod-validator':
         specifier: 0.7.0
-        version: 0.7.0(hono@4.8.4)(zod@3.25.76)
+        version: 0.7.0(hono@4.8.5)(zod@3.25.76)
       '@lucia-auth/adapter-sqlite':
         specifier: ^3.0.0
         version: 3.0.2(better-sqlite3@12.2.0)(lucia@3.2.2)
@@ -255,7 +252,7 @@ importers:
         version: 0.44.2(@cloudflare/workers-types@4.20250712.0)(better-sqlite3@12.2.0)
       hono:
         specifier: 'catalog:'
-        version: 4.8.4
+        version: 4.8.5
       lucia:
         specifier: ^3.2.0
         version: 3.2.2
@@ -295,10 +292,10 @@ importers:
     dependencies:
       '@hono/zod-validator':
         specifier: 'catalog:'
-        version: 0.7.0(hono@4.8.4)(zod@3.25.76)
+        version: 0.7.0(hono@4.8.5)(zod@3.25.76)
       hono:
         specifier: 'catalog:'
-        version: 4.8.4
+        version: 4.8.5
       zod:
         specifier: 'catalog:'
         version: 3.25.76
@@ -3447,8 +3444,8 @@ packages:
   hast-util-whitespace@3.0.0:
     resolution: {integrity: sha512-88JUN06ipLwsnv+dVn+OIYOvAuvBMy/Qoi6O7mQHxdPXpjy+Cd6xRkWwux7DKO+4sYILtLBRIKgsdpS2gQc7qw==}
 
-  hono@4.8.4:
-    resolution: {integrity: sha512-KOIBp1+iUs0HrKztM4EHiB2UtzZDTBihDtOF5K6+WaJjCPeaW4Q92R8j63jOhvJI5+tZSMuKD9REVEXXY9illg==}
+  hono@4.8.5:
+    resolution: {integrity: sha512-Up2cQbtNz1s111qpnnECdTGqSIUIhZJMLikdKkshebQSEBcoUKq6XJayLGqSZWidiH0zfHRCJqFu062Mz5UuRA==}
     engines: {node: '>=16.9.0'}
 
   hookable@5.5.3:
@@ -3616,8 +3613,8 @@ packages:
   lexical@0.32.1:
     resolution: {integrity: sha512-Rvr9p00zUwzjXIqElIjMDyl/24QHw68yaqmXUWIT3lSdSAr8OpjSJK3iWBLZwVZwwpVhwShZRckomc+3vSb/zw==}
 
-  lib0@0.2.109:
-    resolution: {integrity: sha512-jP0gbnyW0kwlx1Atc4dcHkBbrVAkdHjuyHxtClUPYla7qCmwIif1qZ6vQeJdR5FrOVdn26HvQT0ko01rgW7/Xw==}
+  lib0@0.2.114:
+    resolution: {integrity: sha512-gcxmNFzA4hv8UYi8j43uPlQ7CGcyMJ2KQb5kZASw6SnAKAf10hK12i2fjrS3Cl/ugZa5Ui6WwIu1/6MIXiHttQ==}
     engines: {node: '>=16'}
     hasBin: true
 
@@ -5835,22 +5832,22 @@ snapshots:
 
   '@floating-ui/utils@0.2.10': {}
 
-  '@hono/node-server@1.15.0(hono@4.8.4)':
+  '@hono/node-server@1.15.0(hono@4.8.5)':
     dependencies:
-      hono: 4.8.4
+      hono: 4.8.5
 
-  '@hono/vite-dev-server@0.20.0(hono@4.8.4)(miniflare@4.20250709.0)(wrangler@4.24.3(@cloudflare/workers-types@4.20250712.0))':
+  '@hono/vite-dev-server@0.20.0(hono@4.8.5)(miniflare@4.20250709.0)(wrangler@4.24.3(@cloudflare/workers-types@4.20250712.0))':
     dependencies:
-      '@hono/node-server': 1.15.0(hono@4.8.4)
-      hono: 4.8.4
+      '@hono/node-server': 1.15.0(hono@4.8.5)
+      hono: 4.8.5
       minimatch: 9.0.5
     optionalDependencies:
       miniflare: 4.20250709.0
       wrangler: 4.24.3(@cloudflare/workers-types@4.20250712.0)
 
-  '@hono/zod-validator@0.7.0(hono@4.8.4)(zod@3.25.76)':
+  '@hono/zod-validator@0.7.0(hono@4.8.5)(zod@3.25.76)':
     dependencies:
-      hono: 4.8.4
+      hono: 4.8.5
       zod: 3.25.76
 
   '@iconify-json/simple-icons@1.2.41':
@@ -7996,7 +7993,7 @@ snapshots:
     dependencies:
       '@types/hast': 3.0.4
 
-  hono@4.8.4: {}
+  hono@4.8.5: {}
 
   hookable@5.5.3: {}
 
@@ -8124,7 +8121,7 @@ snapshots:
 
   lexical@0.32.1: {}
 
-  lib0@0.2.109:
+  lib0@0.2.114:
     dependencies:
       isomorphic.js: 0.2.5
 
@@ -9510,7 +9507,7 @@ snapshots:
 
   yjs@13.6.27:
     dependencies:
-      lib0: 0.2.109
+      lib0: 0.2.114
 
   youch-core@0.3.3:
     dependencies:
