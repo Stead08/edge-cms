@@ -1,11 +1,25 @@
 {
-    "extends": ["../../biome.json"],
+    "extends": [
+        "../../biome.json"
+    ],
     "linter": {
-        "ignore": ["app/components/ui/**/*.tsx"],
+        "includes": [
+            "!app/components/ui/**/*.tsx"
+        ],
         "rules": {
             "correctness": {
                 "useExhaustiveDependencies": "off"
             }
         }
+    },
+    "assist": {
+        "actions": {
+            "source": {
+                "organizeImports": "on"
+            }
+        },
+        "includes": [
+            "!app/components/ui/**/*.tsx"
+        ]
     }
 }

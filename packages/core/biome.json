@@ -1,7 +1,12 @@
 {
-	"extends": ["../../biome.json"],
+	"extends": [
+		"../../biome.json"
+	],
 	"linter": {
-		"ignore": ["test/**/*.ts", "src/gen/**/*.ts"],
+		"includes": [
+			"!test/**/*.ts",
+			"!src/gen/**/*.ts"
+		],
 		"rules": {
 			"correctness": {
 				"noUnusedVariables": "error"
