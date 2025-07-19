@@ -7,12 +7,14 @@
 ## 1. 現状分析
 
 ### 現在のアーキテクチャの課題
+
 - **貧血ドメインモデル**: エンティティがデータ構造のみで振る舞いを持たない
 - **ビジネスロジックの散在**: ルートハンドラー内に混在
 - **エラーハンドリング**: 場当たり的なエラー処理
 - **副作用の混在**: 純粋な関数とI/O操作が混在
 
 ### 強み
+
 - sqlcによる型安全なSQL
 - Zodによるスキーマバリデーション
 - Cloudflareのエッジインフラストラクチャ
@@ -20,6 +22,7 @@
 ## 2. 関数型DDDの核心原則
 
 ### 2.1 型駆動開発
+
 ```typescript
 // 違法な状態を表現不可能にする
 type WorkspaceId = { readonly _brand: 'WorkspaceId'; value: string }
@@ -33,6 +36,7 @@ type Workspace =
 ```
 
 ### 2.2 ワークフロー中心設計
+
 ```typescript
 // ワークフローを関数パイプラインとして定義
 type CreateCollectionWorkflow = 
@@ -41,6 +45,7 @@ type CreateCollectionWorkflow =
 ```
 
 ### 2.3 純粋関数とイミュータビリティ
+
 ```typescript
 // 副作用のない純粋な関数
 const validateCollectionSchema = (
@@ -55,6 +60,7 @@ const validateCollectionSchema = (
 ### Phase 1: ドメインモデルの強化（2週間）
 
 #### 3.1.1 値オブジェクトの導入
+
 ```typescript
 // packages/core/src/domain/shared/value-objects.ts
 export const WorkspaceId = {
@@ -69,6 +75,7 @@ export const WorkspaceId = {
 ```
 
 #### 3.1.2 集約の定義
+
 ```typescript
 // packages/core/src/domain/workspace/aggregate.ts
 export type WorkspaceAggregate = {
@@ -95,6 +102,7 @@ export const WorkspaceActions = {
 ### Phase 2: ワークフローの実装（3週間）
 
 #### 3.2.1 ユースケースの関数パイプライン化
+
 ```typescript
 // packages/core/src/application/use-cases/create-collection.ts
 export const createCollectionWorkflow = (deps: Dependencies) => 
@@ -110,6 +118,7 @@ export const createCollectionWorkflow = (deps: Dependencies) =>
 ```
 
 #### 3.2.2 エラーハンドリングの統一
+
 ```typescript
 // packages/core/src/domain/shared/result.ts
 export type Result<T, E> = 
@@ -131,6 +140,7 @@ export const Result = {
 ### Phase 3: インフラストラクチャの分離（2週間）
 
 #### 3.3.1 ポートとアダプターパターン
+
 ```typescript
 // packages/core/src/application/ports/workspace-repository.ts
 export interface WorkspaceRepository {
@@ -145,6 +155,7 @@ export class D1WorkspaceRepository implements WorkspaceRepository {
 ```
 
 #### 3.3.2 HTTPアダプターの実装
+
 ```typescript
 // packages/core/src/infrastructure/http/collection-routes.ts
 export const createCollectionRoute = (workflow: CreateCollectionWorkflow) => 
@@ -164,40 +175,48 @@ export const createCollectionRoute = (workflow: CreateCollectionWorkflow) =>
 ## 4. 実装の優先順位
 
 ### 高優先度
+
 1. **Resultモナドの実装**: エラーハンドリングの基盤
 2. **値オブジェクト**: WorkspaceId, CollectionId, ItemIdなどの強い型付け
 3. **コレクション管理ワークフロー**: 最も複雑なドメインロジック
 
 ### 中優先度
+
 1. **アイテム管理ワークフロー**: スキーマバリデーションとの統合
 2. **権限管理**: ロールベースアクセス制御の関数型実装
 3. **イベントシステム**: ドメインイベントの導入
 
 ### 低優先度
+
 1. **キャッシング戦略**: KVストアの関数型ラッパー
 2. **監査ログ**: イベントソーシングの部分的導入
 
 ## 5. 段階的移行戦略
 
 ### Step 1: 新機能での適用（1週間）
+
 - 新しい機能から関数型DDDを適用
 - 既存コードとの境界を明確に定義
 
 ### Step 2: コアドメインのリファクタリング（3週間）
+
 - Collection管理を最初にリファクタリング
 - 他のドメインへ段階的に展開
 
 ### Step 3: インフラストラクチャの抽象化（2週間）
+
 - リポジトリパターンの導入
 - 副作用の境界での管理
 
 ### Step 4: 既存ルートの移行（2週間）
+
 - HTTPハンドラーを薄いアダプターに変換
 - ビジネスロジックをワークフローに移動
 
 ## 6. テスト戦略
 
 ### ユニットテスト
+
 ```typescript
 // 純粋関数は簡単にテスト可能
 describe('CollectionSchema validation', () => {
@@ -209,6 +228,7 @@ describe('CollectionSchema validation', () => {
 ```
 
 ### 統合テスト
+
 ```typescript
 // ワークフローのテスト
 describe('CreateCollection workflow', () => {
@@ -224,26 +244,31 @@ describe('CreateCollection workflow', () => {
 ## 7. 期待される効果
 
 ### 保守性の向上
+
 - 明確な境界と責任分離
 - 純粋関数によるテストの容易さ
 - 型安全性の向上
 
 ### 拡張性の向上
+
 - 新機能の追加が容易
 - ワークフローの組み合わせによる複雑な処理
 
 ### エラーハンドリングの改善
+
 - 予測可能なエラー処理
 - ドメイン固有のエラー型
 
 ## 8. リスクと対策
 
 ### リスク
+
 1. **学習曲線**: 関数型プログラミングの概念
 2. **既存コードとの統合**: 段階的移行の複雑さ
 3. **パフォーマンス**: イミュータブルデータ構造のオーバーヘッド
 
 ### 対策
+
 1. **チーム教育**: ペアプログラミングとコードレビュー
 2. **Anti-Corruption Layer**: 既存コードとの明確な境界
 3. **パフォーマンス測定**: ボトルネックの特定と最適化
