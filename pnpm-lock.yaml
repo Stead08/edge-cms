@@ -148,7 +148,7 @@ importers:
         version: 4.9.2
       isbot:
         specifier: ^5.0.0
-        version: 5.1.29
+        version: 5.1.30
       lucia:
         specifier: ^3.2.0
         version: 3.2.2
@@ -3553,8 +3553,8 @@ packages:
     resolution: {integrity: sha512-ZhMwEosbFJkA0YhFnNDgTM4ZxDRsS6HqTo7qsZM08fehyRYIYa0yHu5R6mgo1n/8MgaPBXiPimPD77baVFYg+A==}
     engines: {node: '>=12.13'}
 
-  isbot@5.1.29:
-    resolution: {integrity: sha512-DelDWWoa3mBoyWTq3wjp+GIWx/yZdN7zLUE7NFhKjAiJ+uJVRkbLlwykdduCE4sPUUy8mlTYTmdhBUYu91F+sw==}
+  isbot@5.1.30:
+    resolution: {integrity: sha512-3wVJEonAns1OETX83uWsk5IAne2S5zfDcntD2hbtU23LelSqNXzXs9zKjMPOLMzroCgIjCfjYAEHrd2D6FOkiA==}
     engines: {node: '>=18'}
 
   isexe@2.0.0:
@@ -7074,7 +7074,7 @@ snapshots:
       dedent: 1.6.0
       es-module-lexer: 1.7.0
       exit-hook: 2.2.1
-      isbot: 5.1.29
+      isbot: 5.1.30
       jsesc: 3.0.2
       lodash: 4.17.21
       pathe: 1.1.2
@@ -8180,7 +8180,7 @@ snapshots:
 
   is-what@4.1.16: {}
 
-  isbot@5.1.29: {}
+  isbot@5.1.30: {}
 
   isexe@2.0.0: {}
 
