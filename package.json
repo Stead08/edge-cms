@@ -17,7 +17,7 @@
     "turbo": "2.5.6",
     "typescript": "catalog:"
   },
-  "packageManager": "pnpm@10.14.0",
+  "packageManager": "pnpm@10.15.0",
   "engines": {
     "node": ">=18",
     "yarn": "Use pnpm instead",
@@ -29,6 +29,6 @@
   ],
   "volta": {
     "node": "22.18.0",
-    "pnpm": "10.14.0"
+    "pnpm": "10.15.0"
   }
 }
