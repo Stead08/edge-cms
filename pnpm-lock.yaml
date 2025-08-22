@@ -224,7 +224,7 @@ importers:
     dependencies:
       hono:
         specifier: ^4.5.5
-        version: 4.9.2
+        version: 4.9.4
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20240529.0
@@ -3499,10 +3499,6 @@ packages:
 
   hast-util-whitespace@3.0.0:
     resolution: {integrity: sha512-88JUN06ipLwsnv+dVn+OIYOvAuvBMy/Qoi6O7mQHxdPXpjy+Cd6xRkWwux7DKO+4sYILtLBRIKgsdpS2gQc7qw==}
-
-  hono@4.9.2:
-    resolution: {integrity: sha512-UG2jXGS/gkLH42l/1uROnwXpkjvvxkl3kpopL3LBo27NuaDPI6xHNfuUSilIHcrBkPfl4y0z6y2ByI455TjNRw==}
-    engines: {node: '>=16.9.0'}
 
   hono@4.9.4:
     resolution: {integrity: sha512-61hl6MF6ojTl/8QSRu5ran6GXt+6zsngIUN95KzF5v5UjiX/xnrLR358BNRawwIRO49JwUqJqQe3Rb2v559R8Q==}
@@ -8162,8 +8158,6 @@ snapshots:
   hast-util-whitespace@3.0.0:
     dependencies:
       '@types/hast': 3.0.4
-
-  hono@4.9.2: {}
 
   hono@4.9.4: {}
 
