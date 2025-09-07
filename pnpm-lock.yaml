@@ -311,10 +311,10 @@ importers:
         version: 4.1.1
       '@cloudflare/vitest-pool-workers':
         specifier: 'catalog:'
-        version: 0.8.61(@cloudflare/workers-types@4.20250828.0)(@vitest/runner@3.2.4)(@vitest/snapshot@3.2.4)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@22.18.0)(jiti@2.5.1)(lightningcss@1.30.1))
+        version: 0.8.61(@cloudflare/workers-types@4.20250906.0)(@vitest/runner@3.2.4)(@vitest/snapshot@3.2.4)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@22.18.0)(jiti@2.5.1)(lightningcss@1.30.1))
       '@cloudflare/workers-types':
-        specifier: 4.20250828.0
-        version: 4.20250828.0
+        specifier: 4.20250906.0
+        version: 4.20250906.0
       '@types/node':
         specifier: 'catalog:'
         version: 22.18.0
@@ -332,7 +332,7 @@ importers:
         version: 3.2.4(@types/debug@4.1.12)(@types/node@22.18.0)(jiti@2.5.1)(lightningcss@1.30.1)
       wrangler:
         specifier: 'catalog:'
-        version: 4.33.1(@cloudflare/workers-types@4.20250828.0)
+        version: 4.33.1(@cloudflare/workers-types@4.20250906.0)
 
 packages:
 
@@ -701,8 +701,8 @@ packages:
   '@cloudflare/workers-types@4.20250826.0':
     resolution: {integrity: sha512-nAbTVI81wFSxbESRbfGRlfL4WYNvq8T46yr1ukypHL8O2xnbZfQnQhC7ftSBmDqov8HqQSdqcz9jCgLjVh61SQ==}
 
-  '@cloudflare/workers-types@4.20250828.0':
-    resolution: {integrity: sha512-5sovAOf3H/ni9qCFd4iZK8k73rQJLtnDnnwvE9uS9aAfiqMiBPz2xOgtGhGEvkutmOVv5fA7STsPJ6TleRSwwQ==}
+  '@cloudflare/workers-types@4.20250906.0':
+    resolution: {integrity: sha512-CMRTupQpAdNZJrxRGaM2JzxmpWOnzgxcyTGmjAOcosRfi1ZsNUTAZ0kj1dzY+4bPDIdFwvvJL3t91DEpqitOJg==}
 
   '@codemirror/autocomplete@6.18.6':
     resolution: {integrity: sha512-PHHBXFomUs5DF+9tCOM/UoW6XQ4R44lLNNhRaW9PKPTU0D7lIjRg3ElxaJnTwsl/oHiR93WSXDBrekhoUGCPtg==}
@@ -5254,7 +5254,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@cloudflare/vitest-pool-workers@0.8.61(@cloudflare/workers-types@4.20250828.0)(@vitest/runner@3.2.4)(@vitest/snapshot@3.2.4)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@22.18.0)(jiti@2.5.1)(lightningcss@1.30.1))':
+  '@cloudflare/vitest-pool-workers@0.8.61(@cloudflare/workers-types@4.20250906.0)(@vitest/runner@3.2.4)(@vitest/snapshot@3.2.4)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@22.18.0)(jiti@2.5.1)(lightningcss@1.30.1))':
     dependencies:
       '@vitest/runner': 3.2.4
       '@vitest/snapshot': 3.2.4
@@ -5264,7 +5264,7 @@ snapshots:
       miniflare: 4.20250803.0
       semver: 7.7.2
       vitest: 3.2.4(@types/debug@4.1.12)(@types/node@22.18.0)(jiti@2.5.1)(lightningcss@1.30.1)
-      wrangler: 4.28.1(@cloudflare/workers-types@4.20250828.0)
+      wrangler: 4.28.1(@cloudflare/workers-types@4.20250906.0)
       zod: 3.25.76
     transitivePeerDependencies:
       - '@cloudflare/workers-types'
@@ -5303,7 +5303,7 @@ snapshots:
 
   '@cloudflare/workers-types@4.20250826.0': {}
 
-  '@cloudflare/workers-types@4.20250828.0': {}
+  '@cloudflare/workers-types@4.20250906.0': {}
 
   '@codemirror/autocomplete@6.18.6':
     dependencies:
@@ -9699,7 +9699,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  wrangler@4.28.1(@cloudflare/workers-types@4.20250828.0):
+  wrangler@4.28.1(@cloudflare/workers-types@4.20250906.0):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.4.0
       '@cloudflare/unenv-preset': 2.6.0(unenv@2.0.0-rc.19)(workerd@1.20250803.0)
@@ -9710,7 +9710,7 @@ snapshots:
       unenv: 2.0.0-rc.19
       workerd: 1.20250803.0
     optionalDependencies:
-      '@cloudflare/workers-types': 4.20250828.0
+      '@cloudflare/workers-types': 4.20250906.0
       fsevents: 2.3.3
     transitivePeerDependencies:
       - bufferutil
@@ -9733,7 +9733,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  wrangler@4.33.1(@cloudflare/workers-types@4.20250828.0):
+  wrangler@4.33.1(@cloudflare/workers-types@4.20250906.0):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.4.0
       '@cloudflare/unenv-preset': 2.7.0(unenv@2.0.0-rc.19)(workerd@1.20250823.0)
@@ -9744,7 +9744,7 @@ snapshots:
       unenv: 2.0.0-rc.19
       workerd: 1.20250823.0
     optionalDependencies:
-      '@cloudflare/workers-types': 4.20250828.0
+      '@cloudflare/workers-types': 4.20250906.0
       fsevents: 2.3.3
     transitivePeerDependencies:
       - bufferutil
