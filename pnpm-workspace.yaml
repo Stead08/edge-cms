@@ -11,6 +11,6 @@ catalog:
   lefthook: 1.12.4
   miniflare: 4.20250902.0
   typescript: 5.8.3
-  vite: 7.1.4
+  vite: 7.1.5
   vitest: 3.2.4
   zod: ^3.23.8
