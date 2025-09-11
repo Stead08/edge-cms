@@ -73,7 +73,7 @@ importers:
         version: 1.9.1(zod@3.25.76)
       '@mdxeditor/editor':
         specifier: ^3.19.2
-        version: 3.44.1(@codemirror/language@6.11.3)(@lezer/highlight@1.2.1)(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(yjs@13.6.27)
+        version: 3.44.2(@codemirror/language@6.11.3)(@lezer/highlight@1.2.1)(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(yjs@13.6.27)
       '@radix-ui/react-avatar':
         specifier: ^1.1.0
         version: 1.1.10(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -719,8 +719,8 @@ packages:
   '@codemirror/lang-go@6.0.1':
     resolution: {integrity: sha512-7fNvbyNylvqCphW9HD6WFnRpcDjr+KXX/FgqXy5H5ZS0eC5edDljukm/yNgYkwTsgp2busdod50AOTIy6Jikfg==}
 
-  '@codemirror/lang-html@6.4.9':
-    resolution: {integrity: sha512-aQv37pIMSlueybId/2PVSP6NPnmurFDVmZwzc7jszd2KAF8qd4VBbvNYPXWQq90WIARjsdVkPbw29pszmHws3Q==}
+  '@codemirror/lang-html@6.4.10':
+    resolution: {integrity: sha512-h/SceTVsN5r+WE+TVP2g3KDvNoSzbSrtZXCKo4vkKdbfT5t4otuVgngGdFukOO/rwRD2++pCxoh6xD4TEVMkQA==}
 
   '@codemirror/lang-java@6.0.2':
     resolution: {integrity: sha512-m5Nt1mQ/cznJY7tMfQTJchmrjdjQ71IDs+55d1GAa8DGaB8JXWsVCkVT284C3RTASaY43YknrK2X3hPO/J3MOQ==}
@@ -1761,15 +1761,15 @@ packages:
   '@marijn/find-cluster-break@1.0.2':
     resolution: {integrity: sha512-l0h88YhZFyKdXIFNfSWpyjStDjGHwZ/U7iobcK1cQQD8sejsONdQtTVU+1wVN1PBw40PiiHB1vA5S7VTfQiP9g==}
 
-  '@mdxeditor/editor@3.44.1':
-    resolution: {integrity: sha512-Z9wRsi10FVFrINRrOHS1HQUyTWcNiypuer+fEoX8SzwZKQnEcq56pVwvBPuPfjQ1yNbYnNZa2vpv3W3d85ln2w==}
+  '@mdxeditor/editor@3.44.2':
+    resolution: {integrity: sha512-jPm0jf8EbuKrhAGZtuymLnbmP8MTTrGMYz+mE/v0VB6sHEJRU4nHN92X1eB3GRq/HXyoEV5JcH8/hHRwM1eJpA==}
     engines: {node: '>=16'}
     peerDependencies:
       react: '>= 18 || >= 19'
       react-dom: '>= 18 || >= 19'
 
-  '@mdxeditor/gurx@1.2.3':
-    resolution: {integrity: sha512-5DQOlEx46oN9spggrC8husAGAhVoEFBGIYKN48es08XhRUbSU6l5bcIQYwRrQaY8clU1tExIcXzw8/fNnoxjpg==}
+  '@mdxeditor/gurx@1.2.4':
+    resolution: {integrity: sha512-9ZykIFYhKaXaaSPCs1cuI+FvYDegJjbKwmA4ASE/zY+hJY6EYqvoye4esiO85CjhOw9aoD/izD/CU78/egVqmg==}
     engines: {node: '>=16'}
     peerDependencies:
       react: '>= 18 || >= 19'
@@ -5306,7 +5306,7 @@ snapshots:
 
   '@codemirror/lang-angular@0.1.4':
     dependencies:
-      '@codemirror/lang-html': 6.4.9
+      '@codemirror/lang-html': 6.4.10
       '@codemirror/lang-javascript': 6.2.4
       '@codemirror/language': 6.11.3
       '@lezer/common': 1.2.3
@@ -5334,7 +5334,7 @@ snapshots:
       '@lezer/common': 1.2.3
       '@lezer/go': 1.0.1
 
-  '@codemirror/lang-html@6.4.9':
+  '@codemirror/lang-html@6.4.10':
     dependencies:
       '@codemirror/autocomplete': 6.18.7
       '@codemirror/lang-css': 6.3.1
@@ -5377,7 +5377,7 @@ snapshots:
   '@codemirror/lang-liquid@6.3.0':
     dependencies:
       '@codemirror/autocomplete': 6.18.7
-      '@codemirror/lang-html': 6.4.9
+      '@codemirror/lang-html': 6.4.10
       '@codemirror/language': 6.11.3
       '@codemirror/state': 6.5.2
       '@codemirror/view': 6.38.2
@@ -5388,7 +5388,7 @@ snapshots:
   '@codemirror/lang-markdown@6.3.4':
     dependencies:
       '@codemirror/autocomplete': 6.18.7
-      '@codemirror/lang-html': 6.4.9
+      '@codemirror/lang-html': 6.4.10
       '@codemirror/language': 6.11.3
       '@codemirror/state': 6.5.2
       '@codemirror/view': 6.38.2
@@ -5397,7 +5397,7 @@ snapshots:
 
   '@codemirror/lang-php@6.0.2':
     dependencies:
-      '@codemirror/lang-html': 6.4.9
+      '@codemirror/lang-html': 6.4.10
       '@codemirror/language': 6.11.3
       '@codemirror/state': 6.5.2
       '@lezer/common': 1.2.3
@@ -5435,7 +5435,7 @@ snapshots:
 
   '@codemirror/lang-vue@0.1.3':
     dependencies:
-      '@codemirror/lang-html': 6.4.9
+      '@codemirror/lang-html': 6.4.10
       '@codemirror/lang-javascript': 6.2.4
       '@codemirror/language': 6.11.3
       '@lezer/common': 1.2.3
@@ -5474,7 +5474,7 @@ snapshots:
       '@codemirror/lang-cpp': 6.0.3
       '@codemirror/lang-css': 6.3.1
       '@codemirror/lang-go': 6.0.1
-      '@codemirror/lang-html': 6.4.9
+      '@codemirror/lang-html': 6.4.10
       '@codemirror/lang-java': 6.0.2
       '@codemirror/lang-javascript': 6.2.4
       '@codemirror/lang-json': 6.0.2
@@ -5556,7 +5556,7 @@ snapshots:
       '@codemirror/autocomplete': 6.18.7
       '@codemirror/commands': 6.8.1
       '@codemirror/lang-css': 6.3.1
-      '@codemirror/lang-html': 6.4.9
+      '@codemirror/lang-html': 6.4.10
       '@codemirror/lang-javascript': 6.2.4
       '@codemirror/language': 6.11.3
       '@codemirror/state': 6.5.2
@@ -6339,7 +6339,7 @@ snapshots:
 
   '@marijn/find-cluster-break@1.0.2': {}
 
-  '@mdxeditor/editor@3.44.1(@codemirror/language@6.11.3)(@lezer/highlight@1.2.1)(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(yjs@13.6.27)':
+  '@mdxeditor/editor@3.44.2(@codemirror/language@6.11.3)(@lezer/highlight@1.2.1)(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(yjs@13.6.27)':
     dependencies:
       '@codemirror/commands': 6.8.1
       '@codemirror/lang-markdown': 6.3.4
@@ -6357,7 +6357,7 @@ snapshots:
       '@lexical/rich-text': 0.35.0
       '@lexical/selection': 0.35.0
       '@lexical/utils': 0.35.0
-      '@mdxeditor/gurx': 1.2.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@mdxeditor/gurx': 1.2.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@radix-ui/colors': 3.0.0
       '@radix-ui/react-dialog': 1.1.15(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@radix-ui/react-icons': 1.3.2(react@19.1.1)
@@ -6407,7 +6407,7 @@ snapshots:
       - supports-color
       - yjs
 
-  '@mdxeditor/gurx@1.2.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+  '@mdxeditor/gurx@1.2.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
     dependencies:
       react: 19.1.1
       react-dom: 19.1.1(react@19.1.1)
