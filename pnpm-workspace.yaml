@@ -10,7 +10,7 @@ catalog:
   wrangler: 4.35.0
   lefthook: 1.13.0
   miniflare: 4.20250906.0
-  typescript: 5.8.3
+  typescript: 5.9.2
   vite: 7.1.5
   vitest: 3.2.4
   zod: ^3.23.8
