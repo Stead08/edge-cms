@@ -25,8 +25,8 @@ catalogs:
       specifier: 1.13.0
       version: 1.13.0
     miniflare:
-      specifier: 4.20250906.1
-      version: 4.20250906.1
+      specifier: 4.20250906.2
+      version: 4.20250906.2
     typescript:
       specifier: 5.8.3
       version: 5.8.3
@@ -182,7 +182,7 @@ importers:
         version: 4.20250910.0
       '@hono/vite-dev-server':
         specifier: ^0.20.0
-        version: 0.20.1(hono@4.9.7)(miniflare@4.20250906.1)(wrangler@4.35.0(@cloudflare/workers-types@4.20250910.0))
+        version: 0.20.1(hono@4.9.7)(miniflare@4.20250906.2)(wrangler@4.35.0(@cloudflare/workers-types@4.20250910.0))
       '@react-router/dev':
         specifier: ^7.1.0
         version: 7.8.2(@types/node@22.18.3)(jiti@2.5.1)(lightningcss@1.30.1)(react-dom@19.1.1(react@19.1.1))(react-router@7.8.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)(typescript@5.8.3)(vite@7.1.5(@types/node@22.18.3)(jiti@2.5.1)(lightningcss@1.30.1))(wrangler@4.35.0(@cloudflare/workers-types@4.20250910.0))
@@ -277,7 +277,7 @@ importers:
         version: 0.31.4
       miniflare:
         specifier: 'catalog:'
-        version: 4.20250906.1
+        version: 4.20250906.2
       typescript:
         specifier: ^5.4.5
         version: 5.8.3
@@ -320,7 +320,7 @@ importers:
         version: 22.18.3
       miniflare:
         specifier: 'catalog:'
-        version: 4.20250906.1
+        version: 4.20250906.2
       typescript:
         specifier: 'catalog:'
         version: 5.8.3
@@ -3974,8 +3974,8 @@ packages:
     engines: {node: '>=18.0.0'}
     hasBin: true
 
-  miniflare@4.20250906.1:
-    resolution: {integrity: sha512-yuPHog7j+GKHtRaKKF3Mpwvb5SVtvmkQpY/f9Ue0xhG/fYQcaxTKVO6RAB1pUN1jSyvmDOxVEAFFVoni8GYl3g==}
+  miniflare@4.20250906.2:
+    resolution: {integrity: sha512-SXGv8Rdd91b6UXZ5eW3rde/gSJM6WVLItMNFV7u9axUVhACvpT4CB5p80OBfi2OOsGfOuFQ6M6s8tMxJbzioVw==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -5991,13 +5991,13 @@ snapshots:
     dependencies:
       hono: 4.9.7
 
-  '@hono/vite-dev-server@0.20.1(hono@4.9.7)(miniflare@4.20250906.1)(wrangler@4.35.0(@cloudflare/workers-types@4.20250910.0))':
+  '@hono/vite-dev-server@0.20.1(hono@4.9.7)(miniflare@4.20250906.2)(wrangler@4.35.0(@cloudflare/workers-types@4.20250910.0))':
     dependencies:
       '@hono/node-server': 1.19.0(hono@4.9.7)
       hono: 4.9.7
       minimatch: 9.0.5
     optionalDependencies:
-      miniflare: 4.20250906.1
+      miniflare: 4.20250906.2
       wrangler: 4.35.0(@cloudflare/workers-types@4.20250910.0)
 
   '@hono/zod-validator@0.7.2(hono@4.9.7)(zod@3.25.76)':
@@ -8858,7 +8858,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  miniflare@4.20250906.1:
+  miniflare@4.20250906.2:
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       acorn: 8.14.0
