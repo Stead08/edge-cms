@@ -13,8 +13,8 @@ catalogs:
       specifier: 0.8.61
       version: 0.8.61
     '@hono/zod-validator':
-      specifier: 0.7.2
-      version: 0.7.2
+      specifier: 0.7.3
+      version: 0.7.3
     '@types/node':
       specifier: 22.18.6
       version: 22.18.6
@@ -239,8 +239,8 @@ importers:
   packages/auth:
     dependencies:
       '@hono/zod-validator':
-        specifier: 0.7.2
-        version: 0.7.2(hono@4.9.8)(zod@3.25.76)
+        specifier: 0.7.3
+        version: 0.7.3(hono@4.9.8)(zod@3.25.76)
       '@lucia-auth/adapter-sqlite':
         specifier: ^3.0.0
         version: 3.0.2(better-sqlite3@12.2.0)(lucia@3.2.2)
@@ -295,7 +295,7 @@ importers:
     dependencies:
       '@hono/zod-validator':
         specifier: 'catalog:'
-        version: 0.7.2(hono@4.9.8)(zod@3.25.76)
+        version: 0.7.3(hono@4.9.8)(zod@3.25.76)
       hono:
         specifier: 'catalog:'
         version: 4.9.8
@@ -1479,8 +1479,8 @@ packages:
       wrangler:
         optional: true
 
-  '@hono/zod-validator@0.7.2':
-    resolution: {integrity: sha512-ub5eL/NeZ4eLZawu78JpW/J+dugDAYhwqUIdp9KYScI6PZECij4Hx4UsrthlEUutqDDhPwRI0MscUfNkvn/mqQ==}
+  '@hono/zod-validator@0.7.3':
+    resolution: {integrity: sha512-uYGdgVib3RlGD698WR5dVM0zB3UuPY5vHKXffGUbUh7r4xY+mFIhF3/v4AcQVLrU5CQdBso8BJr4wuVoCrjTuQ==}
     peerDependencies:
       hono: '>=3.9.0'
       zod: ^3.25.0 || ^4.0.0
@@ -5986,7 +5986,7 @@ snapshots:
       miniflare: 4.20250913.0
       wrangler: 4.37.1(@cloudflare/workers-types@4.20250917.0)
 
-  '@hono/zod-validator@0.7.2(hono@4.9.8)(zod@3.25.76)':
+  '@hono/zod-validator@0.7.3(hono@4.9.8)(zod@3.25.76)':
     dependencies:
       hono: 4.9.8
       zod: 3.25.76
