@@ -59,7 +59,7 @@
   "devDependencies": {
     "@biomejs/biome": "catalog:",
     "@cloudflare/workers-types": "^4.20240512.0",
-    "@hono/vite-dev-server": "^0.20.0",
+    "@hono/vite-dev-server": "^0.21.0",
     "@react-router/dev": "^7.1.0",
     "@tailwindcss/postcss": "^4.1.4",
     "@types/react": "^19.1.0",
