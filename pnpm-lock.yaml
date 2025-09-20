@@ -70,7 +70,7 @@ importers:
         version: 1.10.1(react@19.1.1)
       '@conform-to/zod':
         specifier: ^1.2.2
-        version: 1.9.1(zod@3.25.76)
+        version: 1.10.1(zod@3.25.76)
       '@mdxeditor/editor':
         specifier: ^3.19.2
         version: 3.45.1(@codemirror/language@6.11.3)(@lezer/highlight@1.2.1)(@types/react-dom@19.1.9(@types/react@19.1.13))(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(yjs@13.6.27)
@@ -806,16 +806,13 @@ packages:
   '@conform-to/dom@1.10.1':
     resolution: {integrity: sha512-5qYBz2H8mTnEBsMo6juOOuPSytjWy3MsuCPP13MWqVS9GTfSI91FLrSpNnhFquQfhtNESrsMRZK9s2Zg8v1QqA==}
 
-  '@conform-to/dom@1.9.1':
-    resolution: {integrity: sha512-TSvGakMrNZ9pp9Lzt2MGsPtiU1oeGZG0rRW65Rej43w2zqeP2pNibXvLdTCd1BHUweTlPLDHSPP79KT02pFtUA==}
-
   '@conform-to/react@1.10.1':
     resolution: {integrity: sha512-vfspLc/9o9q0mvM3WmcU/0ZdGx33SiH4jKEqOfSYitJ4E64FP1uCDsZJ/4O5pd7dzpe/mLyiI+ATbGkFicvAFQ==}
     peerDependencies:
       react: '>=18'
 
-  '@conform-to/zod@1.9.1':
-    resolution: {integrity: sha512-UHrylJlEMLwZFZ0fXl+5jeizkZDmW9YIVo7pXmRjERhgpVLb34wWaSUOBv2Q83nmgpWIMKCHIP3Bc79lIno77A==}
+  '@conform-to/zod@1.10.1':
+    resolution: {integrity: sha512-6wZ+zbFMlY4MHD1D/a18rojUkKjqdaKKE7v3JOFSaEfRMJ0S+Bgj7zisqvlihxe02kZJuV7b3CKNfTN6rBlaKA==}
     peerDependencies:
       zod: ^3.21.0 || ^4.0.0
 
@@ -5593,16 +5590,14 @@ snapshots:
 
   '@conform-to/dom@1.10.1': {}
 
-  '@conform-to/dom@1.9.1': {}
-
   '@conform-to/react@1.10.1(react@19.1.1)':
     dependencies:
       '@conform-to/dom': 1.10.1
       react: 19.1.1
 
-  '@conform-to/zod@1.9.1(zod@3.25.76)':
+  '@conform-to/zod@1.10.1(zod@3.25.76)':
     dependencies:
-      '@conform-to/dom': 1.9.1
+      '@conform-to/dom': 1.10.1
       zod: 3.25.76
 
   '@cspotcode/source-map-support@0.8.1':
